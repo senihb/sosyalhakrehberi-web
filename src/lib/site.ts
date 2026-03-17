@@ -1,11 +1,7 @@
-const DEFAULT_SITE_URL = "https://sosyalhakrehberi.com";
-const PRODUCTION_HOSTNAME = "sosyalhakrehberi.com";
+const LOCAL_SITE_URL = "http://localhost:3000";
+const PUBLIC_SITE_HOSTNAME = "sosyalhakrehberi.com";
 
-function normalizeSiteUrl(value?: string): URL {
-  if (!value) {
-    return new URL(DEFAULT_SITE_URL);
-  }
-
+function normalizeSiteUrl(value: string, fallback: string): URL {
   try {
     const url = new URL(value);
     url.pathname = "/";
@@ -13,14 +9,22 @@ function normalizeSiteUrl(value?: string): URL {
     url.hash = "";
     return url;
   } catch {
-    return new URL(DEFAULT_SITE_URL);
+    return new URL(fallback);
   }
 }
 
 export function getSiteUrl(): URL {
-  return normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL, LOCAL_SITE_URL);
+  }
+
+  if (process.env.VERCEL_URL) {
+    return normalizeSiteUrl(`https://${process.env.VERCEL_URL}`, LOCAL_SITE_URL);
+  }
+
+  return new URL(LOCAL_SITE_URL);
 }
 
 export function isProductionSite(url = getSiteUrl()): boolean {
-  return process.env.VERCEL_ENV === "production" || url.hostname === PRODUCTION_HOSTNAME;
+  return process.env.VERCEL_ENV === "production" && url.hostname === PUBLIC_SITE_HOSTNAME;
 }

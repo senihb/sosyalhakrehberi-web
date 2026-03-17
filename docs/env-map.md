@@ -41,6 +41,13 @@ Rules:
 - do not include a trailing slash
 - set a staging URL for non-production deployments
 - keep production pointed at the public domain only after approval
+- do not rely on implicit production fallbacks
+
+Fallback behavior:
+
+- local development falls back to `http://localhost:3000`
+- preview deployments may fall back to `https://$VERCEL_URL`
+- production must set `NEXT_PUBLIC_SITE_URL` explicitly
 
 ## Environment Plan
 
@@ -53,13 +60,13 @@ Rules:
 
 - set in the staging host dashboard or deployment system
 - must point to the staging backend
-- must also set the staging site URL
+- must also set the staging site URL explicitly
 
 ### Production
 
 - set only after staging validation is complete
 - must point to the production backend
-- must also set the public site URL
+- must also set the public site URL explicitly
 
 ## Backend Dependencies
 

@@ -42,6 +42,7 @@ These items should be completed before any launch decision.
 
 - confirm the staging backend base URL
 - confirm the frontend should use `NEXT_PUBLIC_API_BASE_URL` and `NEXT_PUBLIC_SITE_URL`
+- confirm `NEXT_PUBLIC_SITE_URL` is explicitly set for staging
 - confirm backend staging allows the frontend staging origin via CORS
 - confirm backend staging exposes `POST /api/v1/eligibility-check`
 
@@ -50,8 +51,7 @@ These items should be completed before any launch decision.
 - choose the staging frontend host
 - configure staging environment variables
 - perform one clean deployment from `main`
-- confirm staging sends 
-oindex through robots behavior
+- confirm staging sends `noindex` through robots behavior
 - confirm staging does not expose a production sitemap
 - confirm pages render correctly:
   - `/`
@@ -66,6 +66,7 @@ oindex through robots behavior
 - confirm a `NEEDS_INFO` response renders correctly
 - confirm a backend/client error shows safe fallback copy
 - confirm the footer/header trust layer renders correctly
+- confirm canonical metadata points to the staging site URL
 
 ### Launch Gate
 
@@ -80,7 +81,7 @@ Do not connect or announce the public launch until:
 
 Use this exact minimum checklist after each staging deployment:
 
-1. Load homepage and verify header, hero, and CTA links.
+1. Load homepage and verify header, hero, CTA links, and canonical host.
 2. Load `/evde-bakim-maasi` and verify checklist, FAQ, and tool CTA.
 3. Load `/evde-bakim-maasi/hesaplama`.
 4. Submit a valid payload and confirm:
@@ -91,7 +92,8 @@ Use this exact minimum checklist after each staging deployment:
 5. Submit an intentionally incomplete payload and confirm:
    - `NEEDS_INFO` state renders
    - missing facts list appears
-6. Temporarily unset the API URL in a non-production check and confirm safe error handling.
+6. Confirm robots is `noindex` and sitemap is empty or absent in staging.
+7. Temporarily unset the API URL in a non-production check and confirm safe error handling.
 
 ## Domain Note
 
