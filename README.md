@@ -120,6 +120,14 @@ Current frontend environment requirements:
 
 See `.env.example`.
 
+## Deployment Readiness
+
+Deployment planning documents:
+
+- `docs/staging-readiness.md`
+- `docs/env-map.md`
+- `docs/deploy-decision-memo.md`
+
 ## Status
 
 Current state of the repository:
