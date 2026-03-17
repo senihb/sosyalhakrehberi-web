@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# sosyalhakrehberi-web
 
-## Getting Started
+Public-facing Next.js frontend for the SocialRightOS system.
 
-First, run the development server:
+This repository is the SEO, tool, and trust layer for the Home Care MVP. It is designed to present clear public guidance, route users into a lightweight eligibility flow, and consume backend decisions without owning policy semantics.
+
+## Product Position
+
+- `SocialRightOS` is the backend decision engine.
+- `sosyalhakrehberi-web` is the public growth frontend.
+- The frontend is responsible for content, UX, metadata, and conversion flow.
+- The backend is responsible for eligibility logic, thresholds, derived facts, and canonical decision semantics.
+
+## Current MVP Scope
+
+This repository is intentionally narrow.
+
+- single domain strategy
+- single benefit MVP
+- only `TR_HOME_CARE_ALLOWANCE`
+- no auth
+- no dashboard
+- no mobile app
+- no frontend-owned eligibility logic
+
+The primary user-facing routes are:
+
+- `/`
+- `/evde-bakim-maasi`
+- `/evde-bakim-maasi/hesaplama`
+
+## Architecture Boundary
+
+The frontend must adapt to the backend contract, not the other way around.
+
+Rules:
+
+- do not invent backend request fields
+- do not invent backend response fields
+- do not compute thresholds in the frontend
+- do not reinterpret backend `status`, `reasons`, `missing_facts`, or `metadata`
+- do not turn preliminary guidance into official entitlement language
+
+Canonical backend endpoint:
+
+- `POST /api/v1/eligibility-check`
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+
+## Local Development
+
+1. Install dependencies:
+
+```bash
+npm ci
+```
+
+2. Create a local env file from the example:
+
+```bash
+copy .env.example .env.local
+```
+
+3. Set the backend base URL:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
+```
+
+4. Start the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the local checks:
 
-## Learn More
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+GitHub Actions also runs reproducible lint and build checks on pull requests and tracked branches.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Repository Goals
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This repo should communicate the following clearly:
 
-## Deploy on Vercel
+- trust-first public UX
+- clean Turkish copy
+- strong Home Care pillar content
+- backend-safe calculation flow
+- sponsor- and partner-ready engineering discipline
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## What This Repo Is Not
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This repo is not:
+
+- the source of truth for policy logic
+- a case management tool
+- a CRM
+- a benefit dashboard
+- a substitute for official institutional review
+
+## Environment Variables
+
+Current frontend environment requirements:
+
+- `NEXT_PUBLIC_API_BASE_URL`: base URL for the SocialRightOS backend
+
+See `.env.example`.
+
+## Status
+
+Current state of the repository:
+
+- Home Care MVP foundation is in place
+- contract-safe frontend client is in place
+- CI lint/build checks are in place
+- pillar page and calculation flow are actively being refined
+
+## License
+
+No license file has been added yet.
