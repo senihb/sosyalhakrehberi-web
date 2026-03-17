@@ -131,6 +131,7 @@ Deployment planning documents:
 - `docs/deploy-decision-memo.md`
 - `docs/staging-deploy-runbook.md`
 - `docs/staging-handoff-brief.md`
+- `docs/staging-request-brief.md`
 - `docs/launch-blockers.md`
 - `docs/staging-smoke-report.md`
 - `docs/test-payloads.md`
