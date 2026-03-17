@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getSiteUrl, isProductionSite } from "@/lib/site";
 import "./globals.css";
 
+const siteUrl = getSiteUrl();
+const allowIndexing = isProductionSite(siteUrl);
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sosyalhakrehberi.com"),
+  metadataBase: siteUrl,
   title: {
     default: "Sosyal Hak Rehberi",
     template: "%s | Sosyal Hak Rehberi",
@@ -28,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "tr_TR",
     siteName: "Sosyal Hak Rehberi",
-    url: "https://sosyalhakrehberi.com",
+    url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",
@@ -37,8 +41,8 @@ export const metadata: Metadata = {
       "Evde bakım maaşı için güven odaklı ön değerlendirme rehberi ve hesaplama aracı.",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: allowIndexing,
+    follow: allowIndexing,
   },
 };
 
@@ -53,7 +57,10 @@ export default function RootLayout({
         <div className="site-shell">
           <header className="site-header">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-10">
-              <Link href="/" className="text-sm font-semibold tracking-[0.22em] text-slate-900 uppercase">
+              <Link
+                href="/"
+                className="text-sm font-semibold tracking-[0.22em] text-slate-900 uppercase"
+              >
                 Sosyal Hak Rehberi
               </Link>
               <nav className="flex items-center gap-3 text-sm text-slate-700">
