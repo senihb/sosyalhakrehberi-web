@@ -50,7 +50,9 @@ These items should be completed before any launch decision.
 - choose the staging frontend host
 - configure staging environment variables
 - perform one clean deployment from `main`
-- confirm staging sends `noindex` through robots behavior
+- confirm staging sends 
+oindex through robots behavior
+- confirm staging does not expose a production sitemap
 - confirm pages render correctly:
   - `/`
   - `/evde-bakim-maasi`
