@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Ana Sayfa",
   description:
-    "Sosyal Hak Rehberi, evde bakım maaşı için güven veren açıklamalar ve backend destekli ön değerlendirme akışı sunar.",
+    "Sosyal Hak Rehberi, evde bakÄ±m maaÅŸÄ± iÃ§in gÃ¼ven veren aÃ§Ä±klamalar ve backend destekli Ã¶n deÄŸerlendirme akÄ±ÅŸÄ± sunar.",
   alternates: {
     canonical: "/",
   },
@@ -14,24 +14,24 @@ const highlights = [
   {
     title: "Tek fayda, net odak",
     body:
-      "MVP yalnızca evde bakım maaşına odaklanır. Çoklu benefit, dashboard veya üyelik sistemi bu aşamada kapsam dışıdır.",
+      "MVP yalnÄ±zca evde bakÄ±m maaÅŸÄ±na odaklanÄ±r. Ã‡oklu benefit, dashboard veya Ã¼yelik sistemi bu aÅŸamada kapsam dÄ±ÅŸÄ±dÄ±r.",
   },
   {
-    title: "SEO ve araç birlikte çalışır",
+    title: "SEO ve araÃ§ birlikte Ã§alÄ±ÅŸÄ±r",
     body:
-      "Bilgilendirici içerik ile hesaplama akışı aynı güven hattında ilerler. Kullanıcı hem açıklama görür hem de ön değerlendirme alır.",
+      "Bilgilendirici iÃ§erik ile hesaplama akÄ±ÅŸÄ± aynÄ± gÃ¼ven hattÄ±nda ilerler. KullanÄ±cÄ± hem aÃ§Ä±klama gÃ¶rÃ¼r hem de Ã¶n deÄŸerlendirme alÄ±r.",
   },
   {
-    title: "Ön değerlendirme yaklaşımı",
+    title: "Ã–n deÄŸerlendirme yaklaÅŸÄ±mÄ±",
     body:
-      "Sonuçlar bağlayıcı iddia taşımaz. Eksik bilgi, risk ve sonraki adım ihtiyacı açık biçimde gösterilir.",
+      "SonuÃ§lar baÄŸlayÄ±cÄ± iddia taÅŸÄ±maz. Eksik bilgi, risk ve sonraki adÄ±m ihtiyacÄ± aÃ§Ä±k biÃ§imde gÃ¶sterilir.",
   },
 ];
 
 const steps = [
-  "Önce rehber içeriğiyle hangi bilgilerin önemli olduğunu anlayın.",
-  "Sonra hesaplama aracında yalnızca gerekli temel alanları doldurun.",
-  "Sonuç ekranında backend nedenleri, eksik bilgiler ve değerlendirme metadatasını görün.",
+  "Ã–nce rehber iÃ§eriÄŸiyle hangi bilgilerin Ã¶nemli olduÄŸunu anlayÄ±n.",
+  "Sonra hesaplama aracÄ±nda yalnÄ±zca gerekli temel alanlarÄ± doldurun.",
+  "SonuÃ§ ekranÄ±nda backend nedenleri, eksik bilgiler ve deÄŸerlendirme metadatasÄ±nÄ± gÃ¶rÃ¼n.",
 ];
 
 export default function Home() {
@@ -42,31 +42,31 @@ export default function Home() {
           <div className="max-w-3xl">
             <p className="eyebrow">Sosyal Hak Rehberi</p>
             <h1 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Evde bakım maaşı için sade, güven veren ve backend destekli ön değerlendirme
+              Evde bakÄ±m maaÅŸÄ± iÃ§in sade, gÃ¼ven veren ve backend destekli Ã¶n deÄŸerlendirme
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-              Bu site resmi karar vermez. SocialRightOS karar motorundan gelen sonucu anlaşılır
-              biçimde sunar; başvuru öncesinde hangi bilgilerin önemli olduğunu görmenize yardımcı
+              Bu site resmi karar vermez. SocialRightOS karar motorundan gelen sonucu anlaÅŸÄ±lÄ±r
+              biÃ§imde sunar; baÅŸvuru Ã¶ncesinde hangi bilgilerin Ã¶nemli olduÄŸunu gÃ¶rmenize yardÄ±mcÄ±
               olur.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/evde-bakim-maasi" className="primary-link">
-                Evde bakım maaşı rehberine git
+                Evde bakÄ±m maaÅŸÄ± rehberine git
               </Link>
               <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link">
-                Hesaplama aracını aç
+                Hesaplama aracÄ±nÄ± aÃ§
               </Link>
             </div>
           </div>
 
           <aside className="card-panel max-w-md">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">
-              Neden bu yapı?
+              Neden bu yapÄ±?
             </p>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-700">
-              <li>Frontend hak sahipliği mantığı üretmez.</li>
-              <li>İş kuralları backend contract içinde kalır.</li>
-              <li>Vatandaş için anlaşılır açıklama, güven ve yönlendirme sunulur.</li>
+              <li>Frontend hak sahipliÄŸi mantÄ±ÄŸÄ± Ã¼retmez.</li>
+              <li>Ä°ÅŸ kurallarÄ± backend contract iÃ§inde kalÄ±r.</li>
+              <li>VatandaÅŸ iÃ§in anlaÅŸÄ±lÄ±r aÃ§Ä±klama, gÃ¼ven ve yÃ¶nlendirme sunulur.</li>
             </ul>
           </aside>
         </div>
@@ -83,9 +83,9 @@ export default function Home() {
 
       <section className="mx-auto grid max-w-6xl gap-6 px-6 py-2 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-10">
         <article className="card-panel">
-          <p className="eyebrow">Nasıl İlerler?</p>
+          <p className="eyebrow">NasÄ±l Ä°lerler?</p>
           <h2 className="mt-4 text-2xl font-semibold text-slate-950">
-            Kullanıcı yolunu sade tutuyoruz
+            KullanÄ±cÄ± yolunu sade tutuyoruz
           </h2>
           <ol className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
             {steps.map((step, index) => (
@@ -98,17 +98,17 @@ export default function Home() {
         </article>
 
         <aside className="card-panel">
-          <h2 className="text-xl font-semibold text-slate-950">Hızlı başlangıç</h2>
+          <h2 className="text-xl font-semibold text-slate-950">HÄ±zlÄ± baÅŸlangÄ±Ã§</h2>
           <p className="mt-3 text-sm leading-7 text-slate-700">
-            Zaten temel bilgileri biliyorsanız doğrudan hesaplama aracına geçebilirsiniz.
-            Önce çerçeveyi okumak isterseniz rehber sayfası daha doğru başlangıç noktasıdır.
+            Zaten temel bilgileri biliyorsanÄ±z doÄŸrudan hesaplama aracÄ±na geÃ§ebilirsiniz.
+            Ã–nce Ã§erÃ§eveyi okumak isterseniz rehber sayfasÄ± daha doÄŸru baÅŸlangÄ±Ã§ noktasÄ±dÄ±r.
           </p>
           <div className="mt-5 flex flex-col gap-3">
             <Link href="/evde-bakim-maasi/hesaplama" className="primary-link">
-              Ön değerlendirmeyi başlat
+              Ã–n deÄŸerlendirmeyi baÅŸlat
             </Link>
             <Link href="/evde-bakim-maasi" className="secondary-link">
-              Önce şartları oku
+              Ã–nce ÅŸartlarÄ± oku
             </Link>
           </div>
         </aside>

@@ -38,31 +38,31 @@ const statusCopy: Record<
   }
 > = {
   ELIGIBLE: {
-    title: "Ön değerlendirme olumlu görünüyor",
+    title: "Ã–n deÄŸerlendirme olumlu gÃ¶rÃ¼nÃ¼yor",
     tone: "border-emerald-200 bg-emerald-50 text-emerald-950",
     description:
-      "Backend motoru mevcut bilgilerle uygunluk yönünde bir ön karar üretti. Bu sonuç resmi hak sahipliği kararı değildir.",
-    nextStepTitle: "Sonraki adım",
+      "Backend motoru mevcut bilgilerle uygunluk yÃ¶nÃ¼nde bir Ã¶n karar Ã¼retti. Bu sonuÃ§ resmi hak sahipliÄŸi kararÄ± deÄŸildir.",
+    nextStepTitle: "Sonraki adÄ±m",
     nextStepBody:
-      "Başvuru öncesinde gelir, hane ve bakım koşullarına ilişkin belgelerinizi düzenli biçimde hazırlamanız faydalı olur.",
+      "BaÅŸvuru Ã¶ncesinde gelir, hane ve bakÄ±m koÅŸullarÄ±na iliÅŸkin belgelerinizi dÃ¼zenli biÃ§imde hazÄ±rlamanÄ±z faydalÄ± olur.",
   },
   NOT_ELIGIBLE: {
-    title: "Ön değerlendirme olumsuz görünüyor",
+    title: "Ã–n deÄŸerlendirme olumsuz gÃ¶rÃ¼nÃ¼yor",
     tone: "border-rose-200 bg-rose-50 text-rose-950",
     description:
-      "Backend motoru girilen bilgilerle uygunluk yönünde sonuç üretmedi. Resmi değerlendirme için kurum incelemesi esastır.",
-    nextStepTitle: "Sonraki adım",
+      "Backend motoru girilen bilgilerle uygunluk yÃ¶nÃ¼nde sonuÃ§ Ã¼retmedi. Resmi deÄŸerlendirme iÃ§in kurum incelemesi esastÄ±r.",
+    nextStepTitle: "Sonraki adÄ±m",
     nextStepBody:
-      "Girilen bilgileri tekrar kontrol edin. Özellikle gelir, hane kişi sayısı ve diğer temel alanların doğru olduğundan emin olun.",
+      "Girilen bilgileri tekrar kontrol edin. Ã–zellikle gelir, hane kiÅŸi sayÄ±sÄ± ve diÄŸer temel alanlarÄ±n doÄŸru olduÄŸundan emin olun.",
   },
   NEEDS_INFO: {
     title: "Daha fazla bilgi gerekli",
     tone: "border-amber-200 bg-amber-50 text-amber-950",
     description:
-      "Mevcut bilgiler karar vermek için yeterli değil. Eksik alanları tamamladıktan sonra yeniden deneyebilirsiniz.",
-    nextStepTitle: "Sonraki adım",
+      "Mevcut bilgiler karar vermek iÃ§in yeterli deÄŸil. Eksik alanlarÄ± tamamladÄ±ktan sonra yeniden deneyebilirsiniz.",
+    nextStepTitle: "Sonraki adÄ±m",
     nextStepBody:
-      "Eksik görünen bilgileri tamamlayın ve ardından yeniden ön değerlendirme alın. Sonuç ekranındaki eksik bilgi listesi bunun için rehberdir.",
+      "Eksik gÃ¶rÃ¼nen bilgileri tamamlayÄ±n ve ardÄ±ndan yeniden Ã¶n deÄŸerlendirme alÄ±n. SonuÃ§ ekranÄ±ndaki eksik bilgi listesi bunun iÃ§in rehberdir.",
   },
 };
 
@@ -95,13 +95,13 @@ function resultPrimaryAction(status: EligibilityStatus) {
 
   if (status === "ELIGIBLE") {
     return {
-      label: "Rehberde başvuru hazırlığını gözden geçir",
+      label: "Rehberde baÅŸvuru hazÄ±rlÄ±ÄŸÄ±nÄ± gÃ¶zden geÃ§ir",
       href: "/evde-bakim-maasi",
     };
   }
 
   return {
-    label: "Şartları rehber sayfasında tekrar incele",
+    label: "ÅartlarÄ± rehber sayfasÄ±nda tekrar incele",
     href: "/evde-bakim-maasi",
   };
 }
@@ -144,7 +144,7 @@ export default function HesaplamaPage() {
         setError(err.message);
         setFieldErrors(err.details ?? null);
       } else {
-        setError("Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
+        setError("Beklenmeyen bir hata oluÅŸtu. LÃ¼tfen daha sonra tekrar deneyin.");
       }
     } finally {
       setIsSubmitting(false);
@@ -161,23 +161,23 @@ export default function HesaplamaPage() {
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
         <section className="card-panel">
-          <p className="eyebrow">Hesaplama Aracı</p>
+          <p className="eyebrow">Hesaplama AracÄ±</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-            Evde bakım maaşı için backend destekli ön değerlendirme
+            Evde bakÄ±m maaÅŸÄ± iÃ§in backend destekli Ã¶n deÄŸerlendirme
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-700">
-            Bu araç frontend tarafında uygunluk hesabı yapmaz. SocialRightOS backend karar
-            motoruna canonical endpoint üzerinden istek gönderir ve sonucu açıklayıcı biçimde sunar.
+            Bu araÃ§ frontend tarafÄ±nda uygunluk hesabÄ± yapmaz. SocialRightOS backend karar
+            motoruna canonical endpoint Ã¼zerinden istek gÃ¶nderir ve sonucu aÃ§Ä±klayÄ±cÄ± biÃ§imde sunar.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
-            yükleme bu aşamada istenmez.
+            Formda yalnÄ±zca gerekli temel bilgiler istenir. Kimlik numarasÄ±, aÃ§Ä±k adres veya belge
+            yÃ¼kleme bu aÅŸamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
             <label className="form-field">
-              <span>Engellilik oranı</span>
+              <span>Engellilik oranÄ±</span>
               <input
                 type="number"
                 min="0"
@@ -189,12 +189,12 @@ export default function HesaplamaPage() {
                     disabilityRate: event.target.value,
                   }))
                 }
-                placeholder="Örn. 80"
+                placeholder="Ã–rn. 80"
               />
             </label>
 
             <label className="form-field">
-              <span>Toplam hane geliri (aylık)</span>
+              <span>Toplam hane geliri (aylÄ±k)</span>
               <input
                 type="number"
                 min="0"
@@ -205,12 +205,12 @@ export default function HesaplamaPage() {
                     householdIncome: event.target.value,
                   }))
                 }
-                placeholder="Örn. 10000"
+                placeholder="Ã–rn. 10000"
               />
             </label>
 
             <label className="form-field">
-              <span>Hanedeki kişi sayısı</span>
+              <span>Hanedeki kiÅŸi sayÄ±sÄ±</span>
               <input
                 type="number"
                 min="1"
@@ -221,12 +221,12 @@ export default function HesaplamaPage() {
                     householdSize: event.target.value,
                   }))
                 }
-                placeholder="Örn. 4"
+                placeholder="Ã–rn. 4"
               />
             </label>
 
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-900">Temel doğrulamalar</p>
+              <p className="text-sm font-medium text-slate-900">Temel doÄŸrulamalar</p>
               <label className="mt-3 flex items-center gap-3 text-sm text-slate-700">
                 <input
                   type="checkbox"
@@ -238,7 +238,7 @@ export default function HesaplamaPage() {
                     }))
                   }
                 />
-                Türkiye Cumhuriyeti vatandaşı
+                TÃ¼rkiye Cumhuriyeti vatandaÅŸÄ±
               </label>
               <label className="mt-3 flex items-center gap-3 text-sm text-slate-700">
                 <input
@@ -251,7 +251,7 @@ export default function HesaplamaPage() {
                     }))
                   }
                 />
-                Türkiye&apos;de ikamet ediyor
+                TÃ¼rkiye&apos;de ikamet ediyor
               </label>
             </div>
           </div>
@@ -263,7 +263,7 @@ export default function HesaplamaPage() {
               disabled={isSubmitting}
               className="primary-button"
             >
-              {isSubmitting ? "Değerlendiriliyor..." : "Ön değerlendirmeyi çalıştır"}
+              {isSubmitting ? "DeÄŸerlendiriliyor..." : "Ã–n deÄŸerlendirmeyi Ã§alÄ±ÅŸtÄ±r"}
             </button>
             <button
               type="button"
@@ -281,7 +281,7 @@ export default function HesaplamaPage() {
 
           {error ? (
             <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
-              <p className="font-semibold">İstek tamamlanamadı</p>
+              <p className="font-semibold">Ä°stek tamamlanamadÄ±</p>
               <p className="mt-2 leading-7">{error}</p>
               {fieldErrors ? (
                 <ul className="mt-3 space-y-1">
@@ -294,8 +294,8 @@ export default function HesaplamaPage() {
               ) : null}
               {hasConfigError ? (
                 <p className="mt-3 leading-7">
-                  Frontend deploy ortamında backend base URL tanımlanmadan bu araç canlıya
-                  alınmamalı.
+                  Frontend deploy ortamÄ±nda backend base URL tanÄ±mlanmadan bu araÃ§ canlÄ±ya
+                  alÄ±nmamalÄ±.
                 </p>
               ) : null}
             </div>
@@ -345,7 +345,7 @@ export default function HesaplamaPage() {
 
               {ruleResults.length > 0 ? (
                 <div className="mt-5 rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">Kural sonuçları</h3>
+                  <h3 className="font-semibold">Kural sonuÃ§larÄ±</h3>
                   <ul className="mt-3 space-y-3 text-sm leading-7">
                     {ruleResults.map((rule: RuleResult) => (
                       <li key={rule.rule_code}>
@@ -357,7 +357,7 @@ export default function HesaplamaPage() {
               ) : null}
 
               <div className="mt-5 rounded-2xl bg-white/70 p-4">
-                <h3 className="font-semibold">Değerlendirme metadata</h3>
+                <h3 className="font-semibold">DeÄŸerlendirme metadata</h3>
                 <dl className="mt-3 grid gap-3 text-sm leading-7 md:grid-cols-2">
                   <div>
                     <dt className="font-medium">Request ID</dt>
@@ -391,27 +391,27 @@ export default function HesaplamaPage() {
 
         <aside className="space-y-6">
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Önemli not</h2>
+            <h2 className="text-lg font-semibold text-slate-950">Ã–nemli not</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Bu araç resmi kurum kararı yerine geçmez. Sonuçlar yalnızca başvuru öncesi ön
-              değerlendirme ve bilgi amaçlıdır.
+              Bu araÃ§ resmi kurum kararÄ± yerine geÃ§mez. SonuÃ§lar yalnÄ±zca baÅŸvuru Ã¶ncesi Ã¶n
+              deÄŸerlendirme ve bilgi amaÃ§lÄ±dÄ±r.
             </p>
           </div>
 
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Veri yaklaşımı</h2>
+            <h2 className="text-lg font-semibold text-slate-950">Veri yaklaÅŸÄ±mÄ±</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Kimlik numarası, açık adres veya belge yükleme istenmez. MVP yalnızca gerekli
-              temel değerlendirme alanlarını kullanır.
+              Kimlik numarasÄ±, aÃ§Ä±k adres veya belge yÃ¼kleme istenmez. MVP yalnÄ±zca gerekli
+              temel deÄŸerlendirme alanlarÄ±nÄ± kullanÄ±r.
             </p>
           </div>
 
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Hızlı hazırlık listesi</h2>
+            <h2 className="text-lg font-semibold text-slate-950">HÄ±zlÄ± hazÄ±rlÄ±k listesi</h2>
             <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-700">
-              <li>Gelir bilgisini netleştirin.</li>
-              <li>Hanedeki kişi sayısını doğru girin.</li>
-              <li>Eksik sonuç aldıysanız gerekli alanları tamamlayın.</li>
+              <li>Gelir bilgisini netleÅŸtirin.</li>
+              <li>Hanedeki kiÅŸi sayÄ±sÄ±nÄ± doÄŸru girin.</li>
+              <li>Eksik sonuÃ§ aldÄ±ysanÄ±z gerekli alanlarÄ± tamamlayÄ±n.</li>
             </ul>
           </div>
         </aside>

@@ -9,14 +9,14 @@ export const metadata: Metadata = {
     template: "%s | Sosyal Hak Rehberi",
   },
   description:
-    "Evde bakım maaşı için güven odaklı ön değerlendirme rehberi. Resmi karar üretmez; SocialRightOS backend contract'ını kullanan açıklayıcı bir başvuru öncesi araç sunar.",
+    "Evde bakÄ±m maaÅŸÄ± iÃ§in gÃ¼ven odaklÄ± Ã¶n deÄŸerlendirme rehberi. Resmi karar Ã¼retmez; SocialRightOS backend contract'Ä±nÄ± kullanan aÃ§Ä±klayÄ±cÄ± bir baÅŸvuru Ã¶ncesi araÃ§ sunar.",
   applicationName: "Sosyal Hak Rehberi",
   keywords: [
-    "evde bakım maaşı",
-    "evde bakım maaşı hesaplama",
+    "evde bakÄ±m maaÅŸÄ±",
+    "evde bakÄ±m maaÅŸÄ± hesaplama",
     "sosyal hak rehberi",
-    "engelli bakım desteği",
-    "ön değerlendirme",
+    "engelli bakÄ±m desteÄŸi",
+    "Ã¶n deÄŸerlendirme",
   ],
   alternates: {
     canonical: "/",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sosyal Hak Rehberi",
     description:
-      "Evde bakım maaşı için açıklayıcı, trust-first ve contract-safe ön değerlendirme deneyimi.",
+      "Evde bakÄ±m maaÅŸÄ± iÃ§in aÃ§Ä±klayÄ±cÄ±, trust-first ve contract-safe Ã¶n deÄŸerlendirme deneyimi.",
     type: "website",
     locale: "tr_TR",
     siteName: "Sosyal Hak Rehberi",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sosyal Hak Rehberi",
     description:
-      "Evde bakım maaşı için güven odaklı ön değerlendirme rehberi ve hesaplama aracı.",
+      "Evde bakÄ±m maaÅŸÄ± iÃ§in gÃ¼ven odaklÄ± Ã¶n deÄŸerlendirme rehberi ve hesaplama aracÄ±.",
   },
   robots: {
     index: true,
@@ -73,21 +73,21 @@ export default function RootLayout({
             <div className="footer-panel">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-                  Güven Notu
+                  GÃ¼ven Notu
                 </p>
                 <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
-                  Sosyal Hak Rehberi resmi kurum kararı vermez. Buradaki sonuçlar yalnızca ön
-                  değerlendirme niteliğindedir ve SocialRightOS backend karar motorunun döndürdüğü
-                  bilgiye dayanır.
+                  Sosyal Hak Rehberi resmi kurum kararÄ± vermez. Buradaki sonuÃ§lar yalnÄ±zca Ã¶n
+                  deÄŸerlendirme niteliÄŸindedir ve SocialRightOS backend karar motorunun dÃ¶ndÃ¼rdÃ¼ÄŸÃ¼
+                  bilgiye dayanÄ±r.
                 </p>
               </div>
 
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
-                  Evde bakım maaşı rehberi
+                  Evde bakÄ±m maaÅŸÄ± rehberi
                 </Link>
                 <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link compact-link">
-                  Hesaplama aracını aç
+                  Hesaplama aracÄ±nÄ± aÃ§
                 </Link>
               </div>
             </div>
