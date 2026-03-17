@@ -130,6 +130,7 @@ Deployment planning documents:
 - `docs/env-map.md`
 - `docs/deploy-decision-memo.md`
 - `docs/staging-deploy-runbook.md`
+- `docs/staging-handoff-brief.md`
 - `docs/launch-blockers.md`
 - `docs/staging-smoke-report.md`
 - `docs/test-payloads.md`
