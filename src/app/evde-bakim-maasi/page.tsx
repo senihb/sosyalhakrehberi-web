@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Evde bakım maaşı için temel şartları, gerekli bilgileri ve ön değerlendirme mantığını sade bir dille açıklayan ana rehber sayfası.",
 };
 
-const sections = [
+const promiseSections = [
   {
     title: "Bu sayfa ne sunar?",
     body:
@@ -22,6 +22,32 @@ const sections = [
     title: "Nasıl çalışır?",
     body:
       "Araç yalnızca SocialRightOS backend karar motorunun döndürdüğü statü, nedenler ve eksik bilgi alanlarını tüketir.",
+  },
+];
+
+const checklist = [
+  "Engellilik oranı",
+  "Aylık toplam hane geliri",
+  "Hanedeki kişi sayısı",
+  "Türkiye Cumhuriyeti vatandaşlık durumu",
+  "Türkiye’de ikamet bilgisi",
+];
+
+const faqItems = [
+  {
+    question: "Bu araç resmi sonuç verir mi?",
+    answer:
+      "Hayır. Bu araç yalnızca ön değerlendirme sunar. Nihai karar ilgili kurumun incelemesi ve güncel mevzuat uygulamasıyla verilir.",
+  },
+  {
+    question: "Hangi bilgilerle çalışır?",
+    answer:
+      "MVP yalnızca temel değerlendirme alanlarını kullanır. Kimlik numarası, açık adres veya belge yükleme istenmez.",
+  },
+  {
+    question: "Backend mantığı frontend’de mi çalışıyor?",
+    answer:
+      "Hayır. Uygunluk mantığı, threshold değerleri ve statü anlamları tamamen backend tarafından belirlenir.",
   },
 ];
 
@@ -57,11 +83,18 @@ export default function HomeCareAllowancePage() {
               Sonuçlar yalnızca ön değerlendirme niteliğindedir. Nihai değerlendirme ilgili
               kurumun incelemesi ve güncel mevzuat uygulamasıyla belirlenir.
             </p>
+            <div className="mt-5 rounded-2xl bg-slate-50 p-4">
+              <p className="text-sm font-semibold text-slate-900">Bu aşamada istenmeyen veriler</p>
+              <p className="mt-2 text-sm leading-7 text-slate-700">
+                Kimlik numarası, açık adres, belge yükleme ve gereksiz kişisel veri bu MVP
+                kapsamına dahil değildir.
+              </p>
+            </div>
           </aside>
         </section>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-3">
-          {sections.map((section) => (
+          {promiseSections.map((section) => (
             <article key={section.title} className="card-panel">
               <h2 className="text-xl font-semibold text-slate-950">{section.title}</h2>
               <p className="mt-3 text-sm leading-7 text-slate-700">{section.body}</p>
@@ -69,25 +102,47 @@ export default function HomeCareAllowancePage() {
           ))}
         </section>
 
+        <section className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <article className="card-panel">
+            <h2 className="text-2xl font-semibold text-slate-950">
+              Hesaplama aracına geçmeden önce hazırlamanız iyi olur
+            </h2>
+            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+              {checklist.map((item) => (
+                <li key={item} className="rounded-2xl bg-slate-50 px-4 py-3">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="card-panel">
+            <h2 className="text-2xl font-semibold text-slate-950">
+              Hesaplama sonucundan sonra ne beklersiniz?
+            </h2>
+            <div className="mt-5 space-y-4 text-sm leading-7 text-slate-700">
+              <p>
+                Araç size üç temel sonuçtan birini gösterebilir: uygun görünüyor, uygun
+                görünmüyor veya daha fazla bilgi gerekli.
+              </p>
+              <p>
+                Sonuç ekranında backend tarafından döndürülen nedenler, eksik bilgiler ve
+                değerlendirme metadatası görünür. Böylece kullanıcı hangi bilgiyle ilerlediğini
+                açık biçimde anlar.
+              </p>
+            </div>
+          </article>
+        </section>
+
         <section className="mt-8 card-panel">
-          <h2 className="text-2xl font-semibold text-slate-950">
-            Hesaplama aracında sizden hangi bilgiler istenir?
-          </h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <h3 className="font-semibold text-slate-900">Temel değerlendirme bilgileri</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-700">
-                Engellilik oranı, hane geliri, hane kişi sayısı, Türkiye Cumhuriyeti
-                vatandaşlık durumu ve Türkiye&apos;de ikamet bilgisi.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <h3 className="font-semibold text-slate-900">İstenen veri sınırı</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-700">
-                Gereksiz kişisel veri istenmez. Kimlik numarası, adres ayrıntısı veya belge
-                yükleme bu MVP kapsamına dahil değildir.
-              </p>
-            </div>
+          <h2 className="text-2xl font-semibold text-slate-950">Sık sorulan kısa sorular</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {faqItems.map((item) => (
+              <article key={item.question} className="rounded-2xl bg-slate-50 p-5">
+                <h3 className="font-semibold text-slate-900">{item.question}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-700">{item.answer}</p>
+              </article>
+            ))}
           </div>
         </section>
       </div>
