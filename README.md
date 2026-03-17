@@ -117,6 +117,7 @@ This repo is not:
 Current frontend environment requirements:
 
 - `NEXT_PUBLIC_API_BASE_URL`: base URL for the SocialRightOS backend
+- `NEXT_PUBLIC_SITE_URL`: canonical site URL for metadata and robots behavior
 
 See `.env.example`.
 
@@ -127,6 +128,7 @@ Deployment planning documents:
 - `docs/staging-readiness.md`
 - `docs/env-map.md`
 - `docs/deploy-decision-memo.md`
+- `docs/staging-deploy-runbook.md`
 
 ## Status
 
