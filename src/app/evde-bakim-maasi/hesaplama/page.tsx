@@ -29,25 +29,40 @@ const initialFormState: FormState = {
 
 const statusCopy: Record<
   EligibilityStatus,
-  { title: string; tone: string; description: string }
+  {
+    title: string;
+    tone: string;
+    description: string;
+    nextStepTitle: string;
+    nextStepBody: string;
+  }
 > = {
   ELIGIBLE: {
     title: "Ön değerlendirme olumlu görünüyor",
     tone: "border-emerald-200 bg-emerald-50 text-emerald-950",
     description:
       "Backend motoru mevcut bilgilerle uygunluk yönünde bir ön karar üretti. Bu sonuç resmi hak sahipliği kararı değildir.",
+    nextStepTitle: "Sonraki adım",
+    nextStepBody:
+      "Başvuru öncesinde gelir, hane ve bakım koşullarına ilişkin belgelerinizi düzenli biçimde hazırlamanız faydalı olur.",
   },
   NOT_ELIGIBLE: {
     title: "Ön değerlendirme olumsuz görünüyor",
     tone: "border-rose-200 bg-rose-50 text-rose-950",
     description:
       "Backend motoru girilen bilgilerle uygunluk yönünde sonuç üretmedi. Resmi değerlendirme için kurum incelemesi esastır.",
+    nextStepTitle: "Sonraki adım",
+    nextStepBody:
+      "Girilen bilgileri tekrar kontrol edin. Özellikle gelir, hane kişi sayısı ve diğer temel alanların doğru olduğundan emin olun.",
   },
   NEEDS_INFO: {
     title: "Daha fazla bilgi gerekli",
     tone: "border-amber-200 bg-amber-50 text-amber-950",
     description:
       "Mevcut bilgiler karar vermek için yeterli değil. Eksik alanları tamamladıktan sonra yeniden deneyebilirsiniz.",
+    nextStepTitle: "Sonraki adım",
+    nextStepBody:
+      "Eksik görünen bilgileri tamamlayın ve ardından yeniden ön değerlendirme alın. Sonuç ekranındaki eksik bilgi listesi bunun için rehberdir.",
   },
 };
 
@@ -68,6 +83,20 @@ function normalizeRuleResults(
   }
 
   return Object.values(ruleResults);
+}
+
+function resultPrimaryAction(status: EligibilityStatus) {
+  if (status === "NEEDS_INFO") {
+    return {
+      label: "Eksik bilgileri tamamla ve tekrar dene",
+      href: "#form-start",
+    };
+  }
+
+  return {
+    label: "Rehber sayfasına dön",
+    href: "/evde-bakim-maasi",
+  };
 }
 
 export default function HesaplamaPage() {
@@ -119,6 +148,7 @@ export default function HesaplamaPage() {
   const missingFacts = result?.missing_facts ?? [];
   const ruleResults = result ? normalizeRuleResults(result.rule_results) : [];
   const hasConfigError = Boolean(error?.includes("NEXT_PUBLIC_API_BASE_URL"));
+  const primaryAction = result ? resultPrimaryAction(result.status) : null;
 
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -134,7 +164,10 @@ export default function HesaplamaPage() {
             açıklayıcı biçimde sunar.
           </p>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div
+            id="form-start"
+            className="mt-8 grid gap-5 md:grid-cols-2"
+          >
             <label className="form-field">
               <span>Engellilik oranı</span>
               <input
@@ -281,21 +314,13 @@ export default function HesaplamaPage() {
                 </div>
 
                 <div className="rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">Değerlendirme bilgisi</h3>
-                  <dl className="mt-3 space-y-2 text-sm leading-7">
-                    <div>
-                      <dt className="font-medium">Request ID</dt>
-                      <dd>{result.request_id}</dd>
-                    </div>
-                    <div>
-                      <dt className="font-medium">Policy version</dt>
-                      <dd>{result.metadata.policy_version}</dd>
-                    </div>
-                    <div>
-                      <dt className="font-medium">Evaluation date</dt>
-                      <dd>{result.metadata.evaluation_date ?? "Belirtilmedi"}</dd>
-                    </div>
-                  </dl>
+                  <h3 className="font-semibold">{statusPanel.nextStepTitle}</h3>
+                  <p className="mt-3 text-sm leading-7">{statusPanel.nextStepBody}</p>
+                  {primaryAction ? (
+                    <Link href={primaryAction.href} className="secondary-link mt-4 inline-flex">
+                      {primaryAction.label}
+                    </Link>
+                  ) : null}
                 </div>
               </div>
 
@@ -324,6 +349,36 @@ export default function HesaplamaPage() {
                   </ul>
                 </div>
               ) : null}
+
+              <div className="mt-5 rounded-2xl bg-white/70 p-4">
+                <h3 className="font-semibold">Değerlendirme metadata</h3>
+                <dl className="mt-3 grid gap-3 text-sm leading-7 md:grid-cols-2">
+                  <div>
+                    <dt className="font-medium">Request ID</dt>
+                    <dd>{result.request_id}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">Policy code</dt>
+                    <dd>{result.metadata.policy_code}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">Policy version</dt>
+                    <dd>{result.metadata.policy_version}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">Engine version</dt>
+                    <dd>{result.metadata.engine_version}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">Evaluation date</dt>
+                    <dd>{result.metadata.evaluation_date ?? "Belirtilmedi"}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">Jurisdiction</dt>
+                    <dd>{result.metadata.jurisdiction}</dd>
+                  </div>
+                </dl>
+              </div>
             </section>
           ) : null}
         </section>
@@ -346,14 +401,12 @@ export default function HesaplamaPage() {
           </div>
 
           <div className="card-panel">
-            <h2 className="text-lg font-semibold text-slate-950">Sonraki adım</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-700">
-              Ön değerlendirme sonucunu rehber içerikle birlikte okumak için ana bilgi
-              sayfasına dönebilirsiniz.
-            </p>
-            <Link href="/evde-bakim-maasi" className="secondary-link mt-4 inline-flex">
-              Rehber sayfasına git
-            </Link>
+            <h2 className="text-lg font-semibold text-slate-950">Hızlı hazırlık listesi</h2>
+            <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-700">
+              <li>Gelir bilgisini netleştirin.</li>
+              <li>Hanedeki kişi sayısını doğru girin.</li>
+              <li>Eksik sonuç aldıysanız gerekli alanları tamamlayın.</li>
+            </ul>
           </div>
         </aside>
       </div>

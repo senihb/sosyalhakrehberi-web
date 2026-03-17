@@ -7,6 +7,24 @@ export const metadata: Metadata = {
     "Sosyal Hak Rehberi, evde bakım maaşı için güven veren açıklamalar ve backend destekli ön değerlendirme akışı sunar.",
 };
 
+const highlights = [
+  {
+    title: "Tek fayda, net odak",
+    body:
+      "MVP yalnızca evde bakım maaşına odaklanır. Çoklu benefit, dashboard veya üyelik sistemi bu aşamada kapsam dışıdır.",
+  },
+  {
+    title: "SEO ve araç birlikte çalışır",
+    body:
+      "Bilgilendirici içerik ile hesaplama akışı aynı güven hattında ilerler. Kullanıcı hem açıklama görür hem de ön değerlendirme alır.",
+  },
+  {
+    title: "Ön değerlendirme yaklaşımı",
+    body:
+      "Sonuçlar bağlayıcı iddia taşımaz. Eksik bilgi, risk ve sonraki adım ihtiyacı açık biçimde gösterilir.",
+  },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -46,27 +64,12 @@ export default function Home() {
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-6 px-6 py-8 lg:grid-cols-3 lg:px-10 lg:py-12">
-        <article className="card-panel">
-          <h2 className="text-xl font-semibold text-slate-950">Tek fayda, net odak</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-700">
-            MVP yalnızca evde bakım maaşına odaklanır. Çoklu benefit, dashboard veya
-            üyelik sistemi bu aşamada kapsam dışıdır.
-          </p>
-        </article>
-        <article className="card-panel">
-          <h2 className="text-xl font-semibold text-slate-950">SEO ve araç birlikte çalışır</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-700">
-            Bilgilendirici içerik ile hesaplama akışı aynı güven hattında ilerler.
-            Kullanıcı hem açıklama görür hem de ön değerlendirme alır.
-          </p>
-        </article>
-        <article className="card-panel">
-          <h2 className="text-xl font-semibold text-slate-950">Ön değerlendirme yaklaşımı</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-700">
-            Sonuçlar bağlayıcı iddia taşımaz. Eksik bilgi, risk ve sonraki adım ihtiyacı
-            açık biçimde gösterilir.
-          </p>
-        </article>
+        {highlights.map((highlight) => (
+          <article key={highlight.title} className="card-panel">
+            <h2 className="text-xl font-semibold text-slate-950">{highlight.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-700">{highlight.body}</p>
+          </article>
+        ))}
       </section>
     </main>
   );
