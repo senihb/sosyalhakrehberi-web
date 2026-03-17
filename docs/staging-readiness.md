@@ -41,7 +41,7 @@ These items should be completed before any launch decision.
 ### Backend and Environment
 
 - confirm the staging backend base URL
-- confirm the frontend should use `NEXT_PUBLIC_API_BASE_URL` only
+- confirm the frontend should use `NEXT_PUBLIC_API_BASE_URL` and `NEXT_PUBLIC_SITE_URL`
 - confirm backend staging allows the frontend staging origin via CORS
 - confirm backend staging exposes `POST /api/v1/eligibility-check`
 
@@ -50,6 +50,7 @@ These items should be completed before any launch decision.
 - choose the staging frontend host
 - configure staging environment variables
 - perform one clean deployment from `main`
+- confirm staging sends `noindex` through robots behavior
 - confirm pages render correctly:
   - `/`
   - `/evde-bakim-maasi`

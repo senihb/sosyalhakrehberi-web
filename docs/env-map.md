@@ -2,7 +2,7 @@
 
 This repository intentionally keeps the runtime surface small.
 
-## Active Variable
+## Active Variables
 
 ### `NEXT_PUBLIC_API_BASE_URL`
 
@@ -23,6 +23,25 @@ Rules:
 - do not hardcode the backend URL in page components
 - do not introduce additional frontend policy variables
 
+### `NEXT_PUBLIC_SITE_URL`
+
+Purpose:
+
+- canonical public site URL for metadata and robots behavior
+- used to keep staging and production metadata separated
+
+Examples:
+
+- local: `http://localhost:3000`
+- staging: `https://staging.sosyalhakrehberi.com`
+- production: `https://sosyalhakrehberi.com`
+
+Rules:
+
+- do not include a trailing slash
+- set a staging URL for non-production deployments
+- keep production pointed at the public domain only after approval
+
 ## Environment Plan
 
 ### Local
@@ -34,11 +53,13 @@ Rules:
 
 - set in the staging host dashboard or deployment system
 - must point to the staging backend
+- must also set the staging site URL
 
 ### Production
 
 - set only after staging validation is complete
 - must point to the production backend
+- must also set the public site URL
 
 ## Backend Dependencies
 
