@@ -125,6 +125,7 @@ See `.env.example`.
 
 Deployment planning documents:
 
+- `docs/rollout-roadmap.md`
 - `docs/staging-readiness.md`
 - `docs/env-map.md`
 - `docs/deploy-decision-memo.md`
@@ -140,7 +141,7 @@ Current state of the repository:
 - Home Care MVP foundation is in place
 - contract-safe frontend client is in place
 - CI lint/build checks are in place
-- pillar page and calculation flow are actively being refined
+- rollout preparation is complete and the next milestone is the first staging deployment
 
 ## License
 
