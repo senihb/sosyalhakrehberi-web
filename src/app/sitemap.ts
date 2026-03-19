@@ -8,7 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [];
   }
 
-  const routes = ["/", "/evde-bakim-maasi", "/evde-bakim-maasi/hesaplama"];
+  const routes = [
+    "/",
+    "/evde-bakim-maasi",
+    "/evde-bakim-maasi/hesaplama",
+    "/evde-bakim-maasi/sartlar",
+    "/evde-bakim-maasi/gelir-ve-hane-bilgisi",
+  ];
 
   return routes.map((route) => ({
     url: new URL(route, siteUrl).toString(),
