@@ -26,5 +26,5 @@ export function getSiteUrl(): URL {
 }
 
 export function isProductionSite(url = getSiteUrl()): boolean {
-  return process.env.VERCEL_ENV === "production" && url.hostname === PUBLIC_SITE_HOSTNAME;
+  return url.hostname === PUBLIC_SITE_HOSTNAME;
 }
