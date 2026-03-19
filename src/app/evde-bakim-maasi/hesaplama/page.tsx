@@ -3,56 +3,19 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ApiClientError, checkEligibility } from "@/lib/api";
+import { buildDecisionViewModel } from "@/lib/eligibility-explanations";
 import {
   buildEligibilityPayload,
   initialEligibilityFormState,
   type EligibilityFormState,
   type TriStateAttestation,
 } from "@/lib/eligibility-form";
-import type {
-  EligibilityCheckResponse,
-  EligibilityStatus,
-  MissingFact,
-  RuleResult,
-} from "@/lib/types";
+import type { EligibilityCheckResponse, EligibilityStatus } from "@/lib/types";
 
-const statusCopy: Record<
-  EligibilityStatus,
-  {
-    title: string;
-    tone: string;
-    description: string;
-    nextStepTitle: string;
-    nextStepBody: string;
-  }
-> = {
-  ELIGIBLE: {
-    title: "Ön değerlendirme olumlu görünüyor",
-    tone: "border-emerald-200 bg-emerald-50 text-emerald-950",
-    description:
-      "Backend motoru mevcut bilgilerle uygunluk yönünde bir ön karar üretti. Bu sonuç resmi hak sahipliği kararı değildir.",
-    nextStepTitle: "Sonraki adım",
-    nextStepBody:
-      "Başvuru öncesinde gelir, hane ve bakım koşullarına ilişkin belgelerinizi düzenli biçimde hazırlamanız faydalı olur.",
-  },
-  NOT_ELIGIBLE: {
-    title: "Ön değerlendirme olumsuz görünüyor",
-    tone: "border-rose-200 bg-rose-50 text-rose-950",
-    description:
-      "Backend motoru girilen bilgilerle uygunluk yönünde sonuç üretmedi. Resmi değerlendirme için kurum incelemesi esastır.",
-    nextStepTitle: "Sonraki adım",
-    nextStepBody:
-      "Girilen bilgileri tekrar kontrol edin. Özellikle gelir, hane kişi sayısı ve diğer temel alanların doğru olduğundan emin olun.",
-  },
-  NEEDS_INFO: {
-    title: "Daha fazla bilgi gerekli",
-    tone: "border-amber-200 bg-amber-50 text-amber-950",
-    description:
-      "Mevcut bilgiler karar vermek için yeterli değil. Eksik alanları tamamladıktan sonra yeniden deneyebilirsiniz.",
-    nextStepTitle: "Sonraki adım",
-    nextStepBody:
-      "Eksik görünen bilgileri tamamlayın ve ardından yeniden ön değerlendirme alın. Sonuç ekranındaki eksik bilgi listesi bunun için rehberdir.",
-  },
+const statusTone: Record<EligibilityStatus, string> = {
+  ELIGIBLE: "border-emerald-200 bg-emerald-50 text-emerald-950",
+  NOT_ELIGIBLE: "border-rose-200 bg-rose-50 text-rose-950",
+  NEEDS_INFO: "border-amber-200 bg-amber-50 text-amber-950",
 };
 
 const triStateOptions: Array<{
@@ -63,16 +26,6 @@ const triStateOptions: Array<{
   { label: "Hayır", value: false },
   { label: "Bilmiyorum", value: null },
 ];
-
-function normalizeRuleResults(
-  ruleResults: EligibilityCheckResponse["rule_results"],
-): RuleResult[] {
-  if (Array.isArray(ruleResults)) {
-    return ruleResults;
-  }
-
-  return Object.values(ruleResults);
-}
 
 function resultPrimaryAction(status: EligibilityStatus) {
   if (status === "NEEDS_INFO") {
@@ -174,11 +127,15 @@ export default function HesaplamaPage() {
     }
   };
 
-  const statusPanel = result ? statusCopy[result.status] : null;
-  const missingFacts = result?.missing_facts ?? [];
-  const ruleResults = result ? normalizeRuleResults(result.rule_results) : [];
   const hasConfigError = Boolean(error?.includes("NEXT_PUBLIC_API_BASE_URL"));
   const primaryAction = result ? resultPrimaryAction(result.status) : null;
+  const decisionView = result
+    ? buildDecisionViewModel({
+        status: result.status,
+        reasons: result.reasons,
+        missingFacts: result.missing_facts,
+      })
+    : null;
 
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -195,8 +152,8 @@ export default function HesaplamaPage() {
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya
-            belge yükleme bu aşamada istenmez.
+            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
+            yükleme bu aşamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
@@ -327,27 +284,41 @@ export default function HesaplamaPage() {
             </div>
           ) : null}
 
-          {result && statusPanel ? (
-            <section className={`mt-6 rounded-3xl border p-6 ${statusPanel.tone}`}>
+          {result && decisionView ? (
+            <section
+              className={`mt-6 rounded-3xl border p-6 ${statusTone[result.status]}`}
+            >
               <p className="text-sm font-semibold uppercase tracking-[0.22em]">{result.status}</p>
-              <h2 className="mt-3 text-2xl font-semibold">{statusPanel.title}</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7">{statusPanel.description}</p>
+              <h2 className="mt-3 text-2xl font-semibold">{decisionView.title}</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7">{decisionView.summary}</p>
 
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <div className="rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">Backend nedenleri</h3>
-                  <ul className="mt-3 space-y-2 text-sm leading-7">
-                    {result.reasons.map((reason) => (
-                      <li key={`${reason.code}-${reason.message}`}>
-                        <span className="font-medium">{reason.code}</span>: {reason.message}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="font-semibold">Kararın özeti</h3>
+                  {decisionView.primaryReason ? (
+                    <div className="mt-3">
+                      <p className="text-sm font-medium">{decisionView.primaryReason.title}</p>
+                      <p className="mt-2 text-sm leading-7">
+                        {decisionView.primaryReason.body}
+                      </p>
+                    </div>
+                  ) : null}
+
+                  {decisionView.secondaryReasons.length > 0 ? (
+                    <ul className="mt-4 space-y-3 text-sm leading-7">
+                      {decisionView.secondaryReasons.map((reason) => (
+                        <li key={`${reason.title}-${reason.body}`}>
+                          <span className="font-medium">{reason.title}</span>
+                          <p className="mt-1">{reason.body}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
 
                 <div className="rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">{statusPanel.nextStepTitle}</h3>
-                  <p className="mt-3 text-sm leading-7">{statusPanel.nextStepBody}</p>
+                  <h3 className="font-semibold">{decisionView.nextStepTitle}</h3>
+                  <p className="mt-3 text-sm leading-7">{decisionView.nextStepBody}</p>
                   {primaryAction ? (
                     <Link href={primaryAction.href} className="secondary-link mt-4 inline-flex">
                       {primaryAction.label}
@@ -356,61 +327,19 @@ export default function HesaplamaPage() {
                 </div>
               </div>
 
-              {missingFacts.length > 0 ? (
+              {decisionView.missingInformation.length > 0 ? (
                 <div className="mt-5 rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">Eksik bilgiler</h3>
+                  <h3 className="font-semibold">Tamamlanması iyi olacak bilgiler</h3>
                   <ul className="mt-3 space-y-3 text-sm leading-7">
-                    {missingFacts.map((fact: MissingFact) => (
-                      <li key={fact.key}>
-                        <span className="font-medium">{fact.key}</span>: {fact.message}
+                    {decisionView.missingInformation.map((fact) => (
+                      <li key={`${fact.title}-${fact.body}`}>
+                        <span className="font-medium">{fact.title}</span>
+                        <p className="mt-1">{fact.body}</p>
                       </li>
                     ))}
                   </ul>
                 </div>
               ) : null}
-
-              {ruleResults.length > 0 ? (
-                <div className="mt-5 rounded-2xl bg-white/70 p-4">
-                  <h3 className="font-semibold">Kural sonuçları</h3>
-                  <ul className="mt-3 space-y-3 text-sm leading-7">
-                    {ruleResults.map((rule: RuleResult) => (
-                      <li key={rule.rule_code}>
-                        <span className="font-medium">{rule.rule_code}</span>: {rule.message}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-
-              <div className="mt-5 rounded-2xl bg-white/70 p-4">
-                <h3 className="font-semibold">Değerlendirme metadata</h3>
-                <dl className="mt-3 grid gap-3 text-sm leading-7 md:grid-cols-2">
-                  <div>
-                    <dt className="font-medium">Request ID</dt>
-                    <dd>{result.request_id}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium">Policy code</dt>
-                    <dd>{result.metadata.policy_code}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium">Policy version</dt>
-                    <dd>{result.metadata.policy_version}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium">Engine version</dt>
-                    <dd>{result.metadata.engine_version}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium">Evaluation date</dt>
-                    <dd>{result.metadata.evaluation_date ?? "Belirtilmedi"}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium">Jurisdiction</dt>
-                    <dd>{result.metadata.jurisdiction}</dd>
-                  </div>
-                </dl>
-              </div>
             </section>
           ) : null}
         </section>
