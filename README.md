@@ -135,15 +135,17 @@ Deployment planning documents:
 - `docs/launch-blockers.md`
 - `docs/staging-smoke-report.md`
 - `docs/test-payloads.md`
+- `docs/home-care-live-smoke-checklist.md`
 
 ## Status
 
 Current state of the repository:
 
-- Home Care MVP foundation is in place
+- Home Care public flow rollout is complete
 - contract-safe frontend client is in place
-- CI lint/build checks are in place
-- rollout preparation is complete and the next milestone is the first staging deployment
+- guided result, income gate, trust layer, and content cluster are in place
+- live smoke and indexing smoke have passed
+- the current Home Care track is in stabilization hold unless a concrete bug or explicit product/legal decision reopens it
 
 ## License
 
