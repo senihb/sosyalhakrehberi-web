@@ -54,6 +54,21 @@ const faqItems = [
   },
 ];
 
+const detailGuides = [
+  {
+    href: "/evde-bakim-maasi/sartlar",
+    title: "Evde bakım maaşı şartları",
+    body:
+      "Vatandaşlık, ikamet, gelir ve hane bilgisi gibi temel başlıkları kısa ve anlaşılır biçimde özetler.",
+  },
+  {
+    href: "/evde-bakim-maasi/gelir-ve-hane-bilgisi",
+    title: "Gelir ve hane bilgisi rehberi",
+    body:
+      "Gelir ve kişi sayısı alanlarının neden istendiğini ve frontend'in neden nihai threshold kararı vermediğini açıklar.",
+  },
+];
+
 export default function HomeCareAllowancePage() {
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -152,6 +167,21 @@ export default function HomeCareAllowancePage() {
               <article key={item.question} className="rounded-2xl bg-slate-50 p-5">
                 <h3 className="font-semibold text-slate-900">{item.question}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-700">{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-8 card-panel">
+          <h2 className="text-2xl font-semibold text-slate-950">Detay rehberleri</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {detailGuides.map((guide) => (
+              <article key={guide.href} className="rounded-2xl bg-slate-50 p-5">
+                <h3 className="font-semibold text-slate-900">{guide.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-700">{guide.body}</p>
+                <Link href={guide.href} className="secondary-link mt-4 inline-flex">
+                  Rehberi aç
+                </Link>
               </article>
             ))}
           </div>
