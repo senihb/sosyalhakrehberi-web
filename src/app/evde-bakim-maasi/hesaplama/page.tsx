@@ -16,6 +16,7 @@ import {
   shouldPromptIncomeGate,
   type IncomeGateSnapshot,
 } from "@/lib/income-gate";
+import { buildTrustLayerModel } from "@/lib/trust-layer";
 import type { EligibilityCheckResponse, EligibilityStatus } from "@/lib/types";
 
 const statusTone: Record<EligibilityStatus, string> = {
@@ -161,6 +162,12 @@ export default function HesaplamaPage() {
         status: result.status,
         reasons: result.reasons,
         missingFacts: result.missing_facts,
+      })
+    : null;
+  const trustLayer = result
+    ? buildTrustLayerModel({
+        status: result.status,
+        metadata: result.metadata,
       })
     : null;
 
@@ -472,6 +479,27 @@ export default function HesaplamaPage() {
                       </li>
                     ))}
                   </ul>
+                </div>
+              ) : null}
+
+              {trustLayer ? (
+                <div className="mt-5 rounded-2xl bg-white/70 p-5">
+                  <h3 className="font-semibold">{trustLayer.heading}</h3>
+                  <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                    {trustLayer.items.map((item) => (
+                      <article key={`${item.title}-${item.body}`} className="rounded-2xl bg-white/70 p-4">
+                        <h4 className="text-sm font-medium">{item.title}</h4>
+                        <p className="mt-2 text-sm leading-7">{item.body}</p>
+                      </article>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    {trustLayer.links.map((link) => (
+                      <Link key={`${link.href}-${link.label}`} href={link.href} className="secondary-link inline-flex">
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </section>
