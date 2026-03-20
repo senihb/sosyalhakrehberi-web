@@ -21,7 +21,7 @@ export default function GssGuidePage() {
           </h1>
           <p className="mt-5 text-base leading-8 text-slate-700">
             GSS gelir testi araci resmi karar vermez. Sosyal guvence, aktif sigorta ve gelir
-            bilginizi backend motoruna gonderir; size on degerlendirme ve bir sonraki adim icin
+            bilginizi degerlendirme sistemine iletir; size on degerlendirme ve bir sonraki adim icin
             kisa yonlendirme sunar.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -56,3 +56,5 @@ export default function GssGuidePage() {
     </main>
   );
 }
+
+

@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "/",
     "/blog",
+    "/dogum-yardimi-uygunluk-testi",
     "/hakkimizda",
     "/65-yas-ayligi-uygunluk-testi",
     "/65-yas-ayligi-uygunluk-testi/rehber",

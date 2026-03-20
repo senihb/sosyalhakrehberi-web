@@ -150,11 +150,10 @@ export function GssToolPageClient() {
         <section className="card-panel">
           <p className="eyebrow">GSS Gelir Testi</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-            GSS gelir testi icin hizli ve backend destekli on degerlendirme
+            GSS gelir testi icin hizli ve aciklayici on degerlendirme
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700">
-            Bu sayfa resmi karar vermez. Frontend kendi uygunluk mantigini uretmeden canonical
-            backend endpointine gider, sonucu sade bir dille gosterir ve sonraki adimi anlatir.
+            Bu sayfa resmi karar vermez. Girdiginiz bilgiler degerlendirilir, sonuc size sade bir dille gosterilir ve sonraki adim anlatilir.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
@@ -205,8 +204,8 @@ export function GssToolPageClient() {
           <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
             <p className="text-sm font-medium text-slate-900">Sosyal guvence durumu</p>
             <p className="mt-2 text-xs leading-6 text-slate-600">
-              Bu sorulari bilmiyorsaniz Bilmiyorum secenegi backend tarafinda eksik bilgi olarak
-              ele alinir. Frontend tahmin yurutmez.
+              Bu sorulari bilmiyorsaniz Bilmiyorum secenegi degerlendirme sirasinda eksik bilgi olarak
+              ele alinir. Sayfa sizin yerinize tahmin yurutmez.
             </p>
 
             <div className="mt-4 grid gap-5">
@@ -416,4 +415,6 @@ export function GssToolPageClient() {
     </main>
   );
 }
+
+
 

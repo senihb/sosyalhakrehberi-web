@@ -22,9 +22,9 @@ const principles = [
       "Amacimiz sosyal haklara erisimi kolaylastirmak, karmasik basliklari anlasilir dile cevirmek ve kullanicinin ilk adimi daha guvenli atmasina yardim etmektir.",
   },
   {
-    title: "Karar motoru backend tarafindadir",
+    title: "Karar kurallari bu sayfada kurulmaz",
     body:
-      "Frontend yuzeyi kendi eligibility mantigini uretmez. On degerlendirme statuleri SocialRightOS backend karar motorundan gelir.",
+      "Bu site resmi karar vermez. Gosterilen on degerlendirme, ayrica kurulan degerlendirme yapisindan gelir ve burada yeniden hesaplanmaz.",
   },
 ];
 
@@ -35,8 +35,8 @@ const missionItems = [
 ];
 
 const visionItems = [
-  "Sosyal haklara erisimde guvenilir bir public product layer olmak",
-  "Arac ve rehber deneyimini tek bir anlasilir yuzeyde bulusturmak",
+  "Sosyal haklara erisimde guvenilir bir yol gosterici yuz olmak",
+  "Test ve rehber deneyimini tek bir anlasilir yuzeyde bulusturmak",
   "Kullaniciya teknik degil, yonlendirici ve saygili bir deneyim sunmak",
 ];
 

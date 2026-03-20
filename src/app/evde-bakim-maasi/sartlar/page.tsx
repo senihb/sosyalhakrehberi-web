@@ -19,7 +19,7 @@ const sections = [
   {
     title: "Gelir ve hane bilgisi",
     body:
-      "Toplam hane geliri ile hanedeki kişi sayısı birlikte değerlendirilir. Frontend bu alanlarda nihai eşik kararı vermez; backend yalnızca girilen bilgileri authoritative kurallarla değerlendirir.",
+      "Toplam hane geliri ile hanedeki kişi sayısı birlikte değerlendirilir. Bu sayfa nihai gelir kararı vermez; yalnızca girilen bilgilerin neden istendiğini açıklar.",
   },
   {
     title: "Engellilik oranı ve bakım ihtiyacı",
@@ -82,3 +82,6 @@ export default function HomeCareConditionsPage() {
     </main>
   );
 }
+
+
+

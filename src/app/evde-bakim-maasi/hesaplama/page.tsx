@@ -199,17 +199,14 @@ export default function HesaplamaPage() {
         <section className="card-panel">
           <p className="eyebrow">Hesaplama Aracı</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-            Evde bakım maaşı için backend destekli ön değerlendirme
+            Evde bakım maaşı için ön değerlendirme
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-slate-700">
-            Bu araç frontend tarafında uygunluk hesabı yapmaz. SocialRightOS backend karar
-            motoruna canonical endpoint üzerinden istek gönderir ve sonucu açıklayıcı biçimde
-            sunar.
+            Bu arac resmi karar vermez. Tam bagimli bakim ihtiyacina yonelik sorularla on degerlendirme yapar ve sonucu aciklayici bicimde sunar.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Kimlik numarası, açık adres veya belge
-            yükleme bu aşamada istenmez.
+            Formda yalnizca gerekli temel bilgiler istenir. Tam bagimlilik, gelir, hane ve temel durum bilgileri disinda kimlik numarasi, acik adres veya belge yukleme bu asamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
@@ -380,7 +377,7 @@ export default function HesaplamaPage() {
 
               <ul className="mt-5 space-y-2 text-sm leading-7">
                 <li>Bu özet bilgilendirme amaçlıdır; uygunluk veya uygunsuzluk kararı vermez.</li>
-                <li>Resmi eşik ve threshold davranışı backend tarafında authoritative olarak değerlendirilir.</li>
+                <li>Resmi eşik ve threshold davranışı degerlendirme sirasinda authoritative olarak değerlendirilir.</li>
                 <li>Bilgiler doğruysa yine de devam ederek backend ön değerlendirmesini alabilirsiniz.</li>
               </ul>
 
@@ -575,4 +572,9 @@ export default function HesaplamaPage() {
     </main>
   );
 }
+
+
+
+
+
 

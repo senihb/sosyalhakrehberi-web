@@ -21,7 +21,7 @@ export default function OldAgeGuidePage() {
           </h1>
           <p className="mt-5 text-base leading-8 text-slate-700">
             Bu sayfa 65 yas ayligi araci oncesinde veya sonrasinda kisa bir hazirlik rehberi olarak
-            kullanilabilir. Arac resmi karar vermez; yalnızca backend destekli on degerlendirme
+            kullanilabilir. Arac resmi karar vermez; yalnızca aciklayici on degerlendirme
             sunar.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -57,3 +57,6 @@ export default function OldAgeGuidePage() {
     </main>
   );
 }
+
+
+
