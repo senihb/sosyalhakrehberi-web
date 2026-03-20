@@ -13,14 +13,16 @@ export const metadata: Metadata = {
     template: "%s | Sosyal Hak Rehberi",
   },
   description:
-    "Evde bakım maaşı için güven odaklı ön değerlendirme rehberi. Resmi karar üretmez; SocialRightOS backend contract'ını kullanan açıklayıcı bir başvuru öncesi araç sunar.",
+    "Sosyal hak testleri ve basvuru rehberleri icin guven odakli public product layer. Resmi karar uretmez; SocialRightOS backend contract'ini kullanan aciklayici on degerlendirme araclari sunar.",
   applicationName: "Sosyal Hak Rehberi",
   keywords: [
-    "evde bakım maaşı",
-    "evde bakım maaşı hesaplama",
+    "sosyal hak testi",
+    "sosyal yardim uygunluk testi",
+    "evde bakim maasi",
+    "evde bakim maasi hesaplama",
+    "gss gelir testi",
+    "65 yas ayligi uygunluk testi",
     "sosyal hak rehberi",
-    "engelli bakım desteği",
-    "ön değerlendirme",
   ],
   alternates: {
     canonical: "/",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sosyal Hak Rehberi",
     description:
-      "Evde bakım maaşı için açıklayıcı, trust-first ve contract-safe ön değerlendirme deneyimi.",
+      "Sosyal hak testleri icin aciklayici, trust-first ve contract-safe public tool experience.",
     type: "website",
     locale: "tr_TR",
     siteName: "Sosyal Hak Rehberi",
@@ -37,8 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sosyal Hak Rehberi",
-    description:
-      "Evde bakım maaşı için güven odaklı ön değerlendirme rehberi ve hesaplama aracı.",
+    description: "Sosyal hak testleri ve rehberleri icin guven odakli on degerlendirme deneyimi.",
   },
   robots: {
     index: allowIndexing,
@@ -64,11 +65,14 @@ export default function RootLayout({
                 Sosyal Hak Rehberi
               </Link>
               <nav className="flex items-center gap-3 text-sm text-slate-700">
+                <Link href="/" className="secondary-link compact-link">
+                  Testler
+                </Link>
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
-                  Rehber
+                  Evde Bakim
                 </Link>
                 <Link href="/evde-bakim-maasi/hesaplama" className="primary-link compact-link">
-                  Hesaplama
+                  Testi Ac
                 </Link>
               </nav>
             </div>
@@ -80,21 +84,24 @@ export default function RootLayout({
             <div className="footer-panel">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-                  Güven Notu
+                  Guven Notu
                 </p>
                 <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
-                  Sosyal Hak Rehberi resmi kurum kararı vermez. Buradaki sonuçlar yalnızca ön
-                  değerlendirme niteliğindedir ve SocialRightOS backend karar motorunun döndürdüğü
-                  bilgiye dayanır.
+                  Sosyal Hak Rehberi resmi kurum karari vermez. Buradaki sonuclar yalnizca on
+                  degerlendirme niteligindedir ve SocialRightOS backend karar motorunun dondurdugu
+                  bilgiye dayanir.
                 </p>
               </div>
 
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <Link href="/" className="secondary-link compact-link">
+                  Tum testler
+                </Link>
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
-                  Evde bakım maaşı rehberi
+                  Evde Bakim rehberi
                 </Link>
                 <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link compact-link">
-                  Hesaplama aracını aç
+                  Evde Bakim testini ac
                 </Link>
               </div>
             </div>
