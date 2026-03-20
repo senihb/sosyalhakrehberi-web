@@ -14,10 +14,10 @@ const toolCards = [
   {
     title: "GSS Gelir Testi",
     body:
-      "Genel Saglik Sigortasi kapsaminda gelir testiyle ilgili on degerlendirme akisini tek sayfada acmayi hedefliyoruz.",
-    href: "#hangi-testi-secmeliyim",
-    cta: "Yakinda",
-    status: "Hazirlaniyor",
+      "Genel Saglik Sigortasi kapsaminda gelir testi icin sade form, backend destekli sonuc ve temel rehberlik sunan yeni tool sayfasi.",
+    href: "/gss-gelir-testi",
+    cta: "Teste git",
+    status: "Kullanima acik",
   },
   {
     title: "Evde Bakim Maası Uygunluk Testi",

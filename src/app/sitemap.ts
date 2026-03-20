@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     "/",
+    "/gss-gelir-testi",
     "/evde-bakim-maasi",
     "/evde-bakim-maasi/hesaplama",
     "/evde-bakim-maasi/sartlar",

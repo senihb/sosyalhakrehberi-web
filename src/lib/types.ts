@@ -1,13 +1,25 @@
 export type EligibilityStatus = "ELIGIBLE" | "NOT_ELIGIBLE" | "NEEDS_INFO";
 
-export type EligibilityBenefitCode = "TR_HOME_CARE_ALLOWANCE";
+export type EligibilityBenefitCode =
+  | "TR_HOME_CARE_ALLOWANCE"
+  | "TR_GSS"
+  | "TR_OLD_AGE_PENSION";
 
-export type HomeCareEligibilityFacts = {
+export type EligibilityFacts = {
+  age?: number | null;
   disability_rate?: number | null;
   household_income?: number | null;
+  gross_household_income?: number | null;
   household_size?: number | null;
   is_turkish_citizen?: boolean;
   is_resident_in_tr?: boolean;
+  has_social_security?: boolean;
+  has_active_insurance?: boolean;
+  is_covered_as_dependent?: boolean;
+  has_spouse?: boolean;
+  self_monthly_income?: number | null;
+  spouse_monthly_income?: number | null;
+  receives_pension?: boolean;
 };
 
 export type EligibilityCheckContext = {
@@ -19,7 +31,7 @@ export type EligibilityCheckContext = {
 
 export type EligibilityCheckRequest = {
   benefit_code: EligibilityBenefitCode;
-  facts: HomeCareEligibilityFacts;
+  facts: EligibilityFacts;
   context?: EligibilityCheckContext;
 };
 
