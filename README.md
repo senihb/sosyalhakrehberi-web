@@ -149,4 +149,5 @@ Current state of the repository:
 
 ## License
 
-No license file has been added yet.
+This repository is proprietary and distributed under an `All Rights Reserved` notice.
+See [LICENSE](LICENSE).
