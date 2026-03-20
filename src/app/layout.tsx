@@ -78,6 +78,13 @@ export default function RootLayout({
             </div>
           </header>
 
+          <div className="site-notice-wrap">
+            <div className="site-notice" role="note" aria-label="Onemli site notu">
+              Site su anda deneme asamasindadir. Tam kurulum tamamlanana kadar test
+              sonuclarini dikkate almayin.
+            </div>
+          </div>
+
           {children}
 
           <footer className="mx-auto mt-10 w-full max-w-6xl px-6 pb-10 lg:px-10">
