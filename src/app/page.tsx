@@ -30,10 +30,10 @@ const toolCards = [
   {
     title: "65 Yas Ayligi Uygunluk Testi",
     body:
-      "Yasli kullanicilar icin sade sorularla ilerleyen, on degerlendirme odakli yeni tool sayfasi sonraki adimda acilacak.",
-    href: "#hangi-testi-secmeliyim",
-    cta: "Yakinda",
-    status: "Hazirlaniyor",
+      "65 yas ayligi icin daha buyuk yazilar, sade sorular ve sonraki adimi aciklayan result surface ile hazirlanan public tool sayfasi.",
+    href: "/65-yas-ayligi-uygunluk-testi",
+    cta: "Teste git",
+    status: "Kullanima acik",
   },
 ];
 
