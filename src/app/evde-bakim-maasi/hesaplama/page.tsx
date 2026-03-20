@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
-import { trackAnalyticsEvent } from "@/lib/analytics";
 import { buildDecisionViewModel } from "@/lib/eligibility-explanations";
 import {
   buildEligibilityPayload,
@@ -18,6 +17,7 @@ import {
   shouldPromptIncomeGate,
   type IncomeGateSnapshot,
 } from "@/lib/income-gate";
+import { createToolAnalyticsSession } from "@/lib/tool-analytics";
 import { buildTrustLayerModel } from "@/lib/trust-layer";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import type { EligibilityCheckResponse, EligibilityStatus } from "@/lib/types";
@@ -122,52 +122,28 @@ export default function HesaplamaPage() {
   const [showIncomeGate, setShowIncomeGate] = useState(false);
   const [acknowledgedIncomeGateSnapshot, setAcknowledgedIncomeGateSnapshot] =
     useState<IncomeGateSnapshot | null>(null);
-  const hasTrackedFormStart = useRef(false);
-  const lastTrackedDecisionId = useRef<string | null>(null);
+  const analyticsRef = useRef(createToolAnalyticsSession("home-care"));
 
   useEffect(() => {
-    trackAnalyticsEvent({
-      name: "tool_opened",
-      tool: "home-care",
-      surface: "tool-page",
-    });
+    analyticsRef.current.trackOpened();
   }, []);
 
   useEffect(() => {
-    if (!result || lastTrackedDecisionId.current === result.decision_id) {
+    if (!result) {
       return;
     }
 
-    lastTrackedDecisionId.current = result.decision_id;
-    trackAnalyticsEvent({
-      name: "result_received",
-      tool: "home-care",
-      surface: "result",
-      status: result.status,
-    });
+    analyticsRef.current.trackResultReceived(result.decision_id, result.status);
   }, [result]);
 
   const markFormStarted = () => {
-    if (hasTrackedFormStart.current) {
-      return;
-    }
-
-    hasTrackedFormStart.current = true;
-    trackAnalyticsEvent({
-      name: "form_started",
-      tool: "home-care",
-      surface: "tool-page",
-    });
+    analyticsRef.current.trackFormStarted();
   };
 
   const incomeGateModel = buildIncomeGateModel(form);
 
   const submitEligibilityCheck = async () => {
-    trackAnalyticsEvent({
-      name: "form_submitted",
-      tool: "home-care",
-      surface: "tool-page",
-    });
+    analyticsRef.current.trackFormSubmitted();
     setIsSubmitting(true);
     setError(null);
     setFieldErrors(null);

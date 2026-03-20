@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { trackAnalyticsEvent, type ToolAnalyticsTool } from "@/lib/analytics";
+import { createToolAnalyticsSession } from "@/lib/tool-analytics";
+import type { ToolAnalyticsTool } from "@/lib/analytics";
 import type { ToolGuidanceModel } from "@/lib/tool-guidance";
 
 type ToolGuidanceSurfaceProps = {
@@ -13,6 +14,8 @@ export function ToolGuidanceSurface({
   tool,
   showNextStep = true,
 }: ToolGuidanceSurfaceProps) {
+  const analytics = createToolAnalyticsSession(tool);
+
   return (
     <section className="mt-5 rounded-2xl bg-white/70 p-5">
       <div
@@ -38,13 +41,7 @@ export function ToolGuidanceSurface({
                   href={guide.href}
                   className="secondary-link inline-flex"
                   onClick={() =>
-                    trackAnalyticsEvent({
-                      name: "guide_link_clicked",
-                      tool,
-                      surface: "guidance",
-                      target_kind: "guide",
-                      target_href: guide.href,
-                    })
+                    analytics.trackLinkClick("guidance", "guide", guide.href)
                   }
                 >
                   {guide.label}
@@ -64,13 +61,7 @@ export function ToolGuidanceSurface({
                   href={otherTool.href}
                   className="secondary-link inline-flex"
                   onClick={() =>
-                    trackAnalyticsEvent({
-                      name: "guide_link_clicked",
-                      tool,
-                      surface: "guidance",
-                      target_kind: "tool",
-                      target_href: otherTool.href,
-                    })
+                    analytics.trackLinkClick("guidance", "tool", otherTool.href)
                   }
                 >
                   {otherTool.label}

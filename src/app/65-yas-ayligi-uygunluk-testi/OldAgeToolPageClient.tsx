@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
-import { trackAnalyticsEvent } from "@/lib/analytics";
 import { buildOldAgeDecisionViewModel } from "@/lib/old-age-explanations";
+import { createToolAnalyticsSession } from "@/lib/tool-analytics";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import {
   buildOldAgePayload,
@@ -93,50 +93,26 @@ export function OldAgeToolPageClient() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const hasTrackedFormStart = useRef(false);
-  const lastTrackedDecisionId = useRef<string | null>(null);
+  const analyticsRef = useRef(createToolAnalyticsSession("old-age"));
 
   useEffect(() => {
-    trackAnalyticsEvent({
-      name: "tool_opened",
-      tool: "old-age",
-      surface: "tool-page",
-    });
+    analyticsRef.current.trackOpened();
   }, []);
 
   useEffect(() => {
-    if (!result || lastTrackedDecisionId.current === result.decision_id) {
+    if (!result) {
       return;
     }
 
-    lastTrackedDecisionId.current = result.decision_id;
-    trackAnalyticsEvent({
-      name: "result_received",
-      tool: "old-age",
-      surface: "result",
-      status: result.status,
-    });
+    analyticsRef.current.trackResultReceived(result.decision_id, result.status);
   }, [result]);
 
   const markFormStarted = () => {
-    if (hasTrackedFormStart.current) {
-      return;
-    }
-
-    hasTrackedFormStart.current = true;
-    trackAnalyticsEvent({
-      name: "form_started",
-      tool: "old-age",
-      surface: "tool-page",
-    });
+    analyticsRef.current.trackFormStarted();
   };
 
   const handleSubmit = async () => {
-    trackAnalyticsEvent({
-      name: "form_submitted",
-      tool: "old-age",
-      surface: "tool-page",
-    });
+    analyticsRef.current.trackFormSubmitted();
     setIsSubmitting(true);
     setError(null);
     setFieldErrors(null);
