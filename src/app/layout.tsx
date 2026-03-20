@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | Sosyal Hak Rehberi",
   },
   description:
-    "Sosyal hak testleri ve basvuru rehberleri icin guven odakli public product layer. Resmi karar uretmez; SocialRightOS backend contract'ini kullanan aciklayici on degerlendirme araclari sunar.",
+    "Sosyal hak testleri ve basvuru rehberleri icin guven odakli bir yol gosterici yuz. Resmi karar uretmez; on degerlendirme ve aciklayici rehberlik sunar.",
   applicationName: "Sosyal Hak Rehberi",
   keywords: [
     "sosyal hak testi",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sosyal Hak Rehberi",
     description:
-      "Sosyal hak testleri icin aciklayici, trust-first ve contract-safe public tool experience.",
+      "Sosyal hak testleri icin aciklayici, guven veren ve anlasilir bir yol gosterici deneyim.",
     type: "website",
     locale: "tr_TR",
     siteName: "Sosyal Hak Rehberi",
@@ -77,6 +77,9 @@ export default function RootLayout({
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
                   Evde Bakim
                 </Link>
+                <Link href="/dogum-yardimi-uygunluk-testi" className="secondary-link compact-link">
+                  Dogum Yardimi
+                </Link>
                 <Link href="/evde-bakim-maasi/hesaplama" className="primary-link compact-link">
                   Testi Ac
                 </Link>
@@ -101,8 +104,8 @@ export default function RootLayout({
                 </p>
                 <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
                   Sosyal Hak Rehberi resmi kurum karari vermez. Buradaki sonuclar yalnizca on
-                  degerlendirme niteligindedir ve SocialRightOS backend karar motorunun dondurdugu
-                  bilgiye dayanir.
+                  degerlendirme niteligindedir ve degerlendirme sistemi uzerinden uretilen bilgiye
+                  dayanir.
                 </p>
               </div>
 
@@ -118,6 +121,9 @@ export default function RootLayout({
                 </Link>
                 <Link href="/evde-bakim-maasi" className="secondary-link compact-link">
                   Evde Bakim rehberi
+                </Link>
+                <Link href="/dogum-yardimi-uygunluk-testi" className="secondary-link compact-link">
+                  Dogum Yardimi sayfasi
                 </Link>
                 <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link compact-link">
                   Evde Bakim testini ac

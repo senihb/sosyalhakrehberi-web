@@ -153,8 +153,7 @@ export function OldAgeToolPageClient() {
             65 yas ayligi icin sade ve okunmasi kolay on degerlendirme
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-700">
-            Bu arac resmi karar vermez. Yas, gelir ve sosyal guvence bilgilerinizle backend
-            destekli on degerlendirme sunar ve bir sonraki adimi aciklar.
+            Bu arac resmi karar vermez. Yas, gelir ve sosyal guvence bilgilerinizle on degerlendirme sunar ve bir sonraki adimi aciklar.
           </p>
 
           <div className="mt-6 rounded-3xl bg-slate-50 p-5 text-base leading-8 text-slate-700">
@@ -431,4 +430,8 @@ export function OldAgeToolPageClient() {
     </main>
   );
 }
+
+
+
+
 
