@@ -1,13 +1,16 @@
 import Link from "next/link";
+import { trackAnalyticsEvent, type ToolAnalyticsTool } from "@/lib/analytics";
 import type { ToolGuidanceModel } from "@/lib/tool-guidance";
 
 type ToolGuidanceSurfaceProps = {
   model: ToolGuidanceModel;
+  tool: ToolAnalyticsTool;
   showNextStep?: boolean;
 };
 
 export function ToolGuidanceSurface({
   model,
+  tool,
   showNextStep = true,
 }: ToolGuidanceSurfaceProps) {
   return (
@@ -31,7 +34,19 @@ export function ToolGuidanceSurface({
           <div className="mt-3 space-y-3">
             {model.relatedGuides.map((guide) => (
               <article key={`${guide.href}-${guide.label}`} className="rounded-2xl bg-white/80 p-3">
-                <Link href={guide.href} className="secondary-link inline-flex">
+                <Link
+                  href={guide.href}
+                  className="secondary-link inline-flex"
+                  onClick={() =>
+                    trackAnalyticsEvent({
+                      name: "guide_link_clicked",
+                      tool,
+                      surface: "guidance",
+                      target_kind: "guide",
+                      target_href: guide.href,
+                    })
+                  }
+                >
                   {guide.label}
                 </Link>
                 <p className="mt-2 text-sm leading-6 text-slate-700">{guide.body}</p>
@@ -43,12 +58,24 @@ export function ToolGuidanceSurface({
         <article className="rounded-2xl bg-white/70 p-4">
           <h3 className="text-base font-semibold text-slate-950">Diger testler</h3>
           <div className="mt-3 space-y-3">
-            {model.otherTests.map((tool) => (
-              <article key={`${tool.href}-${tool.label}`} className="rounded-2xl bg-white/80 p-3">
-                <Link href={tool.href} className="secondary-link inline-flex">
-                  {tool.label}
+            {model.otherTests.map((otherTool) => (
+              <article key={`${otherTool.href}-${otherTool.label}`} className="rounded-2xl bg-white/80 p-3">
+                <Link
+                  href={otherTool.href}
+                  className="secondary-link inline-flex"
+                  onClick={() =>
+                    trackAnalyticsEvent({
+                      name: "guide_link_clicked",
+                      tool,
+                      surface: "guidance",
+                      target_kind: "tool",
+                      target_href: otherTool.href,
+                    })
+                  }
+                >
+                  {otherTool.label}
                 </Link>
-                <p className="mt-2 text-sm leading-6 text-slate-700">{tool.body}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">{otherTool.body}</p>
               </article>
             ))}
           </div>

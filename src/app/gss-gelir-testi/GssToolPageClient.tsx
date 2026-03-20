@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { buildGssDecisionViewModel } from "@/lib/gss-explanations";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import {
@@ -92,8 +93,50 @@ export function GssToolPageClient() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const hasTrackedFormStart = useRef(false);
+  const lastTrackedDecisionId = useRef<string | null>(null);
+
+  useEffect(() => {
+    trackAnalyticsEvent({
+      name: "tool_opened",
+      tool: "gss",
+      surface: "tool-page",
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!result || lastTrackedDecisionId.current === result.decision_id) {
+      return;
+    }
+
+    lastTrackedDecisionId.current = result.decision_id;
+    trackAnalyticsEvent({
+      name: "result_received",
+      tool: "gss",
+      surface: "result",
+      status: result.status,
+    });
+  }, [result]);
+
+  const markFormStarted = () => {
+    if (hasTrackedFormStart.current) {
+      return;
+    }
+
+    hasTrackedFormStart.current = true;
+    trackAnalyticsEvent({
+      name: "form_started",
+      tool: "gss",
+      surface: "tool-page",
+    });
+  };
 
   const handleSubmit = async () => {
+    trackAnalyticsEvent({
+      name: "form_submitted",
+      tool: "gss",
+      surface: "tool-page",
+    });
     setIsSubmitting(true);
     setError(null);
     setFieldErrors(null);
@@ -151,10 +194,13 @@ export function GssToolPageClient() {
                 min="0"
                 value={form.grossHouseholdIncome}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    grossHouseholdIncome: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      grossHouseholdIncome: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Orn. 30000"
               />
@@ -167,10 +213,13 @@ export function GssToolPageClient() {
                 min="1"
                 value={form.householdSize}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    householdSize: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      householdSize: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Orn. 3"
               />
@@ -190,10 +239,13 @@ export function GssToolPageClient() {
                 name="hasSocialSecurity"
                 value={form.hasSocialSecurity}
                 onChange={(value) =>
-                  setForm((current) => ({
-                    ...current,
-                    hasSocialSecurity: value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      hasSocialSecurity: value,
+                    }));
+                  }
                 }
               />
               <TriStateField
@@ -201,10 +253,13 @@ export function GssToolPageClient() {
                 name="hasActiveInsurance"
                 value={form.hasActiveInsurance}
                 onChange={(value) =>
-                  setForm((current) => ({
-                    ...current,
-                    hasActiveInsurance: value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      hasActiveInsurance: value,
+                    }));
+                  }
                 }
               />
               <TriStateField
@@ -212,10 +267,13 @@ export function GssToolPageClient() {
                 name="isCoveredAsDependent"
                 value={form.isCoveredAsDependent}
                 onChange={(value) =>
-                  setForm((current) => ({
-                    ...current,
-                    isCoveredAsDependent: value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      isCoveredAsDependent: value,
+                    }));
+                  }
                 }
               />
             </div>
@@ -337,7 +395,7 @@ export function GssToolPageClient() {
                 </div>
               </div>
 
-              <ToolGuidanceSurface model={guidanceModel} />
+              <ToolGuidanceSurface model={guidanceModel} tool="gss" />
             </section>
           ) : null}
         </section>

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { buildDecisionViewModel } from "@/lib/eligibility-explanations";
 import {
   buildEligibilityPayload,
@@ -121,10 +122,52 @@ export default function HesaplamaPage() {
   const [showIncomeGate, setShowIncomeGate] = useState(false);
   const [acknowledgedIncomeGateSnapshot, setAcknowledgedIncomeGateSnapshot] =
     useState<IncomeGateSnapshot | null>(null);
+  const hasTrackedFormStart = useRef(false);
+  const lastTrackedDecisionId = useRef<string | null>(null);
+
+  useEffect(() => {
+    trackAnalyticsEvent({
+      name: "tool_opened",
+      tool: "home-care",
+      surface: "tool-page",
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!result || lastTrackedDecisionId.current === result.decision_id) {
+      return;
+    }
+
+    lastTrackedDecisionId.current = result.decision_id;
+    trackAnalyticsEvent({
+      name: "result_received",
+      tool: "home-care",
+      surface: "result",
+      status: result.status,
+    });
+  }, [result]);
+
+  const markFormStarted = () => {
+    if (hasTrackedFormStart.current) {
+      return;
+    }
+
+    hasTrackedFormStart.current = true;
+    trackAnalyticsEvent({
+      name: "form_started",
+      tool: "home-care",
+      surface: "tool-page",
+    });
+  };
 
   const incomeGateModel = buildIncomeGateModel(form);
 
   const submitEligibilityCheck = async () => {
+    trackAnalyticsEvent({
+      name: "form_submitted",
+      tool: "home-care",
+      surface: "tool-page",
+    });
     setIsSubmitting(true);
     setError(null);
     setFieldErrors(null);
@@ -202,10 +245,13 @@ export default function HesaplamaPage() {
                 max="100"
                 value={form.disabilityRate}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    disabilityRate: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      disabilityRate: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Örn. 80"
               />
@@ -218,10 +264,13 @@ export default function HesaplamaPage() {
                 min="0"
                 value={form.householdIncome}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    householdIncome: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      householdIncome: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Örn. 10000"
               />
@@ -234,10 +283,13 @@ export default function HesaplamaPage() {
                 min="1"
                 value={form.householdSize}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    householdSize: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      householdSize: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Örn. 4"
               />
@@ -255,10 +307,13 @@ export default function HesaplamaPage() {
                 name="isTurkishCitizen"
                 value={form.isTurkishCitizen}
                 onChange={(value) =>
-                  setForm((current) => ({
-                    ...current,
-                    isTurkishCitizen: value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      isTurkishCitizen: value,
+                    }));
+                  }
                 }
               />
               <TriStateField
@@ -267,10 +322,13 @@ export default function HesaplamaPage() {
                 name="isResidentInTr"
                 value={form.isResidentInTr}
                 onChange={(value) =>
-                  setForm((current) => ({
-                    ...current,
-                    isResidentInTr: value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      isResidentInTr: value,
+                    }));
+                  }
                 }
               />
             </div>
@@ -506,7 +564,7 @@ export default function HesaplamaPage() {
                 </div>
               ) : null}
 
-              <ToolGuidanceSurface model={guidanceModel} showNextStep={false} />
+              <ToolGuidanceSurface model={guidanceModel} tool="home-care" showNextStep={false} />
             </section>
           ) : null}
         </section>

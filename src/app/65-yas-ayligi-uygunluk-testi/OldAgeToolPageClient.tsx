@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ToolGuidanceSurface } from "@/components/ToolGuidanceSurface";
 import { ApiClientError, checkEligibility } from "@/lib/api";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { buildOldAgeDecisionViewModel } from "@/lib/old-age-explanations";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
 import {
@@ -92,8 +93,50 @@ export function OldAgeToolPageClient() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const hasTrackedFormStart = useRef(false);
+  const lastTrackedDecisionId = useRef<string | null>(null);
+
+  useEffect(() => {
+    trackAnalyticsEvent({
+      name: "tool_opened",
+      tool: "old-age",
+      surface: "tool-page",
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!result || lastTrackedDecisionId.current === result.decision_id) {
+      return;
+    }
+
+    lastTrackedDecisionId.current = result.decision_id;
+    trackAnalyticsEvent({
+      name: "result_received",
+      tool: "old-age",
+      surface: "result",
+      status: result.status,
+    });
+  }, [result]);
+
+  const markFormStarted = () => {
+    if (hasTrackedFormStart.current) {
+      return;
+    }
+
+    hasTrackedFormStart.current = true;
+    trackAnalyticsEvent({
+      name: "form_started",
+      tool: "old-age",
+      surface: "tool-page",
+    });
+  };
 
   const handleSubmit = async () => {
+    trackAnalyticsEvent({
+      name: "form_submitted",
+      tool: "old-age",
+      surface: "tool-page",
+    });
     setIsSubmitting(true);
     setError(null);
     setFieldErrors(null);
@@ -153,10 +196,13 @@ export function OldAgeToolPageClient() {
                 max="120"
                 value={form.age}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    age: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      age: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Orn. 67"
               />
@@ -167,10 +213,13 @@ export function OldAgeToolPageClient() {
               name="hasSpouse"
               value={form.hasSpouse}
               onChange={(value) =>
-                setForm((current) => ({
-                  ...current,
-                  hasSpouse: value,
-                }))
+                {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    hasSpouse: value,
+                  }));
+                }
               }
             />
 
@@ -182,10 +231,13 @@ export function OldAgeToolPageClient() {
                 min="0"
                 value={form.selfMonthlyIncome}
                 onChange={(event) =>
-                  setForm((current) => ({
-                    ...current,
-                    selfMonthlyIncome: event.target.value,
-                  }))
+                  {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      selfMonthlyIncome: event.target.value,
+                    }));
+                  }
                 }
                 placeholder="Orn. 5000"
               />
@@ -200,10 +252,13 @@ export function OldAgeToolPageClient() {
                   min="0"
                   value={form.spouseMonthlyIncome}
                   onChange={(event) =>
-                    setForm((current) => ({
-                      ...current,
-                      spouseMonthlyIncome: event.target.value,
-                    }))
+                    {
+                      markFormStarted();
+                      setForm((current) => ({
+                        ...current,
+                        spouseMonthlyIncome: event.target.value,
+                      }));
+                    }
                   }
                   placeholder="Orn. 6000"
                 />
@@ -215,10 +270,13 @@ export function OldAgeToolPageClient() {
               name="hasSocialSecurity"
               value={form.hasSocialSecurity}
               onChange={(value) =>
-                setForm((current) => ({
-                  ...current,
-                  hasSocialSecurity: value,
-                }))
+                {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    hasSocialSecurity: value,
+                  }));
+                }
               }
             />
 
@@ -227,10 +285,13 @@ export function OldAgeToolPageClient() {
               name="receivesPension"
               value={form.receivesPension}
               onChange={(value) =>
-                setForm((current) => ({
-                  ...current,
-                  receivesPension: value,
-                }))
+                {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    receivesPension: value,
+                  }));
+                }
               }
             />
           </div>
@@ -355,7 +416,7 @@ export function OldAgeToolPageClient() {
                 </div>
               </div>
 
-              <ToolGuidanceSurface model={guidanceModel} />
+              <ToolGuidanceSurface model={guidanceModel} tool="old-age" />
             </section>
           ) : null}
         </section>
