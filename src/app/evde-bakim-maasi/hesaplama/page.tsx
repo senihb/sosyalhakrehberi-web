@@ -74,12 +74,12 @@ const careDependencyOptions: Array<{
 }> = [
   {
     label: "Tam bağımlı",
-    value: "FULLY_DEPENDENT",
+    value: "full_dependency",
     description: "Günlük bakım ihtiyacı sürekli destek gerektiriyor.",
   },
   {
-    label: "Tam bağımlı değil",
-    value: "NOT_FULLY_DEPENDENT",
+    label: "Kısmi bağımlılık / tam bağımlı değil",
+    value: "partial_dependency",
     description: "Bakım ihtiyacı var ama tam bağımlılık teyidi bulunmuyor.",
   },
   {

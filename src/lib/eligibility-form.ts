@@ -2,8 +2,8 @@ import type { EligibilityCheckRequest } from "@/lib/types";
 
 export type TriStateAttestation = true | false | null;
 export type CareDependencyStatus =
-  | "FULLY_DEPENDENT"
-  | "NOT_FULLY_DEPENDENT"
+  | "full_dependency"
+  | "partial_dependency"
   | null;
 
 export type EligibilityFormState = {
