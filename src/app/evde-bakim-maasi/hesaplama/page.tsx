@@ -7,6 +7,7 @@ import { ApiClientError, checkEligibility } from "@/lib/api";
 import {
   buildEligibilityPayload,
   initialEligibilityFormState,
+  type CareDependencyStatus,
   type EligibilityFormState,
   type TriStateAttestation,
 } from "@/lib/eligibility-form";
@@ -64,6 +65,28 @@ const triStateOptions: Array<{
   { label: "Evet", value: true },
   { label: "Hayır", value: false },
   { label: "Bilmiyorum", value: null },
+];
+
+const careDependencyOptions: Array<{
+  description: string;
+  label: string;
+  value: CareDependencyStatus;
+}> = [
+  {
+    label: "Tam bağımlı",
+    value: "FULLY_DEPENDENT",
+    description: "Günlük bakım ihtiyacı sürekli destek gerektiriyor.",
+  },
+  {
+    label: "Tam bağımlı değil",
+    value: "NOT_FULLY_DEPENDENT",
+    description: "Bakım ihtiyacı var ama tam bağımlılık teyidi bulunmuyor.",
+  },
+  {
+    label: "Bilmiyorum",
+    value: null,
+    description: "Emin değilseniz bu seçeneği kullanın; bilgi eksik olarak değerlendirilir.",
+  },
 ];
 
 function resultPrimaryAction(status: EligibilityStatus) {
@@ -243,27 +266,211 @@ export default function HesaplamaPage() {
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Tam bağımlılık, gelir, hane ve temel
-            durum bilgileri dışında kimlik numarası, açık adres veya belge yükleme bu aşamada
-            istenmez.
+            Formda yalnızca gerekli temel bilgiler istenir. Bakım ihtiyacı, sağlık raporu,
+            yerleşim, gelir ve hane bilgileri dışında kimlik numarası, açık adres veya belge
+            yükleme bu aşamada istenmez.
           </div>
 
           <div id="form-start" className="mt-8 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:col-span-2">
+              <p className="text-sm font-medium text-slate-900">Yerleşim ve kimlik yolu</p>
+              <p className="mt-2 text-xs leading-6 text-slate-600">
+                Emin değilseniz Bilmiyorum seçeneğini kullanın. Bilinmeyen alanlar değerlendirme
+                sistemine eksik bilgi olarak gönderilir.
+              </p>
+              <TriStateField
+                className="mt-4"
+                legend="Türkiye'de ikamet ediyor mu?"
+                name="isResidentInTr"
+                value={form.isResidentInTr}
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    isResidentInTr: value,
+                  }));
+                }}
+              />
+              <TriStateField
+                className="mt-4"
+                legend="Türk vatandaşı mı?"
+                name="isTurkishCitizen"
+                value={form.isTurkishCitizen}
+                onChange={(value) => {
+                  markFormStarted();
+                  setForm((current) => ({
+                    ...current,
+                    isTurkishCitizen: value,
+                    hasValidForeignerIdentityNumber:
+                      value === false ? current.hasValidForeignerIdentityNumber : null,
+                    hasValidResidencePermit:
+                      value === false ? current.hasValidResidencePermit : null,
+                  }));
+                }}
+              />
+
+              {form.isTurkishCitizen === false ? (
+                <div className="mt-4 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 md:grid-cols-2">
+                  <TriStateField
+                    legend="Geçerli yabancı kimlik numarası var mı?"
+                    name="hasValidForeignerIdentityNumber"
+                    value={form.hasValidForeignerIdentityNumber}
+                    onChange={(value) => {
+                      markFormStarted();
+                      setForm((current) => ({
+                        ...current,
+                        hasValidForeignerIdentityNumber: value,
+                      }));
+                    }}
+                  />
+                  <TriStateField
+                    legend="Geçerli oturma izni var mı?"
+                    name="hasValidResidencePermit"
+                    value={form.hasValidResidencePermit}
+                    onChange={(value) => {
+                      markFormStarted();
+                      setForm((current) => ({
+                        ...current,
+                        hasValidResidencePermit: value,
+                      }));
+                    }}
+                  />
+                </div>
+              ) : null}
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:col-span-2">
+              <p className="text-sm font-medium text-slate-900">Sağlık ve bakım ihtiyacı</p>
+              <p className="mt-2 text-xs leading-6 text-slate-600">
+                Bu bölümde bakım ihtiyacı ve heyet teyidi ana sorulardır. Sağlık raporundaki oran
+                tek başına yeterli karar üretmez.
+              </p>
+
+              <div className="mt-4 grid gap-5 md:grid-cols-2">
+                <TriStateField
+                  legend="Geçerli sağlık raporu var mı?"
+                  name="hasValidHealthReport"
+                  value={form.hasValidHealthReport}
+                  onChange={(value) => {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      hasValidHealthReport: value,
+                    }));
+                  }}
+                />
+
+                <label className="form-field">
+                  <span>Sağlık raporundaki oran</span>
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={form.disabilityRate}
+                    onChange={(event) => {
+                      markFormStarted();
+                      setForm((current) => ({
+                        ...current,
+                        disabilityRate: event.target.value,
+                      }));
+                    }}
+                    placeholder="Örn. 80"
+                  />
+                </label>
+              </div>
+
+              <fieldset className="mt-5">
+                <legend className="text-sm font-medium text-slate-900">
+                  Tam bağımlılık durumu
+                </legend>
+                <div className="mt-3 grid gap-3 md:grid-cols-3">
+                  {careDependencyOptions.map((option) => {
+                    const checked = form.careDependencyStatus === option.value;
+
+                    return (
+                      <label
+                        key={`careDependency-${option.label}`}
+                        className={`cursor-pointer rounded-2xl border p-4 text-sm transition ${
+                          checked
+                            ? "border-slate-900 bg-slate-900 text-white"
+                            : "border-slate-200 bg-white text-slate-700 hover:border-slate-400"
+                        }`}
+                      >
+                        <input
+                          className="sr-only"
+                          type="radio"
+                          name="careDependencyStatus"
+                          checked={checked}
+                          onChange={() => {
+                            markFormStarted();
+                            setForm((current) => ({
+                              ...current,
+                              careDependencyStatus: option.value,
+                            }));
+                          }}
+                        />
+                        <span className="block font-medium">{option.label}</span>
+                        <span
+                          className={`mt-2 block text-xs leading-6 ${
+                            checked ? "text-white/80" : "text-slate-600"
+                          }`}
+                        >
+                          {option.description}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+
+              <div className="mt-5 grid gap-5 md:grid-cols-2">
+                <div>
+                  <TriStateField
+                    legend="Heyet bakım raporu veya bakım ihtiyacı tespiti var mı?"
+                    name="careNeedConfirmedByBoard"
+                    value={form.careNeedConfirmedByBoard}
+                    onChange={(value) => {
+                      markFormStarted();
+                      setForm((current) => ({
+                        ...current,
+                        careNeedConfirmedByBoard: value,
+                      }));
+                    }}
+                  />
+                  <p className="mt-2 text-xs leading-6 text-slate-600">
+                    Bu soru 2026 uygulamasındaki bakım ihtiyacı teyidini yansıtır.
+                  </p>
+                </div>
+
+                <TriStateField
+                  legend="Bakım verenle aynı evde yaşıyor mu?"
+                  name="caregiverSameResidence"
+                  value={form.caregiverSameResidence}
+                  onChange={(value) => {
+                    markFormStarted();
+                    setForm((current) => ({
+                      ...current,
+                      caregiverSameResidence: value,
+                    }));
+                  }}
+                />
+              </div>
+            </div>
+
             <label className="form-field">
-              <span>Engellilik oranı</span>
+              <span>Hanedeki kişi sayısı</span>
               <input
                 type="number"
-                min="0"
-                max="100"
-                value={form.disabilityRate}
+                min="1"
+                value={form.householdSize}
                 onChange={(event) => {
                   markFormStarted();
                   setForm((current) => ({
                     ...current,
-                    disabilityRate: event.target.value,
+                    householdSize: event.target.value,
                   }));
                 }}
-                placeholder="Örn. 80"
+                placeholder="Örn. 4"
               />
             </label>
 
@@ -284,52 +491,22 @@ export default function HesaplamaPage() {
               />
             </label>
 
-            <label className="form-field">
-              <span>Hanedeki kişi sayısı</span>
-              <input
-                type="number"
-                min="1"
-                value={form.householdSize}
-                onChange={(event) => {
-                  markFormStarted();
-                  setForm((current) => ({
-                    ...current,
-                    householdSize: event.target.value,
-                  }));
-                }}
-                placeholder="Örn. 4"
-              />
-            </label>
-
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-900">Temel doğrulamalar</p>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:col-span-2">
+              <p className="text-sm font-medium text-slate-900">Ek gelir veya varlık etkisi</p>
               <p className="mt-2 text-xs leading-6 text-slate-600">
-                Emin değilseniz Bilmiyorum seçeneğini kullanın. Sayfa tahmin üretmez; bilgi
-                değerlendirme sistemine bilinmiyor olarak gönderilir.
+                Bu alan şu an yalnız bilgilendirme amaçlıdır. Tek başına formu durdurmaz; sonucu
+                açıklarken ek rehberlik sağlayabilir.
               </p>
               <TriStateField
                 className="mt-4"
-                legend="Türkiye Cumhuriyeti vatandaşlık durumu"
-                name="isTurkishCitizen"
-                value={form.isTurkishCitizen}
+                legend="Ek gelir veya varlık etkileri var mı?"
+                name="hasAdditionalIncomeOrAssets"
+                value={form.hasAdditionalIncomeOrAssets}
                 onChange={(value) => {
                   markFormStarted();
                   setForm((current) => ({
                     ...current,
-                    isTurkishCitizen: value,
-                  }));
-                }}
-              />
-              <TriStateField
-                className="mt-4"
-                legend="Türkiye'de ikamet durumu"
-                name="isResidentInTr"
-                value={form.isResidentInTr}
-                onChange={(value) => {
-                  markFormStarted();
-                  setForm((current) => ({
-                    ...current,
-                    isResidentInTr: value,
+                    hasAdditionalIncomeOrAssets: value,
                   }));
                 }}
               />
@@ -726,17 +903,17 @@ export default function HesaplamaPage() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Veri yaklaşımı</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Kimlik numarası, açık adres veya belge yükleme istenmez. Bu akış yalnızca gerekli temel
-              değerlendirme alanlarını kullanır.
+              Kimlik numarası, açık adres veya belge yükleme istenmez. Bu akış bakım ihtiyacı,
+              sağlık raporu, hane ve gelir için gerekli temel değerlendirme alanlarını kullanır.
             </p>
           </div>
 
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Hızlı hazırlık listesi</h2>
             <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-700">
-              <li>Gelir bilgisini netleştirin.</li>
-              <li>Hanedeki kişi sayısını doğru girin.</li>
-              <li>Eksik sonuç aldıysanız gerekli alanları tamamlayın.</li>
+              <li>Bakım ihtiyacı ve heyet teyidi bilgisini gözden geçirin.</li>
+              <li>Hanedeki kişi sayısı ve toplam geliri doğru girin.</li>
+              <li>Eksik sonuç aldıysanız Bilmiyorum bıraktığınız alanları tamamlayın.</li>
             </ul>
           </div>
         </aside>

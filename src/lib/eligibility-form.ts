@@ -1,6 +1,10 @@
 import type { EligibilityCheckRequest } from "@/lib/types";
 
 export type TriStateAttestation = true | false | null;
+export type CareDependencyStatus =
+  | "FULLY_DEPENDENT"
+  | "NOT_FULLY_DEPENDENT"
+  | null;
 
 export type EligibilityFormState = {
   disabilityRate: string;
@@ -8,6 +12,13 @@ export type EligibilityFormState = {
   householdSize: string;
   isTurkishCitizen: TriStateAttestation;
   isResidentInTr: TriStateAttestation;
+  hasValidForeignerIdentityNumber: TriStateAttestation;
+  hasValidResidencePermit: TriStateAttestation;
+  hasValidHealthReport: TriStateAttestation;
+  careDependencyStatus: CareDependencyStatus;
+  careNeedConfirmedByBoard: TriStateAttestation;
+  caregiverSameResidence: TriStateAttestation;
+  hasAdditionalIncomeOrAssets: TriStateAttestation;
 };
 
 export const initialEligibilityFormState: EligibilityFormState = {
@@ -16,6 +27,13 @@ export const initialEligibilityFormState: EligibilityFormState = {
   householdSize: "",
   isTurkishCitizen: null,
   isResidentInTr: null,
+  hasValidForeignerIdentityNumber: null,
+  hasValidResidencePermit: null,
+  hasValidHealthReport: null,
+  careDependencyStatus: null,
+  careNeedConfirmedByBoard: null,
+  caregiverSameResidence: null,
+  hasAdditionalIncomeOrAssets: null,
 };
 
 function toNumber(value: string): number | null {
@@ -32,8 +50,8 @@ export function buildEligibilityPayload(
   requestId: string,
 ): EligibilityCheckRequest {
   const facts: EligibilityCheckRequest["facts"] = {
-    disability_rate: toNumber(form.disabilityRate),
-    household_income: toNumber(form.householdIncome),
+    care_recipient_disability_rate: toNumber(form.disabilityRate),
+    household_total_income: toNumber(form.householdIncome),
     household_size: toNumber(form.householdSize),
   };
 
@@ -43,6 +61,37 @@ export function buildEligibilityPayload(
 
   if (form.isResidentInTr !== null) {
     facts.is_resident_in_tr = form.isResidentInTr;
+  }
+
+  if (form.isTurkishCitizen === false) {
+    if (form.hasValidForeignerIdentityNumber !== null) {
+      facts.has_valid_foreigner_identity_number =
+        form.hasValidForeignerIdentityNumber;
+    }
+
+    if (form.hasValidResidencePermit !== null) {
+      facts.has_valid_residence_permit = form.hasValidResidencePermit;
+    }
+  }
+
+  if (form.hasValidHealthReport !== null) {
+    facts.has_valid_health_report = form.hasValidHealthReport;
+  }
+
+  if (form.careDependencyStatus !== null) {
+    facts.care_dependency_status = form.careDependencyStatus;
+  }
+
+  if (form.careNeedConfirmedByBoard !== null) {
+    facts.care_need_confirmed_by_board = form.careNeedConfirmedByBoard;
+  }
+
+  if (form.caregiverSameResidence !== null) {
+    facts.caregiver_same_residence = form.caregiverSameResidence;
+  }
+
+  if (form.hasAdditionalIncomeOrAssets !== null) {
+    facts.has_additional_income_or_assets = form.hasAdditionalIncomeOrAssets;
   }
 
   return {

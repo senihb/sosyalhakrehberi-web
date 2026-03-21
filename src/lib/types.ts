@@ -8,11 +8,20 @@ export type EligibilityBenefitCode =
 export type EligibilityFacts = {
   age?: number | null;
   disability_rate?: number | null;
+  care_recipient_disability_rate?: number | null;
   household_income?: number | null;
+  household_total_income?: number | null;
   gross_household_income?: number | null;
   household_size?: number | null;
   is_turkish_citizen?: boolean;
   is_resident_in_tr?: boolean;
+  has_valid_foreigner_identity_number?: boolean;
+  has_valid_residence_permit?: boolean;
+  has_valid_health_report?: boolean;
+  care_dependency_status?: string | null;
+  care_need_confirmed_by_board?: boolean;
+  caregiver_same_residence?: boolean;
+  has_additional_income_or_assets?: boolean;
   has_social_security?: boolean;
   has_active_insurance?: boolean;
   is_covered_as_dependent?: boolean;
