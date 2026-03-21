@@ -29,3 +29,27 @@ export function getHomeCareFieldLabel(field: string): string {
 export function getHomeCareStatusLabel(status: EligibilityStatus): string {
   return statusLabelMap[status];
 }
+
+export function getHomeCareVisitorErrorMessage(
+  message: string,
+  status?: number,
+): string {
+  if (status === 422 || /request payload is invalid/i.test(message)) {
+    return "Gönderilen bilgiler güncel değerlendirme kurallarına uymuyor. Lütfen alanları gözden geçirip yeniden deneyin.";
+  }
+
+  return message;
+}
+
+export function getHomeCareVisitorFieldMessages(
+  field: string,
+  messages: string[],
+): string[] {
+  return messages.map((message) => {
+    if (/this fact is not allowed for the requested benefit/i.test(message)) {
+      return `${getHomeCareFieldLabel(field)} şu anda bu ön değerlendirmede kullanılamıyor. Lütfen bilgileri gözden geçirip yeniden deneyin.`;
+    }
+
+    return message;
+  });
+}

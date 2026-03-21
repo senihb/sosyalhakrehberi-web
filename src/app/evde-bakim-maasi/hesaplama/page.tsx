@@ -23,6 +23,8 @@ import { getHomeCareFormFieldErrors } from "@/lib/home-care-form-validation";
 import {
   getHomeCareFieldLabel,
   getHomeCareStatusLabel,
+  getHomeCareVisitorErrorMessage,
+  getHomeCareVisitorFieldMessages,
 } from "@/lib/home-care-visitor-copy";
 import type { EligibilityCheckResponse, EligibilityStatus } from "@/lib/types";
 import {
@@ -192,7 +194,7 @@ export default function HesaplamaPage() {
       setResult(response);
     } catch (err) {
       if (err instanceof ApiClientError) {
-        setError(err.message);
+        setError(getHomeCareVisitorErrorMessage(err.message, err.status));
         setFieldErrors(err.details ?? null);
       } else {
         setError("Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
@@ -572,7 +574,7 @@ export default function HesaplamaPage() {
                   {Object.entries(fieldErrors).map(([field, messages]) => (
                     <li key={field}>
                       <span className="font-medium">{getHomeCareFieldLabel(field)}</span>:{" "}
-                      {messages.join(" ")}
+                      {getHomeCareVisitorFieldMessages(field, messages).join(" ")}
                     </li>
                   ))}
                 </ul>

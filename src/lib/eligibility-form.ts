@@ -39,6 +39,20 @@ function toNumber(value: string): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function toCareDependencyStatus(
+  value: TriStateAttestation,
+): "full_dependency" | "partial_dependency" | null {
+  if (value === true) {
+    return "full_dependency";
+  }
+
+  if (value === false) {
+    return "partial_dependency";
+  }
+
+  return null;
+}
+
 export function buildEligibilityPayload(
   form: EligibilityFormState,
   requestId: string,
@@ -68,8 +82,9 @@ export function buildEligibilityPayload(
     }
   }
 
-  if (form.isFullyDependent !== null) {
-    facts.is_fully_dependent = form.isFullyDependent;
+  const careDependencyStatus = toCareDependencyStatus(form.isFullyDependent);
+  if (careDependencyStatus !== null) {
+    facts.care_dependency_status = careDependencyStatus;
   }
 
   if (form.careNeedConfirmedByBoard !== null) {
