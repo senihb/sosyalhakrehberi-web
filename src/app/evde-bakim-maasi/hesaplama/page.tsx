@@ -20,6 +20,7 @@ import {
 import { createToolAnalyticsSession } from "@/lib/tool-analytics";
 import { buildTrustLayerModel } from "@/lib/trust-layer";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
+import { getHomeCareFormFieldErrors } from "@/lib/home-care-form-validation";
 import {
   getHomeCareFieldLabel,
   getHomeCareStatusLabel,
@@ -193,12 +194,20 @@ export default function HesaplamaPage() {
   const incomeGateModel = buildIncomeGateModel(form);
 
   const submitEligibilityCheck = async () => {
+    const clientFieldErrors = getHomeCareFormFieldErrors(form);
+
+    if (clientFieldErrors) {
+      setError("Lütfen zorunlu alanları tamamlayın.");
+      setFieldErrors(clientFieldErrors);
+      setResult(null);
+      return;
+    }
+
     analyticsRef.current.trackFormSubmitted();
     setIsSubmitting(true);
     setError(null);
     setFieldErrors(null);
     setResult(null);
-
     const payload = buildEligibilityPayload(form, crypto.randomUUID());
 
     try {
@@ -270,7 +279,7 @@ export default function HesaplamaPage() {
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-700">
-            Formda yalnızca gerekli temel bilgiler istenir. Bakım ihtiyacı, sağlık raporu,
+            Formda yalnızca gerekli temel bilgiler istenir. Bakım ihtiyacı, sağlık raporu oranı,
             yerleşim, gelir ve hane bilgileri dışında kimlik numarası, açık adres veya belge
             yükleme bu aşamada istenmez.
           </div>
@@ -350,38 +359,24 @@ export default function HesaplamaPage() {
                 tek başına yeterli karar üretmez.
               </p>
 
-              <div className="mt-4 grid gap-5 md:grid-cols-2">
-                <TriStateField
-                  legend="Geçerli sağlık raporu var mı?"
-                  name="hasValidHealthReport"
-                  value={form.hasValidHealthReport}
-                  onChange={(value) => {
+              <label className="form-field mt-4">
+                <span>Sağlık raporundaki oran</span>
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  required
+                  value={form.disabilityRate}
+                  onChange={(event) => {
                     markFormStarted();
                     setForm((current) => ({
                       ...current,
-                      hasValidHealthReport: value,
+                      disabilityRate: event.target.value,
                     }));
                   }}
+                  placeholder="Örn. 80"
                 />
-
-                <label className="form-field">
-                  <span>Sağlık raporundaki oran</span>
-                  <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    value={form.disabilityRate}
-                    onChange={(event) => {
-                      markFormStarted();
-                      setForm((current) => ({
-                        ...current,
-                        disabilityRate: event.target.value,
-                      }));
-                    }}
-                    placeholder="Örn. 80"
-                  />
-                </label>
-              </div>
+              </label>
 
               <fieldset className="mt-5">
                 <legend className="text-sm font-medium text-slate-900">
@@ -897,7 +892,7 @@ export default function HesaplamaPage() {
             <h2 className="text-lg font-semibold text-slate-950">Veri yaklaşımı</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
               Kimlik numarası, açık adres veya belge yükleme istenmez. Bu akış bakım ihtiyacı,
-              sağlık raporu, hane ve gelir için gerekli temel değerlendirme alanlarını kullanır.
+              sağlık raporu oranı, hane ve gelir için gerekli temel değerlendirme alanlarını kullanır.
             </p>
           </div>
 

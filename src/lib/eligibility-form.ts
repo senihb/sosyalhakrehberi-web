@@ -14,7 +14,6 @@ export type EligibilityFormState = {
   isResidentInTr: TriStateAttestation;
   hasValidForeignerIdentityNumber: TriStateAttestation;
   hasValidResidencePermit: TriStateAttestation;
-  hasValidHealthReport: TriStateAttestation;
   careDependencyStatus: CareDependencyStatus;
   careNeedConfirmedByBoard: TriStateAttestation;
   caregiverSameResidence: TriStateAttestation;
@@ -29,7 +28,6 @@ export const initialEligibilityFormState: EligibilityFormState = {
   isResidentInTr: null,
   hasValidForeignerIdentityNumber: null,
   hasValidResidencePermit: null,
-  hasValidHealthReport: null,
   careDependencyStatus: null,
   careNeedConfirmedByBoard: null,
   caregiverSameResidence: null,
@@ -72,10 +70,6 @@ export function buildEligibilityPayload(
     if (form.hasValidResidencePermit !== null) {
       facts.has_valid_residence_permit = form.hasValidResidencePermit;
     }
-  }
-
-  if (form.hasValidHealthReport !== null) {
-    facts.has_valid_health_report = form.hasValidHealthReport;
   }
 
   if (form.careDependencyStatus !== null) {
