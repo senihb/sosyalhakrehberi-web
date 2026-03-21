@@ -57,6 +57,12 @@ const faqItems = [
 
 const detailGuides = [
   {
+    href: "/evde-bakim-maasi/basvuru-rehberi",
+    title: "Evde Bakım Maaşı başvuru hazırlık rehberi",
+    body:
+      "Hangi kuruma hangi hazırlıkla gidileceğini ve hangi belge başlıklarının önceden toparlanabileceğini açıklar.",
+  },
+  {
     href: "/evde-bakim-maasi/sartlar",
     title: "Evde Bakım Maaşı şartları",
     body:
@@ -176,7 +182,7 @@ export default function HomeCareAllowancePage() {
 
         <section className="mt-8 card-panel">
           <h2 className="text-2xl font-semibold text-slate-950">Detay rehberleri</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
             {detailGuides.map((guide) => (
               <article key={guide.href} className="rounded-2xl bg-slate-50 p-5">
                 <h3 className="font-semibold text-slate-900">{guide.title}</h3>

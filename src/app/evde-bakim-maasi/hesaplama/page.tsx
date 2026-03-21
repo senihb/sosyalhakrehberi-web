@@ -105,13 +105,13 @@ function resultPrimaryAction(status: EligibilityStatus) {
   if (status === "ELIGIBLE") {
     return {
       label: "Başvuru rehberine git",
-      href: "/evde-bakim-maasi",
+      href: "/evde-bakim-maasi/basvuru-rehberi",
     };
   }
 
   return {
     label: "Şartları rehber sayfasında incele",
-    href: "/evde-bakim-maasi",
+    href: "/evde-bakim-maasi/sartlar",
   };
 }
 
@@ -840,7 +840,10 @@ export default function HesaplamaPage() {
                 <div className="rounded-2xl bg-white/70 p-5">
                   <h3 className="font-semibold">Yararlı yönlendirmeler</h3>
                   <div className="mt-4 flex flex-col gap-3">
-                    <Link href="/evde-bakim-maasi" className="secondary-link inline-flex">
+                    <Link
+                      href="/evde-bakim-maasi/basvuru-rehberi"
+                      className="secondary-link inline-flex"
+                    >
                       Başvuru rehberini aç
                     </Link>
                     <Link
