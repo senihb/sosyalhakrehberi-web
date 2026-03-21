@@ -33,7 +33,7 @@ export function buildTrustLayerModel(input: {
       },
       {
         title: "Karar kuralları ayrı değerlendirilir",
-        body: "Bu sayfa yalnızca sonucu sunar. Eşikler, kurallar ve değerlendirme anlamı ayrı sistemde yönetilir.",
+        body: "Bu sayfa yalnızca sonucu sunar. Eşikler, kurallar ve değerlendirmenin anlamı ayrı sistemde yönetilir.",
       },
       {
         title: "Gereksiz kişisel veri istenmez",
