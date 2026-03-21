@@ -80,7 +80,7 @@ export default function RootLayout({
                 <Link href="/dogum-yardimi-uygunluk-testi" className="secondary-link compact-link">
                   Doğum Yardımı
                 </Link>
-                <Link href="/evde-bakim-maasi/hesaplama" className="primary-link compact-link">
+                <Link href="/start" className="primary-link compact-link">
                   Testi Aç
                 </Link>
               </nav>
@@ -125,7 +125,7 @@ export default function RootLayout({
                 <Link href="/dogum-yardimi-uygunluk-testi" className="secondary-link compact-link">
                   Doğum Yardımı sayfası
                 </Link>
-                <Link href="/evde-bakim-maasi/hesaplama" className="secondary-link compact-link">
+                <Link href="/start" className="secondary-link compact-link">
                   Evde Bakım testini aç
                 </Link>
               </div>
