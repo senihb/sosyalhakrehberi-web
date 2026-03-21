@@ -20,6 +20,10 @@ import {
 import { createToolAnalyticsSession } from "@/lib/tool-analytics";
 import { buildTrustLayerModel } from "@/lib/trust-layer";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
+import {
+  getHomeCareFieldLabel,
+  getHomeCareStatusLabel,
+} from "@/lib/home-care-visitor-copy";
 import type { EligibilityCheckResponse, EligibilityStatus } from "@/lib/types";
 import {
   formatEvaluationDateTR,
@@ -619,7 +623,8 @@ export default function HesaplamaPage() {
                 <ul className="mt-3 space-y-1">
                   {Object.entries(fieldErrors).map(([field, messages]) => (
                     <li key={field}>
-                      <span className="font-medium">{field}</span>: {messages.join(" ")}
+                      <span className="font-medium">{getHomeCareFieldLabel(field)}</span>:{" "}
+                      {messages.join(" ")}
                     </li>
                   ))}
                 </ul>
@@ -637,7 +642,7 @@ export default function HesaplamaPage() {
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.22em]">
-                    {result.status}
+                    {getHomeCareStatusLabel(result.status)}
                   </p>
                   <h2 className="mt-3 text-2xl font-semibold">Evde Bakım Maaşı Sonucu</h2>
                   <p className="mt-3 max-w-2xl text-sm leading-7">
@@ -687,11 +692,7 @@ export default function HesaplamaPage() {
                                 : "border-white/70 bg-white/70"
                           }`}
                         >
-                          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-700">
-                            {reason.severity}
-                          </span>
-                          <p className="mt-2 font-medium text-slate-950">{reason.message}</p>
-                          <p className="mt-1 text-xs text-slate-600">{reason.code}</p>
+                          <p className="font-medium text-slate-950">{reason.message}</p>
                         </li>
                       ))}
                     </ul>
@@ -780,9 +781,9 @@ export default function HesaplamaPage() {
                         className="rounded-2xl bg-white/70 p-4"
                       >
                         <div className="flex flex-wrap items-center gap-2">
-                          <h4 className="font-medium text-slate-950">{rule.rule_code}</h4>
+                          <h4 className="font-medium text-slate-950">Değerlendirme ayrıntısı</h4>
                           <span className="rounded-full border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700">
-                            {rule.passed ? "Geçti" : "Geçmedi"}
+                            {rule.passed ? "Koşul karşılanmış görünüyor" : "Koşul henüz karşılanmıyor"}
                           </span>
                         </div>
                         <p className="mt-2">{rule.message}</p>
@@ -801,14 +802,6 @@ export default function HesaplamaPage() {
                                 Eşik
                               </dt>
                               <dd>{rule.threshold ?? "—"}</dd>
-                            </div>
-                          ) : null}
-                          {rule.input_mode ? (
-                            <div>
-                              <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                                Girdi modu
-                              </dt>
-                              <dd>{rule.input_mode}</dd>
                             </div>
                           ) : null}
                         </dl>
