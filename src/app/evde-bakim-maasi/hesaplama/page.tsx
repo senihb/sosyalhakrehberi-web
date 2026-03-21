@@ -481,6 +481,19 @@ export default function HesaplamaPage() {
                 </div>
               </div>
 
+              <div className="mt-5 rounded-2xl border border-slate-200 bg-white/75 p-5 text-sm leading-7 text-slate-700">
+                <p className="font-semibold text-slate-950">Bu sonuç resmî karar değildir.</p>
+                <p className="mt-2">
+                  Sonuç, girdiğiniz bilgilerle üretilen ön değerlendirme çıktısıdır. Aracın nasıl
+                  çalıştığını ve sınırlarını görmek için yöntem sayfasını açabilirsiniz.
+                </p>
+                <div className="mt-4">
+                  <Link href="/methodology" className="secondary-link inline-flex">
+                    Yöntem ve sınırları oku
+                  </Link>
+                </div>
+              </div>
+
               <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
                 <div className="rounded-2xl bg-white/70 p-5" id="why">
                   <h3 className="font-semibold">Neden bu sonuç çıktı?</h3>

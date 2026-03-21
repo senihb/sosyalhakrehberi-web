@@ -19,6 +19,10 @@ test("builds a trust layer from backend metadata without exposing raw engine int
   assert.equal(trustLayer.items.length, 4);
   assert.match(trustLayer.items[3]?.body ?? "", /2026\.03/);
   assert.equal(trustLayer.items[1]?.body.includes("1.2.3"), false);
+  assert.equal(
+    trustLayer.links.some((link) => link.href === "/methodology"),
+    true,
+  );
 });
 
 test("uses a stable fallback when evaluation date is missing", () => {

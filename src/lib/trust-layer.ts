@@ -53,6 +53,10 @@ export function buildTrustLayerModel(input: {
         href: "/evde-bakim-maasi/hesaplama#form-start",
         label: "Bilgileri yeniden gözden geçir",
       },
+      {
+        href: "/methodology",
+        label: "Yöntem ve sınırları oku",
+      },
     ],
   };
 }
