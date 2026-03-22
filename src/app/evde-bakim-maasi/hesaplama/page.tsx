@@ -10,12 +10,6 @@ import {
   type EligibilityFormState,
   type TriStateAttestation,
 } from "@/lib/eligibility-form";
-import {
-  buildIncomeGateModel,
-  getIncomeGateSnapshot,
-  shouldPromptIncomeGate,
-  type IncomeGateSnapshot,
-} from "@/lib/income-gate";
 import { createToolAnalyticsSession } from "@/lib/tool-analytics";
 import { buildTrustLayerModel } from "@/lib/trust-layer";
 import { getToolGuidanceModel } from "@/lib/tool-guidance";
@@ -149,9 +143,6 @@ export default function HesaplamaPage() {
     null,
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showIncomeGate, setShowIncomeGate] = useState(false);
-  const [acknowledgedIncomeGateSnapshot, setAcknowledgedIncomeGateSnapshot] =
-    useState<IncomeGateSnapshot | null>(null);
   const analyticsRef = useRef(createToolAnalyticsSession("home-care"));
 
   useEffect(() => {
@@ -169,8 +160,6 @@ export default function HesaplamaPage() {
   const markFormStarted = () => {
     analyticsRef.current.trackFormStarted();
   };
-
-  const incomeGateModel = buildIncomeGateModel(form);
 
   const submitEligibilityCheck = async () => {
     const clientFieldErrors = getHomeCareFormFieldErrors(form);
@@ -205,12 +194,6 @@ export default function HesaplamaPage() {
   };
 
   const handleSubmit = async () => {
-    if (shouldPromptIncomeGate(form, acknowledgedIncomeGateSnapshot)) {
-      setShowIncomeGate(true);
-      return;
-    }
-
-    setShowIncomeGate(false);
     await submitEligibilityCheck();
   };
 
@@ -487,87 +470,12 @@ export default function HesaplamaPage() {
                 setResult(null);
                 setError(null);
                 setFieldErrors(null);
-                setShowIncomeGate(false);
-                setAcknowledgedIncomeGateSnapshot(null);
               }}
               className="secondary-button"
             >
               Formu temizle
             </button>
           </div>
-
-          {showIncomeGate && incomeGateModel ? (
-            <section className="mt-6 rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em]">
-                Gelir bilgisi kontrolü
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold">
-                Gelir ve hane bilgisini bir kez daha gözden geçirin
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7">
-                Bu adım yalnızca rehberlik içindir. Nihai karar bu ekranda verilmez; değerlendirme
-                yine değerlendirme sistemi tarafından yapılır.
-              </p>
-
-              <div className="mt-5 grid gap-4 md:grid-cols-3">
-                <div className="rounded-2xl bg-white/80 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-                    Toplam gelir
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-slate-950">
-                    {incomeGateModel.householdIncome.toLocaleString("tr-TR")} TL
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-white/80 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-                    Hane kişi sayısı
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-slate-950">
-                    {incomeGateModel.householdSize}
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-white/80 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-                    Kişi başı gelir
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-slate-950">
-                    {incomeGateModel.perPersonIncome.toLocaleString("tr-TR", {
-                      maximumFractionDigits: 2,
-                    })}{" "}
-                    TL
-                  </p>
-                </div>
-              </div>
-
-              <ul className="mt-5 space-y-2 text-sm leading-7">
-                <li>Bu özet bilgilendirme amaçlıdır; uygunluk veya uygunsuzluk kararı vermez.</li>
-                <li>Resmî eşik davranışı değerlendirme sırasında yetkili sistem tarafından ele alınır.</li>
-                <li>Bilgiler doğruysa yine de devam ederek ön değerlendirme sonucunu alabilirsiniz.</li>
-              </ul>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={async () => {
-                    setAcknowledgedIncomeGateSnapshot(getIncomeGateSnapshot(form));
-                    setShowIncomeGate(false);
-                    await submitEligibilityCheck();
-                  }}
-                  disabled={isSubmitting}
-                  className="primary-button"
-                >
-                  Yine de devam et
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowIncomeGate(false)}
-                  className="secondary-button"
-                >
-                  Bilgileri düzenle
-                </button>
-              </div>
-            </section>
-          ) : null}
 
           {error ? (
             <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
