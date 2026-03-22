@@ -92,6 +92,24 @@ export type EligibilityCheckResponse = {
   metadata: EligibilityMetadata;
 };
 
+export type IncomeEvaluationRequest = {
+  household_size: number | null;
+  total_income: number | null;
+};
+
+export type IncomeEvaluationUiHints = {
+  guidance_text?: string | null;
+  next_steps?: string[] | null;
+};
+
+export type IncomeEvaluationResponse = {
+  status: EligibilityStatus;
+  message?: string | null;
+  per_capita_income?: number | null;
+  threshold?: number | null;
+  ui_hints?: IncomeEvaluationUiHints | null;
+};
+
 export type ApiErrorResponse = {
   message: string;
   error: string;
