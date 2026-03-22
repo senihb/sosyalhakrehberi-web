@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   buildIncomeEvaluationPayload,
+  buildIncomeLeadPayload,
   formatCurrency,
   getIncomeStatusTitle,
   initialIncomeFormState,
@@ -25,6 +26,23 @@ test("keeps blank income inputs nullable", () => {
     household_size: null,
     total_income: null,
   });
+});
+
+test("builds a contract-safe lead payload without blank optional fields", () => {
+  assert.deepEqual(
+    buildIncomeLeadPayload(
+      {
+        name: " Senih ",
+        contact: "",
+      },
+      "ELIGIBLE",
+    ),
+    {
+      source: "income_test",
+      result_status: "ELIGIBLE",
+      name: "Senih",
+    },
+  );
 });
 
 test("formats currency values for display only", () => {
