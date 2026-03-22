@@ -2,6 +2,8 @@ import {
   type ApiErrorResponse,
   type EligibilityCheckRequest,
   type EligibilityCheckResponse,
+  type IncomeEvaluationRequest,
+  type IncomeEvaluationResponse,
 } from "@/lib/types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -74,4 +76,42 @@ export async function checkEligibility(
   }
 
   return (await response.json()) as EligibilityCheckResponse;
+}
+
+export async function evaluateIncome(
+  payload: IncomeEvaluationRequest,
+): Promise<IncomeEvaluationResponse> {
+  const response = await fetch(`${getApiBaseUrl()}/api/evaluate/income`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    let errorBody: ApiErrorResponse | null = null;
+
+    try {
+      errorBody = (await response.json()) as ApiErrorResponse;
+    } catch {
+      errorBody = null;
+    }
+
+    throw new ApiClientError(
+      errorBody?.message ?? "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.",
+      response.status,
+      {
+        correlationId:
+          errorBody?.correlation_id ??
+          response.headers.get("X-Correlation-ID") ??
+          undefined,
+        details: errorBody?.errors,
+      },
+    );
+  }
+
+  return (await response.json()) as IncomeEvaluationResponse;
 }
