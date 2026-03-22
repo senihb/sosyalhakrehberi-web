@@ -35,6 +35,7 @@ test("maps yes attestations to true without changing the canonical request shape
     benefit_code: "TR_HOME_CARE_ALLOWANCE",
     facts: {
       care_recipient_disability_rate: 80,
+      has_valid_health_report: true,
       household_total_income: 10000,
       household_size: 4,
       is_turkish_citizen: true,
@@ -135,6 +136,7 @@ test("sends the non-citizen path and care dependency fields when provided", () =
 
   assert.deepEqual(payload.facts, {
     care_recipient_disability_rate: 80,
+    has_valid_health_report: true,
     household_total_income: 10000,
     household_size: 4,
     is_turkish_citizen: false,
@@ -145,4 +147,10 @@ test("sends the non-citizen path and care dependency fields when provided", () =
     caregiver_same_residence: true,
     has_additional_income_or_assets: true,
   });
+});
+
+test("sends the legacy health report fact when a report rate is provided", () => {
+  const payload = buildEligibilityPayload(makeFormState(), "req-health-report");
+
+  assert.equal(payload.facts.has_valid_health_report, true);
 });

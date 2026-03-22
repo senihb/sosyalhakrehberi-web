@@ -57,11 +57,18 @@ export function buildEligibilityPayload(
   form: EligibilityFormState,
   requestId: string,
 ): EligibilityCheckRequest {
+  const disabilityRate = toNumber(form.disabilityRate);
   const facts: EligibilityCheckRequest["facts"] = {
-    care_recipient_disability_rate: toNumber(form.disabilityRate),
+    care_recipient_disability_rate: disabilityRate,
     household_total_income: toNumber(form.householdIncome),
     household_size: toNumber(form.householdSize),
   };
+
+  // The current live backend still expects this fact even though the UI no longer
+  // asks it separately. A provided report rate means the report fact is present.
+  if (disabilityRate !== null) {
+    facts.has_valid_health_report = true;
+  }
 
   if (form.isTurkishCitizen !== null) {
     facts.is_turkish_citizen = form.isTurkishCitizen;

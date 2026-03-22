@@ -358,6 +358,10 @@ export default function HesaplamaPage() {
                   placeholder="Örn. 80"
                 />
               </label>
+              <p className="mt-2 text-xs leading-6 text-slate-600">
+                Ayrı bir “geçerli sağlık raporu” sorusu gösterilmez. Bu oranı girmeniz
+                sağlık raporu bilgisini bu aşama için tamamlar.
+              </p>
 
               <TriStateField
                 className="mt-5"
