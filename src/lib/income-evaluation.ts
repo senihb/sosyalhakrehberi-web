@@ -1,4 +1,5 @@
 import type {
+  LeadCreateRequest,
   IncomeEvaluationRequest,
   IncomeEvaluationResponse,
 } from "@/lib/types";
@@ -8,9 +9,19 @@ export type IncomeFormState = {
   totalIncome: string;
 };
 
+export type IncomeLeadFormState = {
+  name: string;
+  contact: string;
+};
+
 export const initialIncomeFormState: IncomeFormState = {
   householdSize: "",
   totalIncome: "",
+};
+
+export const initialIncomeLeadFormState: IncomeLeadFormState = {
+  name: "",
+  contact: "",
 };
 
 function toNumber(value: string): number | null {
@@ -29,6 +40,26 @@ export function buildIncomeEvaluationPayload(
     household_size: toNumber(form.householdSize),
     total_income: toNumber(form.totalIncome),
   };
+}
+
+export function buildIncomeLeadPayload(
+  form: IncomeLeadFormState,
+  resultStatus: IncomeEvaluationResponse["status"],
+): LeadCreateRequest {
+  const payload: LeadCreateRequest = {
+    source: "income_test",
+    result_status: resultStatus,
+  };
+
+  if (form.name.trim()) {
+    payload.name = form.name.trim();
+  }
+
+  if (form.contact.trim()) {
+    payload.contact = form.contact.trim();
+  }
+
+  return payload;
 }
 
 export function formatCurrency(value: number | null | undefined): string | null {

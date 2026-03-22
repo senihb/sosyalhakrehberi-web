@@ -108,6 +108,21 @@ export type IncomeEvaluationResponse = {
   per_capita_income?: number | null;
   threshold?: number | null;
   ui_hints?: IncomeEvaluationUiHints | null;
+  decision?: string | null;
+  rule_trace?: Record<string, unknown> | string[] | null;
+  eligible_benefits?: unknown[] | null;
+  routing_context?: Record<string, unknown> | null;
+};
+
+export type LeadCreateRequest = {
+  source: "income_test";
+  result_status: EligibilityStatus;
+  name?: string;
+  contact?: string;
+};
+
+export type LeadCreateResponse = {
+  message?: string;
 };
 
 export type ApiErrorResponse = {
