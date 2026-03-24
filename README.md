@@ -137,7 +137,7 @@ Deployment planning documents:
 - `docs/test-payloads.md`
 - `docs/home-care-live-smoke-checklist.md`
 
-Production runtime is explicitly defined with `nixpacks.toml` and `railpack.json` so platform builds can:
+Production runtime is explicitly defined with `nixpacks.toml` so platform builds can:
 
 - install with `npm install --include=dev`
 - build with `npm run build`
