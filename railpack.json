@@ -2,6 +2,7 @@
   "$schema": "https://schema.railpack.com",
   "steps": {
     "install": {
+      "inputs": [{ "local": true, "include": ["."] }],
       "commands": ["npm install --include=dev"]
     },
     "build": {
