@@ -8,6 +8,13 @@ export type BirthGrantGuideSection = {
   body: string;
 };
 
+export type BirthGrantActionPageModel = {
+  title: string;
+  summary: string;
+  steps: string[];
+  note: string;
+};
+
 export const birthGrantGuideIntro = {
   title: "Doğum yardımı rehberi",
   summary:
@@ -18,7 +25,7 @@ export const birthGrantGuideSections: BirthGrantGuideSection[] = [
   {
     title: "Kimler için anlamlı bir başlangıç sunar?",
     body:
-      "Canlı doğum, çocuk sırası, vatandaşlık, ikamet ve KPS kaydı gibi temel bilgiler doğum yardımı ön değerlendirmesinin çekirdeğini oluşturur.",
+      "Canlı doğum, çocuk sırası, vatandaşlık, ikamet ve KPS kaydı gibi temel bilgiler doğum yardımı ön değerlendirmesinin ana başlıklarını oluşturur.",
   },
   {
     title: "Testte hangi bilgiler sorulur?",
@@ -51,7 +58,7 @@ export const birthGrantFaqItems: BirthGrantFaqItem[] = [
   {
     question: "KPS kaydı neden önemli?",
     answer:
-      "KPS kaydı başvuru yolunun netleşmesinde kullanılan temel doğrulama başlıklarından biridir.",
+      "KPS kaydı, doğum bilgisinin nüfus sisteminde görünmesini anlatır. Başvuru kanalı ve kayıt kontrolü için önemli başlıklardan biridir.",
   },
   {
     question: "Emin olmadığım sorularda ne yapmalıyım?",
@@ -59,3 +66,29 @@ export const birthGrantFaqItems: BirthGrantFaqItem[] = [
       "Bilmiyorum seçeneğini kullanabilirsiniz. Bu durumda sistem sonucu eksik bilgi olarak değerlendirebilir.",
   },
 ];
+
+export const birthGrantEdevletGuide: BirthGrantActionPageModel = {
+  title: "e-Devlet doğum yardımı başvurusu",
+  summary:
+    "Bu sayfa, e-Devlet üzerinden başvuru düşünen kişiler için kısa bir hazırlık özeti sunar. Resmî ekranların görünümü değişebilir.",
+  steps: [
+    "Önce kimlik ve iletişim bilgilerinizin güncel olduğundan emin olun.",
+    "Doğum bilgisi ve KPS kaydı görünüyorsa e-Devlet üzerinden ilgili hizmeti arayın.",
+    "Başvuru ekranında istenen temel bilgileri kontrol ederek işlemi tamamlayın.",
+  ],
+  note:
+    "e-Devlet ekranında farklı bir yönlendirme görürseniz güncel resmî ekrandaki açıklamayı esas alın.",
+};
+
+export const birthGrantPaymentCalendarGuide: BirthGrantActionPageModel = {
+  title: "Doğum yardımı ödeme takvimi",
+  summary:
+    "Bu sayfa, olumlu ön değerlendirme sonrası ödemenin ne zaman ve nasıl takip edilebileceğini sade biçimde açıklar.",
+  steps: [
+    "Önce başvurunun alındığından emin olun.",
+    "Ödeme durumu için e-Devlet veya ilgili kurum duyurularını takip edin.",
+    "Ödeme günü ve aktarım bilgisi için resmî kaynaktaki güncel açıklamayı esas alın.",
+  ],
+  note:
+    "Ödeme günü kurum yoğunluğu ve resmî işlem sırasına göre değişebilir. Bu sayfa yalnızca yön gösterir.",
+};

@@ -117,6 +117,16 @@ const guidanceByTool: Record<ToolKey, ToolGuidanceModel> = {
         body: "Başvuru kanallarını, temel belge mantığını ve sonuç ekranının nasıl okunacağını kısa dille toplar.",
       },
       {
+        href: "/dogum-yardimi-uygunluk-testi/e-devlet-basvurusu",
+        label: "e-Devlet doğum yardımı başvurusu",
+        body: "e-Devlet üzerinden başvuru düşünüyorsanız önce hangi bilgileri kontrol etmeniz gerektiğini anlatır.",
+      },
+      {
+        href: "/dogum-yardimi-uygunluk-testi/odeme-takvimi",
+        label: "Doğum yardımı ödeme takvimi",
+        body: "Başvuru sonrası ödemenin ne zaman ve nasıl takip edilebileceğini sade biçimde özetler.",
+      },
+      {
         href: "/dogum-yardimi-uygunluk-testi/sss",
         label: "Doğum yardımı SSS",
         body: "Canlı doğum, vatandaşlık, ikamet ve ödeme mantığı hakkında sık sorulan soruları toplar.",

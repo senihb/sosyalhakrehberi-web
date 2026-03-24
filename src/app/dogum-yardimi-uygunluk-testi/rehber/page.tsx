@@ -30,6 +30,12 @@ export default function BirthGrantGuidePage() {
             <Link href="/dogum-yardimi-uygunluk-testi" className="primary-link">
               Doğum yardımı testini aç
             </Link>
+            <Link
+              href="/dogum-yardimi-uygunluk-testi/e-devlet-basvurusu"
+              className="secondary-link"
+            >
+              e-Devlet başvurusunu gör
+            </Link>
             <Link href="/dogum-yardimi-uygunluk-testi/sss" className="secondary-link">
               Sık sorulan soruları gör
             </Link>

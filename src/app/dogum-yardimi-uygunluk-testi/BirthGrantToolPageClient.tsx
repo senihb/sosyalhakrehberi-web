@@ -54,12 +54,16 @@ type TriStateFieldProps = {
   name: string;
   value: TriStateAttestation;
   onChange: (value: TriStateAttestation) => void;
+  helperText?: string;
 };
 
-function TriStateField({ legend, name, value, onChange }: TriStateFieldProps) {
+function TriStateField({ legend, name, value, onChange, helperText }: TriStateFieldProps) {
   return (
     <fieldset>
       <legend className="text-base font-semibold text-slate-950">{legend}</legend>
+      {helperText ? (
+        <p className="mt-2 text-sm leading-6 text-slate-600">{helperText}</p>
+      ) : null}
       <div className="mt-3 flex flex-wrap gap-3">
         {triStateOptions.map((option) => {
           const checked = value === option.value;
@@ -255,6 +259,9 @@ export function BirthGrantToolPageClient() {
               <legend className="text-base font-semibold text-slate-950">
                 Bu çocuk kaçıncı çocuk?
               </legend>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                İlk çocuk, ikinci çocuk veya üçüncü çocuk ve üzeri bilgisini seçin.
+              </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 {childOrderOptions.map((option) => {
                   const checked = form.childOrder === option.value;
@@ -331,6 +338,7 @@ export function BirthGrantToolPageClient() {
               legend="Çocuğun KPS kaydı tamamlandı mı?"
               name="childIsKpsRegistered"
               value={form.childIsKpsRegistered}
+              helperText="KPS kaydı, doğum bilgisinin nüfus sistemine işlendiğini gösterir."
               onChange={(value) => {
                 markFormStarted();
                 setForm((current) => ({

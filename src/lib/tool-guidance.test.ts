@@ -20,3 +20,12 @@ test("returns a dedicated old-age companion guide", () => {
 
   assert.equal(model.relatedGuides[0]?.href, "/65-yas-ayligi-uygunluk-testi/rehber");
 });
+
+test("returns filled guidance destinations for birth grant", () => {
+  const model = getToolGuidanceModel("birth-grant");
+
+  assert.equal(model.relatedGuides[0]?.href, "/dogum-yardimi-uygunluk-testi/rehber");
+  assert.equal(model.relatedGuides[1]?.href, "/dogum-yardimi-uygunluk-testi/e-devlet-basvurusu");
+  assert.equal(model.relatedGuides[2]?.href, "/dogum-yardimi-uygunluk-testi/odeme-takvimi");
+  assert.equal(model.relatedGuides[3]?.href, "/dogum-yardimi-uygunluk-testi/sss");
+});

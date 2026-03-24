@@ -28,6 +28,12 @@ export default function BirthGrantFaqPage() {
             <Link href="/dogum-yardimi-uygunluk-testi" className="primary-link">
               Teste dön
             </Link>
+            <Link
+              href="/dogum-yardimi-uygunluk-testi/odeme-takvimi"
+              className="secondary-link"
+            >
+              Ödeme takvimini gör
+            </Link>
             <Link href="/dogum-yardimi-uygunluk-testi/rehber" className="secondary-link">
               Rehberi aç
             </Link>
