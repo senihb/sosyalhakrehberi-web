@@ -139,7 +139,7 @@ Deployment planning documents:
 
 Production runtime is explicitly defined with `nixpacks.toml` and `railpack.json` so platform builds can:
 
-- install with `npm ci`
+- install with `npm install --include=dev`
 - build with `npm run build`
 - start the app without the extra `npm start` wrapper warning
 
