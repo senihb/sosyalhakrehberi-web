@@ -5,7 +5,7 @@
       "commands": ["npm ci"]
     },
     "build": {
-      "inputs": ["..."],
+      "inputs": [{ "step": "install" }],
       "commands": ["npm run build"]
     }
   },
