@@ -175,8 +175,8 @@ export function IncomeTestPageClient() {
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700">
             Hane kişi sayısı ve toplam gelir bilgisini gönderin. Sonuç yalnızca
-            backend&apos;in döndürdüğü uygunluk durumu, kişi başı gelir, eşik ve
-            rehber ipuçlarıyla gösterilir.
+            değerlendirme sisteminden gelen uygunluk durumu, kişi başı gelir,
+            eşik ve rehber ipuçlarıyla gösterilir.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -260,7 +260,7 @@ export function IncomeTestPageClient() {
                 <div>
                   <p className="font-semibold">Geliriniz analiz ediliyor...</p>
                   <p className="mt-1 text-sm leading-7 text-sky-900">
-                    Backend sonucu hazırlarken bu ekran otomatik güncellenecek.
+                    Sonuç hazırlanırken bu ekran otomatik güncellenecek.
                   </p>
                 </div>
               </div>
@@ -341,7 +341,7 @@ export function IncomeTestPageClient() {
                         Size uygun olabilecek haklar
                       </h3>
                       <p className="mt-2 text-sm leading-7 text-slate-700">
-                        Backend sıralamasına göre öncelikli haklar aşağıda listelenir.
+                        Değerlendirme sisteminin sıralamasına göre öncelikli haklar aşağıda listelenir.
                       </p>
                     </div>
                   </div>
@@ -479,8 +479,8 @@ export function IncomeTestPageClient() {
           <div className="card-panel">
             <h2 className="text-lg font-semibold text-slate-950">Nasıl çalışır?</h2>
             <p className="mt-3 text-sm leading-7 text-slate-700">
-              Frontend yalnız form verisini gönderir. Uygunluk kararı, kişi başı
-              gelir, eşik ve rehber ipuçları backend tarafından üretilir.
+              Bu sayfa yalnız form verisini gönderir. Uygunluk kararı, kişi başı
+              gelir, eşik ve rehber ipuçları değerlendirme sistemi tarafından hazırlanır.
             </p>
           </div>
 

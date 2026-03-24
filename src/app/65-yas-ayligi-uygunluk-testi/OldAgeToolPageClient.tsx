@@ -27,6 +27,12 @@ const statusBadgeCopy: Record<EligibilityStatus, string> = {
   NEEDS_INFO: "Eksik bilgi tamamlanmalı",
 };
 
+const statusLabelCopy: Record<EligibilityStatus, string> = {
+  ELIGIBLE: "Uygun görünüyor",
+  NOT_ELIGIBLE: "Uygun görünmüyor",
+  NEEDS_INFO: "Ek bilgi gerekli",
+};
+
 const triStateOptions: Array<{ label: string; value: TriStateAttestation }> = [
   { label: "Evet", value: true },
   { label: "Hayır", value: false },
@@ -143,6 +149,9 @@ export function OldAgeToolPageClient() {
     : null;
   const primaryAction = result ? resultPrimaryAction(result.status) : null;
   const guidanceModel = getToolGuidanceModel("old-age");
+  const displayError = hasConfigError
+    ? "Değerlendirme sistemi şu anda hazır değil. Lütfen daha sonra tekrar deneyin."
+    : error;
 
   return (
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
@@ -286,7 +295,7 @@ export function OldAgeToolPageClient() {
           {error ? (
             <div className="mt-6 rounded-3xl border border-rose-200 bg-rose-50 p-5 text-base text-rose-900">
               <p className="font-semibold">İstek tamamlanamadı</p>
-              <p className="mt-3 leading-8">{error}</p>
+              <p className="mt-3 leading-8">{displayError}</p>
               {fieldErrors ? (
                 <ul className="mt-4 space-y-2">
                   {Object.entries(fieldErrors).map(([field, messages]) => (
@@ -298,7 +307,7 @@ export function OldAgeToolPageClient() {
               ) : null}
               {hasConfigError ? (
                 <p className="mt-3 leading-8">
-                  Değerlendirme bağlantısı tanımlanmadan bu araç canlıya alınmamalı.
+                  Sistem bağlantısı kurulmadan bu araç canlıya alınmamalı.
                 </p>
               ) : null}
             </div>
@@ -309,7 +318,7 @@ export function OldAgeToolPageClient() {
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.22em]">
-                    {result.status}
+                    {statusLabelCopy[result.status]}
                   </p>
                   <h2 className="mt-3 text-3xl font-semibold">{decisionView.title}</h2>
                   <p className="mt-4 max-w-2xl text-base leading-8">{decisionView.summary}</p>

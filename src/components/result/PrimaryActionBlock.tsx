@@ -17,7 +17,7 @@ export function PrimaryActionBlock({ benefit }: PrimaryActionBlockProps) {
         Öncelikli yönlendirme
       </p>
       <h3 className="mt-3 text-2xl font-semibold text-slate-950">
-        Senin için en doğru adım:
+        Sizin için en doğru adım:
       </h3>
       <p className="mt-3 text-lg font-medium text-slate-950">
         {benefit.name?.trim() || "Uygun hak"}
@@ -31,7 +31,7 @@ export function PrimaryActionBlock({ benefit }: PrimaryActionBlockProps) {
         Başvuruya başla
       </a>
       <p className="mt-4 text-xs leading-6 text-slate-500">
-        Bu bir resmi karar değildir.
+        Bu bir resmî karar değildir.
       </p>
     </section>
   );

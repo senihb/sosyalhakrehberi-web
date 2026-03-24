@@ -1,9 +1,9 @@
 export const homepageHero = {
   eyebrow: "Uygunluk Testleri",
-  title: "Doğru uygunluk testine hızlıca ulaşın ve ilk adımı gecikmeden atın",
+  title: "Doğru uygunluk testine hızla ulaşın ve ilk adımı gecikmeden atın",
   body:
     "Sosyal Hak Rehberi, sizi en ilgili ön değerlendirme akışına yönlendirir. Kısa form, açıklayıcı sonuç ve sonraki adım rehberliği aynı yolculuk içinde sunulur.",
-  primaryCtaLabel: "Start eligibility test",
+  primaryCtaLabel: "Uygunluk testine başla",
   primaryCtaHref: "#durumunu-sec",
 };
 
@@ -40,7 +40,7 @@ export const homepageChooseItems = [
 
 export const homepageTrustNotes = [
   "Bu sitedeki sonuçlar ön değerlendirme niteliğindedir; resmî karar yerine geçmez.",
-  "Karar kuralları frontend'de kurulmaz; sonuçlar yalnızca açıklayıcı biçimde sunulur.",
+  "Kararı değerlendirme sistemi verir; ekranda yalnızca anlaşılır bir açıklama gösterilir.",
   "Gereksiz kişisel veri istemiyoruz. Kimlik numarası, açık adres ve belge yükleme bu aşamada yok.",
 ];
 

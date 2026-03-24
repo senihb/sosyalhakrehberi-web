@@ -198,6 +198,9 @@ export default function HesaplamaPage() {
   };
 
   const hasConfigError = Boolean(error?.includes("NEXT_PUBLIC_API_BASE_URL"));
+  const displayError = hasConfigError
+    ? "Değerlendirme sistemi şu anda hazır değil. Lütfen daha sonra tekrar deneyin."
+    : error;
   const primaryAction = result ? resultPrimaryAction(result.status) : null;
   const trustLayer = result
     ? buildTrustLayerModel({
@@ -480,7 +483,7 @@ export default function HesaplamaPage() {
           {error ? (
             <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
               <p className="font-semibold">İstek tamamlanamadı</p>
-              <p className="mt-2 leading-7">{error}</p>
+              <p className="mt-2 leading-7">{displayError}</p>
               {fieldErrors ? (
                 <ul className="mt-3 space-y-1">
                   {Object.entries(fieldErrors).map(([field, messages]) => (

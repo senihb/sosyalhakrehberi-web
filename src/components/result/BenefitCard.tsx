@@ -23,7 +23,7 @@ export function BenefitCard({
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <h4 className="text-lg font-semibold text-slate-950">
-              {benefit.name?.trim() || "İsmi belirtilmeyen hak"}
+              {benefit.name?.trim() || "Adı belirtilmeyen hak"}
             </h4>
             {isRecommended ? (
               <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-900">

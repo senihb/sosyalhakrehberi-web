@@ -7,7 +7,7 @@ import {
 } from "./homepage-entry-content.ts";
 
 test("homepage hero keeps a single primary entry CTA", () => {
-  assert.equal(homepageHero.primaryCtaLabel, "Start eligibility test");
+  assert.equal(homepageHero.primaryCtaLabel, "Uygunluk testine başla");
   assert.equal(homepageHero.primaryCtaHref, "#durumunu-sec");
 });
 

@@ -4,7 +4,7 @@ import { IncomeTestPageClient } from "./IncomeTestPageClient";
 export const metadata: Metadata = {
   title: "Gelir testi değerlendirme aracı",
   description:
-    "Hane kişi sayısı ve toplam gelir ile backend-driven gelir değerlendirmesi sunan sade frontend yüzeyi.",
+    "Hane kişi sayısı ve toplam gelir ile sade bir gelir değerlendirmesi sunan açıklayıcı test sayfası.",
   alternates: {
     canonical: "/gelir-testi",
   },
