@@ -1,0 +1,47 @@
+name: 🐛 Bug report
+description: Report a technical issue or unexpected behavior
+title: "[BUG] "
+labels: ["bug"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      placeholder: Describe the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+
+  - type: textarea
+    id: api
+    attributes:
+      label: API / System Output
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context

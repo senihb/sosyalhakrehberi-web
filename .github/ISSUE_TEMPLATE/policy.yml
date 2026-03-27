@@ -1,0 +1,30 @@
+name: 🏛 Policy update
+description: Suggest updates to eligibility rules
+title: "[POLICY] "
+labels: ["policy","eligibility","regulation"]
+
+body:
+  - type: input
+    id: benefit
+    attributes:
+      label: Benefit / Program Name
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Rule
+
+  - type: textarea
+    id: change
+    attributes:
+      label: Suggested Change
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source / Reference
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason

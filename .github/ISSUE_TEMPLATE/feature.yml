@@ -1,0 +1,45 @@
+name: 💡 Feature request
+description: Suggest a new feature or improvement
+title: "[FEATURE] "
+labels: ["enhancement","feature"]
+
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: Feature Request
+      placeholder: Describe the feature
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: User Impact
+      options:
+        - label: Individuals
+        - label: Institutions
+        - label: NGOs
+        - label: Other
+
+  - type: checkboxes
+    id: decision
+    attributes:
+      label: Impact on Decision System
+      options:
+        - label: Yes
+        - label: No
+        - label: Not sure
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected Outcome
