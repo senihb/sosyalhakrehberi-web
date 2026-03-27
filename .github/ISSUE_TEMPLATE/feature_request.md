@@ -45,3 +45,8 @@ Does this affect eligibility logic?
 What measurable improvement would this bring?
 
 (e.g. better clarity, fewer errors, faster decisions)
+
+---
+
+## 🧠 Additional Context
+Add any extra context, examples, or references.
