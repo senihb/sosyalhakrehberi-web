@@ -7,7 +7,7 @@ const siteUrl = getSiteUrl();
 const allowIndexing = isProductionSite(siteUrl);
 
 export const metadata: Metadata = {
-  metadataBase: siteUrl,
+  metadataBase: new URL(siteUrl), // ✅ kritik fix
   title: {
     default: "Sosyal Hak Rehberi",
     template: "%s | Sosyal Hak Rehberi",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "sosyal hak rehberi",
   ],
   alternates: {
-    canonical: "/",
+    canonical: "/", // backend logic yok → doğru kullanım
   },
   openGraph: {
     title: "Sosyal Hak Rehberi",
@@ -39,7 +39,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sosyal Hak Rehberi",
-    description: "Sosyal hak testleri ve rehberleri için güven odaklı ön değerlendirme deneyimi.",
+    description:
+      "Sosyal hak testleri ve rehberleri için güven odaklı ön değerlendirme deneyimi.",
   },
   robots: {
     index: allowIndexing,
@@ -64,6 +65,7 @@ export default function RootLayout({
               >
                 Sosyal Hak Rehberi
               </Link>
+
               <nav className="flex items-center gap-3 text-sm text-slate-700">
                 <Link href="/" className="secondary-link compact-link">
                   Testler
@@ -87,6 +89,7 @@ export default function RootLayout({
             </div>
           </header>
 
+          {/* ✅ Trust layer - kritik */}
           <div className="site-notice-wrap">
             <div className="site-notice" role="note" aria-label="Önemli site notu">
               Site şu anda deneme aşamasındadır. Tam kurulum tamamlanana kadar test sonuçlarını
@@ -102,10 +105,10 @@ export default function RootLayout({
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
                   Güven Notu
                 </p>
+
                 <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
                   Sosyal Hak Rehberi resmî kurum kararı vermez. Buradaki sonuçlar yalnızca ön
-                  değerlendirme niteliğindedir ve değerlendirme sistemi üzerinden üretilen bilgiye
-                  dayanır.
+                  değerlendirme niteliğindedir ve sistem tarafından üretilen bilgiye dayanır.
                 </p>
               </div>
 
