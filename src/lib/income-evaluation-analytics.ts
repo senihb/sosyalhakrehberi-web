@@ -26,3 +26,4 @@ export function trackIncomeEvaluationEvent(
 
   console.log({ event, ...detail });
 }
+

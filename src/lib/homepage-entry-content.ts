@@ -70,3 +70,4 @@ export const homepageGuideLinks = [
       "Testlerden önce ve sonra okunabilecek açıklamaları ve rehber içeriklerini tek yerde toplar.",
   },
 ];
+

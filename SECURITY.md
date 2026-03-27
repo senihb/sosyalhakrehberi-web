@@ -20,3 +20,4 @@ Important security expectations:
 - frontend must not own policy decision logic
 - backend URLs and credentials must be configured through environment variables
 - public UI must avoid exposing sensitive operational details
+

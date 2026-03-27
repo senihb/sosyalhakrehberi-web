@@ -65,3 +65,4 @@ test("buildBirthGrantPayload omits unknown tri-state answers", () => {
   assert.equal("child_is_alive" in payload.facts, false);
   assert.equal("previous_live_children_count" in payload.facts, false);
 });
+

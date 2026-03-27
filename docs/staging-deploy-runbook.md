@@ -77,3 +77,4 @@ Staging is considered ready only when:
 Buying or reserving the public domain can happen now.
 
 Routing the public domain to this frontend should wait until staging validation is complete.
+

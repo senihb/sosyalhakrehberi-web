@@ -28,3 +28,4 @@ export function getSiteUrl(): URL {
 export function isProductionSite(url = getSiteUrl()): boolean {
   return url.hostname === PUBLIC_SITE_HOSTNAME;
 }
+

@@ -40,3 +40,4 @@ jobs:
         env:
           NEXT_PUBLIC_API_BASE_URL: https://api.example.com
         run: npm run build
+

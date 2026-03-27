@@ -81,3 +81,4 @@ test("returns status-specific guided links and checklist items for eligible stat
   assert.equal(viewModel.checklistItems.length, 3);
   assert.equal(viewModel.helperLinks[0]?.href, "/evde-bakim-maasi");
 });
+

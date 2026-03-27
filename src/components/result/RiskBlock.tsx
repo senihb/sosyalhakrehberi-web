@@ -22,3 +22,4 @@ export function RiskBlock({ reasons }: RiskBlockProps) {
     </section>
   );
 }
+

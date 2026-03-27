@@ -22,3 +22,4 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${siteUrl.toString()}sitemap.xml`,
   };
 }
+

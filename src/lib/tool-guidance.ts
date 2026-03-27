@@ -150,3 +150,4 @@ const guidanceByTool: Record<ToolKey, ToolGuidanceModel> = {
 export function getToolGuidanceModel(tool: ToolKey): ToolGuidanceModel {
   return guidanceByTool[tool];
 }
+

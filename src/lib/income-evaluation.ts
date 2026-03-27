@@ -86,3 +86,4 @@ export function getIncomeStatusTitle(
 
   return "Gelir değerlendirmesi için ek bilgi gerekiyor";
 }
+

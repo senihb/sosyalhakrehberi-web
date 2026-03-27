@@ -9,3 +9,4 @@ export type { ToolAnalyticsSession } from "@/lib/tool-analytics-core";
 export function createToolAnalyticsSession(tool: ToolAnalyticsTool): ToolAnalyticsSession {
   return createCoreToolAnalyticsSession(tool, trackAnalyticsEvent);
 }
+

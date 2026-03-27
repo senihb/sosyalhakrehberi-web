@@ -253,3 +253,4 @@ export function buildBirthGrantDecisionViewModel(input: {
     trustNote: input.disclaimer ?? defaultTrustNote,
   };
 }
+

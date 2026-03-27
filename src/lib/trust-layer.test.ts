@@ -40,3 +40,4 @@ test("uses a stable fallback when evaluation date is missing", () => {
 
   assert.match(trustLayer.items[3]?.body ?? "", /Belirtilmedi/);
 });
+

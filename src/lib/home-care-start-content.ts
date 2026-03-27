@@ -54,3 +54,4 @@ export const homeCareStartContent: StartContent = {
   secondaryHref: "/methodology",
   secondaryLabel: "Nasıl çalıştığını gör",
 };
+

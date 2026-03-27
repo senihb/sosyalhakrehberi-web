@@ -19,3 +19,4 @@ Explain how existing frontend/backend behavior is preserved.
 
 ## Security Considerations
 Confirm no secrets, credentials, or frontend-owned policy logic were introduced.
+

@@ -106,7 +106,7 @@ Bu platform:
 
 ## 🧩 Product Position
 
-* SocialRightOS → backend karar motoru
+* socialrightlabs → backend karar motoru
 * sosyalhakrehberi-web → frontend
 
 Frontend:
@@ -217,3 +217,4 @@ npm run dev
 
 This repository is proprietary and distributed under an **All Rights Reserved** notice.
 See [LICENSE](LICENSE).
+

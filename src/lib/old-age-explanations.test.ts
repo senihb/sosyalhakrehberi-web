@@ -50,3 +50,4 @@ test("uses safe fallback text for unknown old-age reason codes", () => {
   assert.doesNotMatch(model.primaryReason?.body ?? "", /UNMAPPED_REASON/);
   assert.match(model.title, /uygun görünüyorsunuz/i);
 });
+

@@ -16,3 +16,4 @@ The system is designed to provide guidance, not store personal profiles.
 
 ⚠️ This platform does not replace official institutions.
 
+

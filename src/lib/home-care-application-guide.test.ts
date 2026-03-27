@@ -8,3 +8,4 @@ test("home care application guide stays preparation-oriented", () => {
   assert.ok(homeCareApplicationGuide.documents.length >= 3);
   assert.match(homeCareApplicationGuide.caution, /resmî karar vermez/i);
 });
+

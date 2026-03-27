@@ -9,3 +9,4 @@ test("home care start content stays within the pre-flight scope", () => {
   assert.equal(homeCareStartContent.secondaryHref, "/methodology");
   assert.match(homeCareStartContent.disclaimerBody.join(" "), /resmî karar vermez/i);
 });
+

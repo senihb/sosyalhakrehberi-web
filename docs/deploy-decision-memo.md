@@ -11,7 +11,7 @@ Use a managed frontend host for the Next.js app and keep the Laravel backend dep
 Recommended operating model:
 
 - frontend deployment: Vercel or equivalent managed Next.js host
-- backend deployment: existing SocialRightOS deployment track
+- backend deployment: existing socialrightlabs deployment track
 - integration point: `NEXT_PUBLIC_API_BASE_URL`
 
 ## Why This Is The Right Next Step
@@ -69,3 +69,4 @@ This memo is complete when:
 - a staging backend URL is confirmed
 - the env variable mapping is approved
 - staging smoke validation is scheduled
+

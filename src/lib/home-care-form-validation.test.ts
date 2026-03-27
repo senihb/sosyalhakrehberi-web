@@ -19,3 +19,4 @@ test("blocks report rates below 50 before submit", () => {
     ],
   });
 });
+

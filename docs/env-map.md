@@ -8,7 +8,7 @@ This repository intentionally keeps the runtime surface small.
 
 Purpose:
 
-- base URL for the SocialRightOS backend
+- base URL for the socialrightlabs backend
 - used by the typed frontend client in `src/lib/api.ts`
 
 Examples:
@@ -76,3 +76,4 @@ The backend team or backend deployment must confirm:
 - CORS origin for the production frontend
 - canonical endpoint availability
 - any required gateway, rate limit, or access constraints
+

@@ -21,3 +21,4 @@ test("homepage guides remain secondary support surfaces", () => {
   assert.ok(homepageGuideLinks.length >= 3);
   assert.ok(homepageGuideLinks.every((item) => item.href.startsWith("/")));
 });
+

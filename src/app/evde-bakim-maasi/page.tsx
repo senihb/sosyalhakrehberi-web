@@ -198,3 +198,4 @@ export default function HomeCareAllowancePage() {
     </main>
   );
 }
+

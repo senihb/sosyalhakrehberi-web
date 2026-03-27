@@ -154,3 +154,4 @@ test("sends the legacy health report fact when a report rate is provided", () =>
 
   assert.equal(payload.facts.has_valid_health_report, true);
 });
+

@@ -27,7 +27,7 @@ export const homeCareMethodologyContent: MethodologyContent = {
       title: "Bu araç ne yapar?",
       body: [
         "Hesaplama akışında girdiğiniz temel gelir, hane ve bakım ihtiyacı bilgilerini toplar.",
-        "Sonucu ve açıklama alanlarını SocialRightOS değerlendirme motorundan alır.",
+        "Sonucu ve açıklama alanlarını socialrightlabs değerlendirme motorundan alır.",
         "Durum, gerekçeler, eksik bilgiler ve varsa kural ayrıntılarını ekranda anlaşılır biçimde sunar.",
       ],
     },
@@ -67,3 +67,4 @@ export const homeCareMethodologyContent: MethodologyContent = {
   disclaimer:
     "Bu araç resmî karar vermez. Sonuçlar ön değerlendirme niteliğindedir ve mutlaka resmî kanallardan doğrulanmalıdır.",
 };
+

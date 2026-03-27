@@ -39,3 +39,4 @@ test("birth grant action pages stay guidance-oriented", () => {
   assert.match(birthGrantEdevletGuide.note, /resmi/i);
   assert.match(birthGrantPaymentCalendarGuide.note, /yön gösterir/i);
 });
+

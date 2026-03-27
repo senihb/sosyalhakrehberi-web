@@ -33,3 +33,4 @@ export function StepByStepGuidance({ steps }: StepByStepGuidanceProps) {
     </section>
   );
 }
+

@@ -92,3 +92,4 @@ Expected validation goals:
 ## Validation Notes
 
 Record the real staging outcome for each payload in `docs/staging-smoke-report.md`.
+

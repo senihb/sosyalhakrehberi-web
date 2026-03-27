@@ -100,3 +100,4 @@ Use this exact minimum checklist after each staging deployment:
 Domain purchase can happen before staging is complete.
 
 Public launch should not happen before staging is complete.
+

@@ -29,3 +29,4 @@ test("returns filled guidance destinations for birth grant", () => {
   assert.equal(model.relatedGuides[2]?.href, "/dogum-yardimi-uygunluk-testi/odeme-takvimi");
   assert.equal(model.relatedGuides[3]?.href, "/dogum-yardimi-uygunluk-testi/sss");
 });
+

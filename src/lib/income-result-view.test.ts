@@ -87,3 +87,4 @@ test("maps confidence values into user-facing badge labels", () => {
   assert.equal(getConfidenceBadgeLabel("medium"), "Orta güven");
   assert.equal(getConfidenceBadgeLabel("low"), "Düşük güven");
 });
+

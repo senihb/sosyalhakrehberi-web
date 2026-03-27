@@ -61,3 +61,4 @@ test("returns status titles without adding eligibility logic", () => {
     "Gelir değerlendirmesi için ek bilgi gerekiyor",
   );
 });
+

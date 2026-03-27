@@ -138,3 +138,4 @@ export const birthGrantPaymentCalendarGuide: BirthGrantActionPageModel = {
   note:
     "Ödeme günü kurum yoğunluğu ve resmi işlem sırasına göre değişebilir. Bu sayfa yalnızca yön gösterir.",
 };
+

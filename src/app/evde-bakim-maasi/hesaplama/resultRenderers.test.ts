@@ -61,3 +61,4 @@ test("fallback copy and URL validation are safe", () => {
   assert.equal(isValidHttpUrl("https://example.com"), true);
   assert.equal(isValidHttpUrl("ftp://example.com"), false);
 });
+

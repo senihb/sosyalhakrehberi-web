@@ -40,9 +40,10 @@ A digital guidance platform that helps individuals understand and access their s
 
 \- Frontend: user interface and guidance
 
-\- Backend: decision engine (SocialRightOS)
+\- Backend: decision engine (socialrightlabs)
 
 
 
 > Backend decides, frontend renders.
+
 

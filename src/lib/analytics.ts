@@ -97,3 +97,4 @@ export function trackAnalyticsEvent(event: ToolAnalyticsEvent): void {
     );
   }
 }
+

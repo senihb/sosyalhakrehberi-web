@@ -1,6 +1,6 @@
 # Contributing
 
-This repository is the public growth frontend for the SocialRightOS system.
+This repository is the public growth frontend for the socialrightlabs system.
 
 ## Working Rules
 
@@ -50,3 +50,4 @@ npm run build
 - never commit secrets
 - do not expose credentials in issues or PRs
 - keep official entitlement language out of public-facing UI where not appropriate
+

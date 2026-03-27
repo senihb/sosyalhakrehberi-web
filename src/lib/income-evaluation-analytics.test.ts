@@ -17,3 +17,4 @@ test("income analytics tracker is a safe no-op on the server", () => {
     });
   });
 });
+

@@ -57,3 +57,4 @@ test("birth grant decision view surfaces warning reasons as special review notes
   assert.equal(view.specialReviewNotes.length, 1);
   assert.match(view.specialReviewNotes[0].body, /ek belge/i);
 });
+

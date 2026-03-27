@@ -36,3 +36,4 @@ export function PrimaryActionBlock({ benefit }: PrimaryActionBlockProps) {
     </section>
   );
 }
+

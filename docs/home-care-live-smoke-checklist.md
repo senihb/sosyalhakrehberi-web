@@ -9,7 +9,7 @@ Use it after merged production-facing changes and before opening any new Home Ca
 - `main` is current locally
 - latest merged frontend changes are deployed
 - backend canonical contract is unchanged
-- backend live smoke checklist is merged in `SocialRightOS`
+- backend live smoke checklist is merged in `socialrightlabs`
 
 ## Live Smoke
 
@@ -95,3 +95,4 @@ Latest recorded outcome for the merged Home Care public flow:
 
 - Optional housekeeping: resolve the Node `MODULE_TYPELESS_PACKAGE_JSON` warning without changing runtime behavior
 - Keep Home Care in stabilization hold unless a concrete bug or an explicit product/legal decision reopens semantics work
+
