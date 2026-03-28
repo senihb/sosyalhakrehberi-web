@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "xcopy .next\\static .next\\standalone\\.next\\static /E /I /Y && xcopy public .next\\standalone\\public /E /I /Y",
     "start": "node .next/standalone/server.js",
     "lint": "eslint",
     "test": "node --experimental-strip-types --test --test-isolation=none src/**/*.test.ts"
