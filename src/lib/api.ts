@@ -6,9 +6,11 @@ import {
   type IncomeEvaluationResponse,
   type LeadCreateRequest,
   type LeadCreateResponse,
-} from "@/lib/types";
+} from "./types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
+const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
+const PRODUCTION_API_ORIGIN = "https://api.sosyalhakrehberi.com";
+const PROXY_API_BASE_URL = "/api-proxy";
 
 export class ApiClientError extends Error {
   status: number;
@@ -31,136 +33,162 @@ export class ApiClientError extends Error {
   }
 }
 
-function getApiBaseUrl(): string {
-  if (!API_BASE_URL) {
+async function readErrorResponse(response: Response): Promise<ApiErrorResponse | null> {
+  try {
+    const rawBody = await response.text();
+    if (!rawBody.trim()) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(rawBody) as ApiErrorResponse;
+    } catch {
+      return {
+        message: rawBody.slice(0, 500),
+        error: "backend_error",
+        status: response.status,
+        correlation_id: response.headers.get("X-Correlation-ID") ?? "",
+      };
+    }
+  } catch {
+    return null;
+  }
+}
+
+function toClientError(
+  response: Response | null,
+  fallbackMessage: string,
+  errorBody: ApiErrorResponse | null,
+): ApiClientError {
+  return new ApiClientError(errorBody?.message ?? fallbackMessage, response?.status ?? 500, {
+    correlationId:
+      errorBody?.correlation_id ??
+      response?.headers.get("X-Correlation-ID") ??
+      undefined,
+    details: errorBody?.errors,
+  });
+}
+
+export function resolveApiBaseUrl(baseUrl = RAW_API_BASE_URL): string {
+  if (!baseUrl) {
     throw new ApiClientError(
       "Backend bağlantısı yapılandırılmamış. NEXT_PUBLIC_API_BASE_URL ortam değişkenini tanımlayın.",
       500,
     );
   }
 
-  return API_BASE_URL;
+  if (baseUrl === PRODUCTION_API_ORIGIN) {
+    return PROXY_API_BASE_URL;
+  }
+
+  return baseUrl;
+}
+
+function getApiBaseUrl(): string {
+  return resolveApiBaseUrl();
 }
 
 export async function checkEligibility(
   payload: EligibilityCheckRequest,
 ): Promise<EligibilityCheckResponse> {
-  const response = await fetch(`${getApiBaseUrl()}/api/v1/eligibility-check`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/v1/eligibility-check`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
-    let errorBody: ApiErrorResponse | null = null;
+    if (!response.ok) {
+      const errorBody = await readErrorResponse(response);
+      throw toClientError(response, "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.", errorBody);
+    }
 
-    try {
-      errorBody = (await response.json()) as ApiErrorResponse;
-    } catch {
-      errorBody = null;
+    return (await response.json()) as EligibilityCheckResponse;
+  } catch (error) {
+    if (error instanceof ApiClientError) {
+      throw error;
     }
 
     throw new ApiClientError(
-      errorBody?.message ?? "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.",
-      response.status,
-      {
-        correlationId:
-          errorBody?.correlation_id ??
-          response.headers.get("X-Correlation-ID") ??
-          undefined,
-        details: errorBody?.errors,
-      },
+      "Backend yanıtı alınamadı. CORS ayarlarını veya ağ bağlantısını kontrol edin.",
+      502,
     );
   }
-
-  return (await response.json()) as EligibilityCheckResponse;
 }
 
 export async function evaluateIncome(
   payload: IncomeEvaluationRequest,
 ): Promise<IncomeEvaluationResponse> {
-  const response = await fetch(`${getApiBaseUrl()}/api/evaluate/income`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/evaluate/income`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
-    let errorBody: ApiErrorResponse | null = null;
+    if (!response.ok) {
+      const errorBody = await readErrorResponse(response);
+      throw toClientError(response, "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.", errorBody);
+    }
 
-    try {
-      errorBody = (await response.json()) as ApiErrorResponse;
-    } catch {
-      errorBody = null;
+    return (await response.json()) as IncomeEvaluationResponse;
+  } catch (error) {
+    if (error instanceof ApiClientError) {
+      throw error;
     }
 
     throw new ApiClientError(
-      errorBody?.message ?? "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.",
-      response.status,
-      {
-        correlationId:
-          errorBody?.correlation_id ??
-          response.headers.get("X-Correlation-ID") ??
-          undefined,
-        details: errorBody?.errors,
-      },
+      "Backend yanıtı alınamadı. CORS ayarlarını veya ağ bağlantısını kontrol edin.",
+      502,
     );
   }
-
-  return (await response.json()) as IncomeEvaluationResponse;
 }
 
 export async function createLead(
   payload: LeadCreateRequest,
 ): Promise<LeadCreateResponse | null> {
-  const response = await fetch(`${getApiBaseUrl()}/api/lead`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/lead`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
-    let errorBody: ApiErrorResponse | null = null;
+    if (!response.ok) {
+      const errorBody = await readErrorResponse(response);
+      throw toClientError(response, "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.", errorBody);
+    }
+
+    if (response.status === 204) {
+      return null;
+    }
 
     try {
-      errorBody = (await response.json()) as ApiErrorResponse;
+      return (await response.json()) as LeadCreateResponse;
     } catch {
-      errorBody = null;
+      return null;
+    }
+  } catch (error) {
+    if (error instanceof ApiClientError) {
+      throw error;
     }
 
     throw new ApiClientError(
-      errorBody?.message ?? "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.",
-      response.status,
-      {
-        correlationId:
-          errorBody?.correlation_id ??
-          response.headers.get("X-Correlation-ID") ??
-          undefined,
-        details: errorBody?.errors,
-      },
+      "Backend yanıtı alınamadı. CORS ayarlarını veya ağ bağlantısını kontrol edin.",
+      502,
     );
-  }
-
-  if (response.status === 204) {
-    return null;
-  }
-
-  try {
-    return (await response.json()) as LeadCreateResponse;
-  } catch {
-    return null;
   }
 }
 

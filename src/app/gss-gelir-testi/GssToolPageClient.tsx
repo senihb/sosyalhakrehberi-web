@@ -176,6 +176,8 @@ export function GssToolPageClient() {
               <span>Brüt toplam hane geliri (aylık)</span>
               <input
                 type="number"
+                id="grossHouseholdIncome"
+                name="grossHouseholdIncome"
                 min="0"
                 value={form.grossHouseholdIncome}
                 onChange={(event) => {
@@ -193,6 +195,8 @@ export function GssToolPageClient() {
               <span>Hanedeki kişi sayısı</span>
               <input
                 type="number"
+                id="householdSize"
+                name="householdSize"
                 min="1"
                 value={form.householdSize}
                 onChange={(event) => {

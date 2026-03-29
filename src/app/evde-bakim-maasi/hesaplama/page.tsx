@@ -330,6 +330,8 @@ export default function HesaplamaPage() {
                 <span>Sağlık raporundaki oran</span>
                 <input
                   type="number"
+                  id="disabilityRate"
+                  name="disabilityRate"
                   min="0"
                   max="100"
                   required
@@ -405,6 +407,8 @@ export default function HesaplamaPage() {
               <span>Hanedeki kişi sayısı</span>
               <input
                 type="number"
+                id="householdSize"
+                name="householdSize"
                 min="1"
                 value={form.householdSize}
                 onChange={(event) => {
@@ -422,6 +426,8 @@ export default function HesaplamaPage() {
               <span>Toplam hane geliri (aylık)</span>
               <input
                 type="number"
+                id="householdIncome"
+                name="householdIncome"
                 min="0"
                 value={form.householdIncome}
                 onChange={(event) => {

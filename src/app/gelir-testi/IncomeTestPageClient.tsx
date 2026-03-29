@@ -88,10 +88,15 @@ export function IncomeTestPageClient() {
       setResult(response);
     } catch (err) {
       trackIncomeEvaluationEvent("income_test_completed");
-      setError("Şu anda işlem yapılamıyor, lütfen tekrar deneyin.");
-
       if (err instanceof ApiClientError) {
+        setError(
+          err.correlationId
+            ? `${err.message} (İzleme kodu: ${err.correlationId})`
+            : err.message,
+        );
         setFieldErrors(err.details ?? null);
+      } else {
+        setError("Şu anda işlem yapılamıyor, lütfen tekrar deneyin.");
       }
     } finally {
       setIsSubmitting(false);
@@ -124,8 +129,16 @@ export function IncomeTestPageClient() {
         "Talebiniz alındı. En kısa sürede sizinle iletişime geçilecektir.",
       );
       setLeadForm(initialIncomeLeadFormState);
-    } catch {
-      setLeadError("Bir hata oluştu, lütfen tekrar deneyin.");
+    } catch (err) {
+      if (err instanceof ApiClientError) {
+        setLeadError(
+          err.correlationId
+            ? `${err.message} (İzleme kodu: ${err.correlationId})`
+            : err.message,
+        );
+      } else {
+        setLeadError("Bir hata oluştu, lütfen tekrar deneyin.");
+      }
     } finally {
       setIsLeadSubmitting(false);
     }
@@ -184,6 +197,8 @@ export function IncomeTestPageClient() {
               <span>Hanedeki kişi sayısı</span>
               <input
                 type="number"
+                id="householdSize"
+                name="householdSize"
                 min="1"
                 value={form.householdSize}
                 onChange={(event) =>
@@ -200,6 +215,8 @@ export function IncomeTestPageClient() {
               <span>Toplam gelir</span>
               <input
                 type="number"
+                id="totalIncome"
+                name="totalIncome"
                 min="0"
                 value={form.totalIncome}
                 onChange={(event) =>

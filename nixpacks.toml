@@ -5,4 +5,4 @@ cmds = ["npm install --include=dev"]
 cmds = ["npm run build"]
 
 [start]
-cmd = "node_modules/.bin/next start --hostname 0.0.0.0 --port ${PORT:-3000}"
+cmd = "node .next/standalone/server.js"

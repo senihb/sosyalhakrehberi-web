@@ -177,6 +177,8 @@ export function OldAgeToolPageClient() {
               <input
                 className="min-h-14 text-lg"
                 type="number"
+                id="age"
+                name="age"
                 min="0"
                 max="120"
                 value={form.age}
@@ -209,6 +211,8 @@ export function OldAgeToolPageClient() {
               <input
                 className="min-h-14 text-lg"
                 type="number"
+                id="selfMonthlyIncome"
+                name="selfMonthlyIncome"
                 min="0"
                 value={form.selfMonthlyIncome}
                 onChange={(event) => {
@@ -228,6 +232,8 @@ export function OldAgeToolPageClient() {
                 <input
                   className="min-h-14 text-lg"
                   type="number"
+                  id="spouseMonthlyIncome"
+                  name="spouseMonthlyIncome"
                   min="0"
                   value={form.spouseMonthlyIncome}
                   onChange={(event) => {
