@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import type { ApiErrorResponse } from "./api.ts";
+import type { ApiErrorResponse } from "./api";
 
 const originalFetch = globalThis.fetch;
 const originalApiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -8,7 +8,7 @@ const originalApiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 process.env.NEXT_PUBLIC_API_BASE_URL = "http://localhost:8080";
 
 async function loadApiModule() {
-  return import("./api.ts");
+  return import("./api");
 }
 
 test("createLead surfaces backend validation payloads", async () => {
