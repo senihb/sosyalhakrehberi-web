@@ -6,7 +6,7 @@ import {
   type IncomeEvaluationResponse,
   type LeadCreateRequest,
   type LeadCreateResponse,
-} from "./types";
+} from "./types.ts";
 
 const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 const PRODUCTION_API_ORIGIN = "https://api.sosyalhakrehberi.com";
@@ -191,4 +191,3 @@ export async function createLead(
     );
   }
 }
-
