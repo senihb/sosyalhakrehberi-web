@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "steps": {
+    "install": {
+      "commands": ["npm install --include=dev"]
+    }
+  },
+  "deploy": {
+    "startCommand": "HOSTNAME=0.0.0.0 node .next/standalone/server.js"
+  }
+}
