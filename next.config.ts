@@ -20,6 +20,7 @@ const proxyTarget =
   normalizeOrigin(publicApiBaseUrl);
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   async rewrites() {
     if (publicApiBaseUrl !== "/api-proxy" || !proxyTarget) {
       return [];
