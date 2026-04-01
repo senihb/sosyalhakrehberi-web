@@ -72,7 +72,7 @@ function toClientError(
 export function resolveApiBaseUrl(baseUrl = RAW_API_BASE_URL): string {
   if (!baseUrl) {
     throw new ApiClientError(
-      "Backend bağlantısı yapılandırılmamış. NEXT_PUBLIC_API_BASE_URL ortam değişkenini tanımlayın.",
+      "Backend baglantisi yapilandirilmamis. NEXT_PUBLIC_API_BASE_URL ortam degiskenini tanimlayin.",
       500,
     );
   }
@@ -104,7 +104,11 @@ export async function checkEligibility(
 
     if (!response.ok) {
       const errorBody = await readErrorResponse(response);
-      throw toClientError(response, "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.", errorBody);
+      throw toClientError(
+        response,
+        "Istek islenemedi. Lutfen daha sonra tekrar deneyin.",
+        errorBody,
+      );
     }
 
     return (await response.json()) as EligibilityCheckResponse;
@@ -114,7 +118,7 @@ export async function checkEligibility(
     }
 
     throw new ApiClientError(
-      "Backend yanıtı alınamadı. CORS ayarlarını veya ağ bağlantısını kontrol edin.",
+      "Backend yaniti alinamadi. CORS ayarlarini veya ag baglantisini kontrol edin.",
       502,
     );
   }
@@ -136,7 +140,11 @@ export async function evaluateIncome(
 
     if (!response.ok) {
       const errorBody = await readErrorResponse(response);
-      throw toClientError(response, "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.", errorBody);
+      throw toClientError(
+        response,
+        "Istek islenemedi. Lutfen daha sonra tekrar deneyin.",
+        errorBody,
+      );
     }
 
     return (await response.json()) as IncomeEvaluationResponse;
@@ -146,7 +154,7 @@ export async function evaluateIncome(
     }
 
     throw new ApiClientError(
-      "Backend yanıtı alınamadı. CORS ayarlarını veya ağ bağlantısını kontrol edin.",
+      "Backend yaniti alinamadi. CORS ayarlarini veya ag baglantisini kontrol edin.",
       502,
     );
   }
@@ -168,7 +176,11 @@ export async function createLead(
 
     if (!response.ok) {
       const errorBody = await readErrorResponse(response);
-      throw toClientError(response, "İstek işlenemedi. Lütfen daha sonra tekrar deneyin.", errorBody);
+      throw toClientError(
+        response,
+        "Istek islenemedi. Lutfen daha sonra tekrar deneyin.",
+        errorBody,
+      );
     }
 
     if (response.status === 204) {
@@ -186,7 +198,7 @@ export async function createLead(
     }
 
     throw new ApiClientError(
-      "Backend yanıtı alınamadı. CORS ayarlarını veya ağ bağlantısını kontrol edin.",
+      "Backend yaniti alinamadi. CORS ayarlarini veya ag baglantisini kontrol edin.",
       502,
     );
   }
