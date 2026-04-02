@@ -93,7 +93,7 @@ export default function AdminStudioPage() {
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <label className="grid gap-2">
-            <span className="text-sm font-medium text-slate-800">Ba�lık</span>
+            <span className="text-sm font-medium text-slate-800">Başlık</span>
             <input
               value={draft.title}
               onChange={(event) => update("title", event.target.value)}
