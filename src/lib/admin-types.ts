@@ -2,6 +2,21 @@ export type RegistrySection = "homepage" | "about" | "methodology" | "blog" | "t
 
 export type RegistryStatus = "draft" | "ready" | "published" | "archived";
 
+export type ContentDraft = {
+  title: string;
+  slug: string;
+  section: RegistrySection;
+  canonical_path: string;
+  seo_title: string;
+  seo_description: string;
+  body: string;
+  layout_focus: string;
+  primary_cta: string;
+  secondary_cta: string;
+  trust_note: string;
+  status: RegistryStatus;
+};
+
 export type ContentRegistryEntry = {
   id: string;
   slug: string;

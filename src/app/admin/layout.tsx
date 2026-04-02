@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Admin",
-  description: "İç yönetim alanı.",
+  description: "İç yönetim, içerik taslağı, onay ve yayın akışı.",
   robots: {
     index: false,
     follow: false,
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 const sections = [
   { href: "/admin", label: "Dashboard" },
+  { href: "/admin/studio", label: "Studio" },
   { href: "/admin/content", label: "Content Registry" },
   { href: "/admin/analytics", label: "Analytics Registry" },
   { href: "/admin/approval", label: "Approval Queue" },
@@ -23,7 +24,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="min-h-screen px-6 py-10 lg:px-10 lg:py-14">
+    <main className="min-h-screen px-6 py-10 lg:px-10 lg:px-14">
       <div className="mx-auto max-w-6xl space-y-6">
         <section className="card-panel">
           <p className="eyebrow">Internal</p>
@@ -33,7 +34,8 @@ export default function AdminLayout({
                 Sosyal Hak Rehberi Admin
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
-                Dosya tabanlı içerik, analytics ve onay kayıtlarının izlendiği iç yönetim alanı.
+                İçerik taslağı, sayfa düzeni, yayın onayı ve analitik kaydının toplandığı
+                yönetim yüzeyi.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
