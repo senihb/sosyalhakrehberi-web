@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Blog ve rehber yazıları",
   description:
-    "Sosyal hak testlerinden yönlenebileceğiniz rehber yazıları, temel açıklamalar ve başvuru öncesi bilgi sayfaları.",
+    "Sosyal hak testlerinden yönlendirebileceğiniz rehber yazıları, temel açıklamalar ve başvuru öncesi bilgi sayfaları.",
   alternates: {
     canonical: "/blog",
   },
@@ -102,7 +102,10 @@ export default function BlogPage() {
           </h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {contentTopics.map((topic) => (
-              <article key={topic} className="rounded-2xl bg-slate-50 px-5 py-4 text-sm leading-7 text-slate-700">
+              <article
+                key={topic}
+                className="rounded-2xl bg-slate-50 px-5 py-4 text-sm leading-7 text-slate-700"
+              >
                 {topic}
               </article>
             ))}
@@ -112,4 +115,3 @@ export default function BlogPage() {
     </main>
   );
 }
-

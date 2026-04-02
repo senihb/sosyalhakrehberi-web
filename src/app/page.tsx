@@ -6,11 +6,12 @@ import {
   homepageHero,
   homepageTrustNotes,
 } from "@/lib/homepage-entry-content";
+import { siteProfile } from "@/lib/site-profile";
 
 export const metadata: Metadata = {
-  title: "Sosyal hak uygunluk testleri ve başvuru rehberleri",
+  title: "Dijital Sosyal Hak Rehberi",
   description:
-    "Sosyal Hak Rehberi, anlaşılır ön değerlendirme sayfaları ve başvuru öncesi rehberler sunar.",
+    "Sosyal hak testleri, rehberler ve sonraki adım yönlendirmeleri için sade ve güven veren başlangıç sayfası.",
   alternates: {
     canonical: "/",
   },
@@ -36,7 +37,7 @@ const testCards = [
   {
     title: "65 Yaş Aylığı Uygunluk Testi",
     body:
-      "Daha büyük yazılar, daha sakin bir akış ve sonraki adımı gösteren sade sonuç yüzeyi içerir.",
+      "Daha büyük yazılar, daha sakin akış ve sonraki adımı gösteren sade sonuç yüzeyi içerir.",
     href: "/65-yas-ayligi-uygunluk-testi",
     cta: "Sayfayı aç",
     status: "Kullanıma açık",
@@ -57,16 +58,16 @@ export default function Home() {
       <section className="hero-shell">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:px-10 lg:py-18">
           <div className="max-w-3xl">
-            <p className="eyebrow">{homepageHero.eyebrow}</p>
+            <p className="eyebrow">Dijital Sosyal Hak Rehberi</p>
             <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              {homepageHero.title}
+              Doğru sosyal hak rehberine hızlıca ulaşın, ilk adımı gecikmeden atın
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-              {homepageHero.body}
+              {homepageHero.body} {siteProfile.mission}
             </p>
             <div className="mt-8">
               <Link href={homepageHero.primaryCtaHref} className="primary-link">
-                {homepageHero.primaryCtaLabel}
+                Rehberliğe başla
               </Link>
             </div>
           </div>
@@ -90,10 +91,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="durumunu-sec"
-        className="mx-auto max-w-6xl px-6 py-4 lg:px-10 lg:py-6"
-      >
+      <section id="durumunu-sec" className="mx-auto max-w-6xl px-6 py-4 lg:px-10 lg:py-6">
         <div className="card-panel">
           <p className="eyebrow">Durumunu seç</p>
           <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
@@ -102,8 +100,8 @@ export default function Home() {
                 En ilgili uygunluk testine tek adımda girin
               </h2>
               <p className="mt-3 text-sm leading-7 text-slate-700">
-                Hangi başlığın size daha yakın olduğunu seçin. Her kart sizi ilgili
-                ön değerlendirme veya bilgi yüzeyine doğrudan taşır.
+                Hangi başlığın size daha yakın olduğunu seçin. Her kart sizi ilgili ön değerlendirme
+                veya bilgi yüzeyine doğrudan taşır.
               </p>
             </div>
           </div>
@@ -174,11 +172,11 @@ export default function Home() {
         <article className="card-panel">
           <p className="eyebrow">Proje bilgisi</p>
           <h2 className="mt-4 text-2xl font-semibold text-slate-950">
-            Bu yüzey bir kamu kurumu portalı değil, sosyal hizmet odaklı rehberlik projesidir
+            Bu yüzey, sosyal hizmet odaklı bir dijital rehberlik projesidir
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-700">
-            Sosyal Hak Rehberi resmî karar vermez. Amacı, kullanıcıyı doğru teste hızlıca
-            ulaştırmak, sonucu sade bir dille sunmak ve sonraki adıma yönlendirmektir.
+            {siteProfile.trustPoints[0]} Kullanıcıyı doğru teste hızlıca ulaştırır, sonucu sade bir
+            dille açıklar ve sonraki adıma yönlendirir.
           </p>
         </article>
 
@@ -191,10 +189,12 @@ export default function Home() {
             <Link href="/blog" className="secondary-link">
               Blog ve rehberleri gör
             </Link>
+            <Link href="/methodology" className="secondary-link">
+              Yöntem ve sınırları oku
+            </Link>
           </div>
         </aside>
       </section>
     </main>
   );
 }
-

@@ -12,6 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/",
     "/blog",
     "/dogum-yardimi-uygunluk-testi",
+    "/dogum-yardimi-uygunluk-testi/e-devlet-basvurusu",
+    "/dogum-yardimi-uygunluk-testi/odeme-takvimi",
+    "/dogum-yardimi-uygunluk-testi/rehber",
+    "/dogum-yardimi-uygunluk-testi/sss",
     "/hakkimizda",
     "/65-yas-ayligi-uygunluk-testi",
     "/65-yas-ayligi-uygunluk-testi/rehber",
@@ -19,8 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/gss-gelir-testi/rehber",
     "/evde-bakim-maasi",
     "/evde-bakim-maasi/hesaplama",
+    "/evde-bakim-maasi/basvuru-rehberi",
     "/evde-bakim-maasi/sartlar",
     "/evde-bakim-maasi/gelir-ve-hane-bilgisi",
+    "/methodology",
   ];
 
   return routes.map((route) => ({
@@ -29,5 +35,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "/" ? 1 : 0.8,
   }));
 }
-
-

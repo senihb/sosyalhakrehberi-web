@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { homeCareMethodologyContent } from "@/lib/methodology-content";
+import { siteProfile } from "@/lib/site-profile";
 
 export const metadata: Metadata = {
-  title: "Yöntem ve sınırlar",
+  title: "Yöntem ve Sınırlar",
   description:
     "Evde bakım maaşı ön değerlendirme aracının nasıl çalıştığını, sınırlarını ve neden ön değerlendirme sunduğunu açıklar.",
   alternates: {
@@ -16,12 +17,12 @@ export default function MethodologyPage() {
     <main className="min-h-screen px-6 py-12 lg:px-10 lg:py-16">
       <div className="mx-auto max-w-4xl space-y-8">
         <section className="card-panel">
-          <p className="eyebrow">{homeCareMethodologyContent.eyebrow}</p>
+          <p className="eyebrow">Yöntem ve Sınırlar</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
             {homeCareMethodologyContent.title}
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700">
-            {homeCareMethodologyContent.subtitle}
+            {homeCareMethodologyContent.subtitle} {siteProfile.trustPoints[1]}
           </p>
         </section>
 
@@ -61,4 +62,3 @@ export default function MethodologyPage() {
     </main>
   );
 }
-
