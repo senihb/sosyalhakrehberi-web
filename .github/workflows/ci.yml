@@ -33,6 +33,9 @@ jobs:
       - name: Install dependencies
         run: npm install --include=dev
 
+      - name: Check UTF-8 encoding
+        run: node scripts/check-utf8.mjs
+
       - name: Run lint
         run: npm run lint
 

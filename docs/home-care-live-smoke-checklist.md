@@ -53,7 +53,7 @@ Use it after merged production-facing changes and before opening any new Home Ca
 
 - Confirm citizenship and residency fields show:
   - `Evet`
-  - `Hayýr`
+  - `HayÄ±r`
   - `Bilmiyorum`
 - Confirm the calculator still renders without frontend-owned eligibility logic
 
